@@ -2,9 +2,15 @@ import {Routes, Route, Navigate} from "react-router-dom";
 import {useAuth} from "../context/AuthContext";
 import type {ReactNode} from "react";
 
+// Layout imports
+import DashboardLayout from "../layouts/DashboardLayout";
+
 // Auth Page imports
 import Login from "../pages/Auth/Login.tsx";
 import Register from "../pages/Auth/Register.tsx";
+
+// Dashboard Page imports
+import Dashboard from "../pages/Dashboard/Dashboard.tsx";
 
 // Protected Route Component
 interface PrivateRouteProps {
@@ -62,7 +68,13 @@ const AppRoutes = () => {
       {/* Protected Routes with Dashboard Layout */}
       <Route
         path="/"
-        element={<PrivateRoute children={undefined}></PrivateRoute>}>
+        element={
+          <PrivateRoute>
+            <DashboardLayout />
+          </PrivateRoute>
+        }>
+        <Route path="dashboard" element={<Dashboard />} />
+
         {/* Placeholder routes */}
         <Route path="members" element={<div>Members Page (Coming Soon)</div>} />
         <Route path="groups" element={<div>Groups Page (Coming Soon)</div>} />
