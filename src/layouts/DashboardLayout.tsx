@@ -23,19 +23,19 @@ import {
 import {
   Menu as MenuIcon,
   Dashboard as DashboardIcon,
-  People as PeopleIcon,
-  Event as EventIcon,
-  AttachMoney as MoneyIcon,
-  CheckCircle as AttendanceIcon,
-  Settings as SettingsIcon,
+  Diversity2,
+  ConnectWithoutContact,
   Notifications as NotificationsIcon,
   AccountCircle,
   Logout,
   Church,
   Groups,
-  VolunteerActivism,
-  School,
-  Description,
+  SettingsAccessibility,
+  AccountBalance,
+  FamilyRestroom,
+  Healing,
+  SpatialAudioOff as SpatialAudioOffIcon,
+  CalendarMonth,
 } from "@mui/icons-material";
 import {useAuth} from "../context/AuthContext";
 
@@ -71,17 +71,32 @@ const DashboardLayout = () => {
   };
 
   // Navigation menu items
-  const menuItems: MenuItem[] = [
-    {text: "Dashboard", icon: <DashboardIcon />, path: "/dashboard"},
-    {text: "Members", icon: <PeopleIcon />, path: "/members"},
-    {text: "Groups", icon: <Groups />, path: "/groups"},
-    {text: "Events", icon: <EventIcon />, path: "/events"},
-    {text: "Attendance", icon: <AttendanceIcon />, path: "/attendance"},
-    {text: "Donations", icon: <MoneyIcon />, path: "/donations"},
-    {text: "Volunteers", icon: <VolunteerActivism />, path: "/volunteers"},
-    {text: "Ministry", icon: <Church />, path: "/ministry"},
-    {text: "Resources", icon: <School />, path: "/resources"},
-    {text: "Reports", icon: <Description />, path: "/reports"},
+  const registrations: MenuItem[] = [
+    // {text: "Home", icon: <DashboardIcon />, path: "/dashboard"},
+    {text: "Baptisms", icon: <FamilyRestroom />, path: "/members"},
+    {text: "Burials", icon: <Healing />, path: "/groups"},
+    {text: "Marriages", icon: <Diversity2 />, path: "/events"},
+  ];
+
+  const committees: MenuItem[] = [
+    {
+      text: "Parish Committee",
+      icon: <ConnectWithoutContact />,
+      path: "/attendance",
+    },
+    {text: "Zonal Leaders", icon: <Groups />, path: "/donations"},
+    {text: "Unit Leaders", icon: <Groups />, path: "/volunteers"},
+    {text: "Choir", icon: <SpatialAudioOffIcon />, path: "/ministry"},
+    {
+      text: "Youth Association",
+      icon: <SettingsAccessibility />,
+      path: "/resources",
+    },
+    {
+      text: "Sunday School Teachers",
+      icon: <AccountBalance />,
+      path: "/reports",
+    },
   ];
 
   const drawer = (
@@ -92,19 +107,84 @@ const DashboardLayout = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          p: 2,
+          p: 1.8,
           gap: 1,
         }}>
         <Church sx={{fontSize: 35, color: "primary.main"}} />
         <Typography variant="h6" noWrap component="div" sx={{fontWeight: 600}}>
-          Church MS
+          iChurch
         </Typography>
       </Box>
       <Divider />
 
       {/* Menu Items */}
+
+      <ListItem sx={{px: 1, py: 2}} disablePadding>
+        <ListItemButton
+          onClick={() => navigate("/dashboard")}
+          sx={{
+            borderRadius: 2,
+            "&:hover": {
+              backgroundColor: "primary.light",
+              "& .MuiListItemIcon-root": {
+                color: "white",
+              },
+              "& .MuiListItemText-primary": {
+                color: "white",
+              },
+            },
+          }}>
+          <ListItemIcon sx={{minWidth: 40, color: "text.secondary"}}>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText
+            primary="Home"
+            primaryTypographyProps={{
+              fontSize: 14,
+              fontWeight: 500,
+            }}
+          />
+        </ListItemButton>
+      </ListItem>
+
+      <Divider />
+
       <List sx={{px: 1, py: 2}}>
-        {menuItems.map((item) => (
+        {registrations.map((item) => (
+          <ListItem key={item.text} disablePadding sx={{mb: 0.5}}>
+            <ListItemButton
+              onClick={() => navigate(item.path)}
+              sx={{
+                borderRadius: 2,
+                "&:hover": {
+                  backgroundColor: "primary.light",
+                  "& .MuiListItemIcon-root": {
+                    color: "white",
+                  },
+                  "& .MuiListItemText-primary": {
+                    color: "white",
+                  },
+                },
+              }}>
+              <ListItemIcon sx={{minWidth: 40, color: "text.secondary"}}>
+                {item.icon}
+              </ListItemIcon>
+              <ListItemText
+                primary={item.text}
+                primaryTypographyProps={{
+                  fontSize: 14,
+                  fontWeight: 500,
+                }}
+              />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+
+      <Divider />
+
+      <List sx={{px: 1, py: 2}}>
+        {committees.map((item) => (
           <ListItem key={item.text} disablePadding sx={{mb: 0.5}}>
             <ListItemButton
               onClick={() => navigate(item.path)}
@@ -155,10 +235,10 @@ const DashboardLayout = () => {
               },
             }}>
             <ListItemIcon sx={{minWidth: 40, color: "text.secondary"}}>
-              <SettingsIcon />
+              <CalendarMonth />
             </ListItemIcon>
             <ListItemText
-              primary="Settings"
+              primary="Event Scheduler"
               primaryTypographyProps={{
                 fontSize: 14,
                 fontWeight: 500,
@@ -255,7 +335,6 @@ const DashboardLayout = () => {
 
       {/* Sidebar Drawer */}
       <Box component="nav" sx={{width: {sm: drawerWidth}, flexShrink: {sm: 0}}}>
-        {/* Mobile drawer */}
         <Drawer
           variant="temporary"
           open={mobileOpen}
