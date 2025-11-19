@@ -101,10 +101,10 @@ const Login = () => {
               }}
             />
             <Typography variant="h4" gutterBottom>
-              Church Management
+              iChurch
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Sign in to access your account
+              Church Admin Portal ~ Manage your ministry here !
             </Typography>
           </Box>
 

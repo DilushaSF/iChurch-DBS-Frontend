@@ -17,13 +17,14 @@ import {
   VisibilityOff,
   Email,
   Lock,
-  Person,
   Church,
+  HolidayVillage,
 } from "@mui/icons-material";
 import {useAuth} from "../../context/AuthContext";
 
 interface FormData {
-  name: string;
+  churchName: string;
+  parishName: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -34,7 +35,8 @@ const Register = () => {
   const {register} = useAuth();
 
   const [formData, setFormData] = useState<FormData>({
-    name: "",
+    churchName: "",
+    parishName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -58,7 +60,8 @@ const Register = () => {
 
     // Validations
     if (
-      !formData.name ||
+      !formData.churchName ||
+      !formData.parishName ||
       !formData.email ||
       !formData.password ||
       !formData.confirmPassword
@@ -82,7 +85,7 @@ const Register = () => {
 
     try {
       const result = await register(
-        formData.name,
+        formData.churchName,
         formData.email,
         formData.password
       );
@@ -129,7 +132,7 @@ const Register = () => {
               Create Account
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Join our church management system
+              Register now to get started
             </Typography>
           </Box>
 
@@ -144,16 +147,22 @@ const Register = () => {
           <form onSubmit={handleSubmit}>
             <TextField
               fullWidth
-              label="Full Name"
-              name="name"
-              value={formData.name}
+              size="small"
+              label="Church Name"
+              name="churchName"
+              value={formData.churchName}
               onChange={handleChange}
               margin="normal"
               required
+              sx={{
+                "& .MuiInputBase-root": {
+                  height: 45, // adjust as needed
+                },
+              }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <Person color="action" />
+                    <Church color="action" />
                   </InputAdornment>
                 ),
               }}
@@ -161,6 +170,30 @@ const Register = () => {
 
             <TextField
               fullWidth
+              size="small"
+              label="Parish"
+              name="parishName"
+              value={formData.parishName}
+              onChange={handleChange}
+              margin="normal"
+              required
+              sx={{
+                "& .MuiInputBase-root": {
+                  height: 45, // adjust as needed
+                },
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <HolidayVillage color="action" />
+                  </InputAdornment>
+                ),
+              }}
+            />
+
+            <TextField
+              fullWidth
+              size="small"
               label="Email Address"
               name="email"
               type="email"
@@ -168,6 +201,11 @@ const Register = () => {
               onChange={handleChange}
               margin="normal"
               required
+              sx={{
+                "& .MuiInputBase-root": {
+                  height: 45, // adjust as needed
+                },
+              }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -179,6 +217,7 @@ const Register = () => {
 
             <TextField
               fullWidth
+              size="small"
               label="Password"
               name="password"
               type={showPassword ? "text" : "password"}
@@ -186,6 +225,11 @@ const Register = () => {
               onChange={handleChange}
               margin="normal"
               required
+              sx={{
+                "& .MuiInputBase-root": {
+                  height: 45, // adjust as needed
+                },
+              }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -206,6 +250,7 @@ const Register = () => {
 
             <TextField
               fullWidth
+              size="small"
               label="Confirm Password"
               name="confirmPassword"
               type={showPassword ? "text" : "password"}
@@ -213,6 +258,11 @@ const Register = () => {
               onChange={handleChange}
               margin="normal"
               required
+              sx={{
+                "& .MuiInputBase-root": {
+                  height: 45, // adjust as needed
+                },
+              }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">

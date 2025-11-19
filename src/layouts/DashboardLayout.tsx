@@ -1,6 +1,6 @@
 import {useState} from "react";
 import type {JSX, MouseEvent} from "react";
-import {Outlet, useNavigate} from "react-router-dom";
+import {Link, Outlet, useNavigate} from "react-router-dom";
 import {
   Box,
   Drawer,
@@ -22,7 +22,7 @@ import {
 } from "@mui/material";
 import {
   Menu as MenuIcon,
-  Dashboard as DashboardIcon,
+  ManageAccounts,
   Diversity2,
   ConnectWithoutContact,
   Notifications as NotificationsIcon,
@@ -73,7 +73,7 @@ const DashboardLayout = () => {
   // Navigation menu items
   const registrations: MenuItem[] = [
     // {text: "Home", icon: <DashboardIcon />, path: "/dashboard"},
-    {text: "Baptisms", icon: <FamilyRestroom />, path: "/members"},
+    {text: "Member Registration", icon: <FamilyRestroom />, path: "/members"},
     {text: "Burials", icon: <Healing />, path: "/groups"},
     {text: "Marriages", icon: <Diversity2 />, path: "/events"},
   ];
@@ -97,55 +97,34 @@ const DashboardLayout = () => {
       icon: <AccountBalance />,
       path: "/reports",
     },
+    {text: "Event Management", icon: <CalendarMonth />, path: "/ministry"},
   ];
 
   const drawer = (
     <Box>
       {/* Logo Section */}
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          p: 1.8,
-          gap: 1,
-        }}>
-        <Church sx={{fontSize: 35, color: "primary.main"}} />
-        <Typography variant="h6" noWrap component="div" sx={{fontWeight: 600}}>
-          iChurch
-        </Typography>
-      </Box>
+      <Link to="/dashboard" style={{textDecoration: "none", color: "inherit"}}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            p: 1.8,
+            gap: 1,
+          }}>
+          <Church sx={{fontSize: 35, color: "primary.main"}} />
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{fontWeight: 600}}>
+            iChurch
+          </Typography>
+        </Box>
+      </Link>
       <Divider />
 
       {/* Menu Items */}
-
-      <ListItem sx={{px: 1, py: 2}} disablePadding>
-        <ListItemButton
-          onClick={() => navigate("/dashboard")}
-          sx={{
-            borderRadius: 2,
-            "&:hover": {
-              backgroundColor: "primary.light",
-              "& .MuiListItemIcon-root": {
-                color: "white",
-              },
-              "& .MuiListItemText-primary": {
-                color: "white",
-              },
-            },
-          }}>
-          <ListItemIcon sx={{minWidth: 40, color: "text.secondary"}}>
-            <DashboardIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary="Home"
-            primaryTypographyProps={{
-              fontSize: 14,
-              fontWeight: 500,
-            }}
-          />
-        </ListItemButton>
-      </ListItem>
 
       <Divider />
 
@@ -235,10 +214,10 @@ const DashboardLayout = () => {
               },
             }}>
             <ListItemIcon sx={{minWidth: 40, color: "text.secondary"}}>
-              <CalendarMonth />
+              <ManageAccounts />
             </ListItemIcon>
             <ListItemText
-              primary="Event Scheduler"
+              primary="User Management"
               primaryTypographyProps={{
                 fontSize: 14,
                 fontWeight: 500,
