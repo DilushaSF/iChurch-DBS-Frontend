@@ -1,6 +1,7 @@
 import type { AxiosInstance } from "axios"; // ✅ Correct when using verbatimModuleSyntax
 import type { Burial, BurialFormData } from '../types/burial.types';
 import axios from "axios";
+import type { Marriage, MarriageFormData } from "../types/marriage.types";
 
 const API_URL = 'http://localhost:5000/api';
 
@@ -39,11 +40,15 @@ export const burialAPI = {
     // Delete burial
     deleteBurial: (id: string) => api.delete(`/burials/${id}`),
 
-    // Search burials by name or custodian
-    searchBurials: (query: string) =>
-        api.get<Burial[]>(`/burials/search`, {
-            params: { query },
-        }),
+};
+
+export const marriageAPI = {
+    getAllMarriages: () => api.get<Marriage[]>('/marriages'),
+    getMarriageById: (id: string) => api.get<Marriage>(`/marriages/${id}`),
+    addMarriage: (data: MarriageFormData) => api.post<Marriage>('/marriages', data),
+    updateMarriage: (id: string, data: Partial<MarriageFormData>) =>
+        api.patch<Marriage>(`/marriages/${id}`, data),
+    deleteMarriage: (id: string) => api.delete(`/marriages/${id}`),
 
 };
 

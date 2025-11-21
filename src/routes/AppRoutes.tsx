@@ -12,11 +12,14 @@ import Register from "../pages/Auth/Register.tsx";
 // Dashboard Page imports
 import Dashboard from "../pages/Dashboard/Dashboard.tsx";
 
-// Burials Page import - ADD THIS
+// Burials Page import
 import BurialsList from "../pages/Burials/BurialsList.tsx";
 import AddBurial from "../pages/Burials/AddBurial.tsx";
 import ViewBurial from "../pages/Burials/ViewBurial.tsx";
 import EditBurial from "../pages/Burials/EditBurial.tsx";
+
+// Marriages Page import
+import MarriageList from "../pages/Marriages/MarriageList.tsx";
 
 // Protected Route Component
 interface PrivateRouteProps {
@@ -81,11 +84,15 @@ const AppRoutes = () => {
         }>
         <Route path="dashboard" element={<Dashboard />} />
 
-        {/* Burials Route - ADD THIS */}
+        {/* Burials Routes */}
         <Route path="burials" element={<BurialsList />} />
         <Route path="burials/add" element={<AddBurial />} />
         <Route path="burials/view/:id" element={<ViewBurial />} />
         <Route path="burials/edit/:id" element={<EditBurial />} />
+
+        {/* Marriages Routes */}
+        <Route path="marriages" element={<MarriageList />} />
+
         {/* Placeholder routes */}
         <Route path="members" element={<div>Members Page (Coming Soon)</div>} />
         <Route path="groups" element={<div>Groups Page (Coming Soon)</div>} />

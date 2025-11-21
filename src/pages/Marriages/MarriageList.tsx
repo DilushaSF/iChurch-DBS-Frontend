@@ -27,65 +27,70 @@ import {
   Delete as DeleteIcon,
   Search as SearchIcon,
 } from "@mui/icons-material";
-import {burialAPI} from "../../services/api";
-import type {Burial} from "../../types/burial.types";
+import {marriageAPI} from "../../services/api";
+import type {Marriage} from "../../types/marriage.types";
 
-const BurialsList: React.FC = () => {
-  const [burials, setBurials] = useState<Burial[]>([]);
+const MarriagesList: React.FC = () => {
+  const [marriages, setMarriages] = useState<Marriage[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const navigate = useNavigate();
 
-  // Fetch burials on component mount
+  // Fetch marriages on component mount
   useEffect(() => {
-    fetchBurials();
+    fetchMarriages();
   }, []);
 
-  const fetchBurials = async (): Promise<void> => {
+  const fetchMarriages = async (): Promise<void> => {
     try {
       setLoading(true);
-      const response = await burialAPI.getAllBurials();
-      setBurials(response.data);
+      const response = await marriageAPI.getAllMarriages();
+      setMarriages(response.data);
       setError(null);
     } catch (err) {
-      setError("Failed to fetch burial records. Please try again.");
-      console.error("Error fetching burials:", err);
+      setError("Failed to fetch marriage records. Please try again.");
+      console.error("Error fetching marriages:", err);
     } finally {
       setLoading(false);
     }
   };
 
   const handleDelete = async (id: string): Promise<void> => {
-    if (window.confirm("Are you sure you want to delete this burial record?")) {
+    if (
+      window.confirm("Are you sure you want to delete this marriage record?")
+    ) {
       try {
-        await burialAPI.deleteBurial(id);
-        setBurials(burials.filter((burial) => burial._id !== id));
+        await marriageAPI.deleteMarriage(id);
+        setMarriages(marriages.filter((marriage) => marriage._id !== id));
         // Optional: Show success message with Snackbar
       } catch (err) {
-        alert("Failed to delete burial record");
-        console.error("Error deleting burial:", err);
+        alert("Failed to delete marriage record");
+        console.error("Error deleting marriage:", err);
       }
     }
   };
 
   const handleView = (id: string): void => {
-    navigate(`/burials/view/${id}`);
+    navigate(`/marriages/view/${id}`);
   };
 
   const handleEdit = (id: string): void => {
-    navigate(`/burials/edit/${id}`);
+    navigate(`/marriages/edit/${id}`);
   };
 
   const handleAddNew = (): void => {
-    navigate("/burials/add");
+    navigate("/marriages/add");
   };
 
-  // Filter records based on search
-  const filteredBurials = burials.filter(
-    (burial) =>
-      burial.nameOfDeceased.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      burial.custodian.toLowerCase().includes(searchTerm.toLowerCase())
+  // Filter marriages based on search
+  const filteredMarriages = marriages.filter(
+    (marriage) =>
+      marriage.nameOfBride.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      marriage.nameOfGroom.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      marriage.shortenedCoupleName
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
   );
 
   // Format date
@@ -138,10 +143,10 @@ const BurialsList: React.FC = () => {
               component="h1"
               fontWeight={600}
               gutterBottom>
-              Burial Records
+              Marriage Records
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Manage all burial records
+              Manage all marriage records
             </Typography>
           </Box>
           <Button
@@ -149,7 +154,7 @@ const BurialsList: React.FC = () => {
             startIcon={<AddIcon />}
             onClick={handleAddNew}
             sx={{textTransform: "none", fontWeight: 500}}>
-            Add Burial Record
+            Add Marriage Record
           </Button>
         </Box>
 
@@ -164,7 +169,7 @@ const BurialsList: React.FC = () => {
             flexWrap: "wrap",
           }}>
           <TextField
-            placeholder="Search by deceased name or custodian..."
+            placeholder="Search by Bride's or Groom's name..."
             variant="outlined"
             size="small"
             value={searchTerm}
@@ -181,7 +186,7 @@ const BurialsList: React.FC = () => {
           <Typography variant="body2" color="text.secondary">
             Total Records:{" "}
             <Typography component="span" fontWeight={600} color="primary">
-              {filteredBurials.length}
+              {filteredMarriages.length}
             </Typography>
           </Typography>
         </Box>
@@ -194,7 +199,7 @@ const BurialsList: React.FC = () => {
         )}
 
         {/* Burials Table */}
-        {filteredBurials.length === 0 ? (
+        {filteredMarriages.length === 0 ? (
           <Card sx={{p: 6, textAlign: "center"}}>
             <Typography variant="h6" color="text.secondary" gutterBottom>
               No burial records found.
@@ -212,37 +217,47 @@ const BurialsList: React.FC = () => {
             <Table sx={{minWidth: 900}}>
               <TableHead>
                 <TableRow sx={{backgroundColor: "#f5f5f5"}}>
-                  <TableCell sx={{fontWeight: 600}}>Deceased Name</TableCell>
-                  <TableCell sx={{fontWeight: 600}}>Date of Death</TableCell>
-                  <TableCell sx={{fontWeight: 600}}>Date of Birth</TableCell>
-                  <TableCell sx={{fontWeight: 600}}>Burial Date</TableCell>
-                  <TableCell sx={{fontWeight: 600}}>Baptized</TableCell>
-                  <TableCell sx={{fontWeight: 600}}>Custodian</TableCell>
+                  <TableCell sx={{fontWeight: 600}}>
+                    Shortened Couple Name
+                  </TableCell>
+                  <TableCell sx={{fontWeight: 600}}>Groom's Name</TableCell>
+                  <TableCell sx={{fontWeight: 600}}>Bride's Name</TableCell>
+                  <TableCell sx={{fontWeight: 600}}>Marriage Date</TableCell>
+                  <TableCell sx={{fontWeight: 600}}>Time of Mass</TableCell>
+                  <TableCell sx={{fontWeight: 600}}>
+                    Need Church Choir
+                  </TableCell>
                   <TableCell sx={{fontWeight: 600}} align="center">
                     Actions
                   </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {filteredBurials.map((burial) => (
+                {filteredMarriages.map((marriage) => (
                   <TableRow
-                    key={burial._id}
+                    key={marriage._id}
                     hover
                     sx={{"&:last-child td, &:last-child th": {border: 0}}}>
                     <TableCell sx={{fontWeight: 500}}>
-                      {burial.nameOfDeceased}
+                      {marriage.shortenedCoupleName}
                     </TableCell>
-                    <TableCell>{formatDate(burial.dateOfDeath)}</TableCell>
-                    <TableCell>{formatDate(burial.dateOfBirth)}</TableCell>
-                    <TableCell>{formatDate(burial.dateWillBurry)}</TableCell>
+                    <TableCell>{marriage.nameOfBride}</TableCell>
+                    <TableCell>{marriage.nameOfGroom}</TableCell>
+                    <TableCell>{formatDate(marriage.dateOfMarriage)}</TableCell>
+                    <TableCell>{marriage.timeOfMass}</TableCell>
                     <TableCell>
                       <Chip
-                        label={burial.baptized ? "Yes" : "No"}
+                        label={marriage.needChurchChoir}
                         size="small"
-                        color={burial.baptized === true ? "success" : "warning"}
+                        color={
+                          marriage.needChurchChoir === "Yes"
+                            ? "success"
+                            : "warning"
+                        }
                       />
                     </TableCell>
-                    <TableCell>{burial.custodian}</TableCell>
+
+                    {/* Actions */}
                     <TableCell align="center">
                       <Box
                         sx={{
@@ -253,7 +268,7 @@ const BurialsList: React.FC = () => {
                         <Tooltip title="View Details">
                           <IconButton
                             size="small"
-                            onClick={() => handleView(burial._id)}
+                            onClick={() => handleView(marriage._id)}
                             sx={{
                               color: "primary.main",
                               border: "1px solid",
@@ -271,7 +286,7 @@ const BurialsList: React.FC = () => {
                         <Tooltip title="Edit Record">
                           <IconButton
                             size="small"
-                            onClick={() => handleEdit(burial._id)}
+                            onClick={() => handleEdit(marriage._id)}
                             sx={{
                               color: "info.main",
                               border: "1px solid",
@@ -289,7 +304,7 @@ const BurialsList: React.FC = () => {
                         <Tooltip title="Delete Record">
                           <IconButton
                             size="small"
-                            onClick={() => handleDelete(burial._id)}
+                            onClick={() => handleDelete(marriage._id)}
                             sx={{
                               color: "error.main",
                               border: "1px solid",
@@ -317,4 +332,4 @@ const BurialsList: React.FC = () => {
   );
 };
 
-export default BurialsList;
+export default MarriagesList;

@@ -91,7 +91,7 @@ const Layout = () => {
         },
         {
           text: "Marriages",
-          path: "/registrations/marriages",
+          path: "/marriages",
           icon: <FavoriteIcon />,
         },
       ],
