@@ -14,6 +14,9 @@ import Dashboard from "../pages/Dashboard/Dashboard.tsx";
 
 // Burials Page import - ADD THIS
 import BurialsList from "../pages/Burials/BurialsList.tsx";
+import AddBurial from "../pages/Burials/AddBurial.tsx";
+import ViewBurial from "../pages/Burials/ViewBurial.tsx";
+import EditBurial from "../pages/Burials/EditBurial.tsx";
 
 // Protected Route Component
 interface PrivateRouteProps {
@@ -80,7 +83,9 @@ const AppRoutes = () => {
 
         {/* Burials Route - ADD THIS */}
         <Route path="burials" element={<BurialsList />} />
-
+        <Route path="burials/add" element={<AddBurial />} />
+        <Route path="burials/view/:id" element={<ViewBurial />} />
+        <Route path="burials/edit/:id" element={<EditBurial />} />
         {/* Placeholder routes */}
         <Route path="members" element={<div>Members Page (Coming Soon)</div>} />
         <Route path="groups" element={<div>Groups Page (Coming Soon)</div>} />

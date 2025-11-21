@@ -4,7 +4,7 @@ export interface Burial {
     dateOfDeath: string;
     dateOfBirth: string;
     dateWillBurry: string;
-    baptized: string;
+    baptized: boolean;
     caouseOfDeath: string;
     custodian: string;
     createdAt?: string;
@@ -16,7 +16,7 @@ export interface BurialFormData {
     dateOfDeath: string;
     dateOfBirth: string;
     dateWillBurry: string;
-    baptized: string;
+    baptized: boolean;
     caouseOfDeath: string;
     custodian: string;
 }

@@ -169,7 +169,7 @@ const BurialsList: React.FC = () => {
             size="small"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            sx={{minWidth: 300, maxWidth: 400}}
+            sx={{width: 400}}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -239,9 +239,7 @@ const BurialsList: React.FC = () => {
                       <Chip
                         label={burial.baptized}
                         size="small"
-                        color={
-                          burial.baptized === "yes" ? "success" : "default"
-                        }
+                        color={burial.baptized === true ? "success" : "warning"}
                       />
                     </TableCell>
                     <TableCell>{burial.custodian}</TableCell>

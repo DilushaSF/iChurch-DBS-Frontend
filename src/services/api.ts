@@ -38,6 +38,13 @@ export const burialAPI = {
 
     // Delete burial
     deleteBurial: (id: string) => api.delete(`/burials/${id}`),
+
+    // Search burials by name or custodian
+    searchBurials: (query: string) =>
+        api.get<Burial[]>(`/burials/search`, {
+            params: { query },
+        }),
+
 };
 
 export default api;
