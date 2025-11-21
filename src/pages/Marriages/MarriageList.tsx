@@ -223,9 +223,10 @@ const MarriagesList: React.FC = () => {
                   <TableCell sx={{fontWeight: 600}}>Groom's Name</TableCell>
                   <TableCell sx={{fontWeight: 600}}>Bride's Name</TableCell>
                   <TableCell sx={{fontWeight: 600}}>Marriage Date</TableCell>
-                  <TableCell sx={{fontWeight: 600}}>Time of Mass</TableCell>
+                  {/* <TableCell sx={{fontWeight: 600}}>Time of Mass</TableCell> */}
+                  <TableCell sx={{fontWeight: 600}}>Church Choir ?</TableCell>
                   <TableCell sx={{fontWeight: 600}}>
-                    Need Church Choir
+                    Church Decorations ?
                   </TableCell>
                   <TableCell sx={{fontWeight: 600}} align="center">
                     Actions
@@ -244,13 +245,24 @@ const MarriagesList: React.FC = () => {
                     <TableCell>{marriage.nameOfBride}</TableCell>
                     <TableCell>{marriage.nameOfGroom}</TableCell>
                     <TableCell>{formatDate(marriage.dateOfMarriage)}</TableCell>
-                    <TableCell>{marriage.timeOfMass}</TableCell>
+                    {/* <TableCell>{marriage.timeOfMass}</TableCell> */}
                     <TableCell>
                       <Chip
                         label={marriage.needChurchChoir}
                         size="small"
                         color={
                           marriage.needChurchChoir === "Yes"
+                            ? "success"
+                            : "warning"
+                        }
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Chip
+                        label={marriage.useChurchDecos}
+                        size="small"
+                        color={
+                          marriage.useChurchDecos === "Yes"
                             ? "success"
                             : "warning"
                         }

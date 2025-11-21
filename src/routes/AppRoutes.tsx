@@ -20,6 +20,8 @@ import EditBurial from "../pages/Burials/EditBurial.tsx";
 
 // Marriages Page import
 import MarriageList from "../pages/Marriages/MarriageList.tsx";
+import AddMarriage from "../pages/Marriages/AddMarriage.tsx";
+import ViewMarriage from "../pages/Marriages/ViewMarriage.tsx";
 
 // Protected Route Component
 interface PrivateRouteProps {
@@ -92,6 +94,8 @@ const AppRoutes = () => {
 
         {/* Marriages Routes */}
         <Route path="marriages" element={<MarriageList />} />
+        <Route path="marriages/add" element={<AddMarriage />} />
+        <Route path="marriages/view/:id" element={<ViewMarriage />} />
 
         {/* Placeholder routes */}
         <Route path="members" element={<div>Members Page (Coming Soon)</div>} />
