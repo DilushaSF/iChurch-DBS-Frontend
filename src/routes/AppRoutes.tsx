@@ -12,6 +12,9 @@ import Register from "../pages/Auth/Register.tsx";
 // Dashboard Page imports
 import Dashboard from "../pages/Dashboard/Dashboard.tsx";
 
+// Burials Page import - ADD THIS
+import BurialsList from "../pages/Burials/BurialsList.tsx";
+
 // Protected Route Component
 interface PrivateRouteProps {
   children: ReactNode;
@@ -74,6 +77,9 @@ const AppRoutes = () => {
           </PrivateRoute>
         }>
         <Route path="dashboard" element={<Dashboard />} />
+
+        {/* Burials Route - ADD THIS */}
+        <Route path="burials" element={<BurialsList />} />
 
         {/* Placeholder routes */}
         <Route path="members" element={<div>Members Page (Coming Soon)</div>} />

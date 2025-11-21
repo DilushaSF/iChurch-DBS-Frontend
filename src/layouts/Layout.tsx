@@ -86,7 +86,7 @@ const Layout = () => {
         },
         {
           text: "Burials & Deaths",
-          path: "/registrations/burials",
+          path: "/burials",
           icon: <FavoriteIcon />,
         },
         {
