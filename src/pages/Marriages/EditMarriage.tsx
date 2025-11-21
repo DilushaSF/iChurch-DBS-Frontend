@@ -1,3 +1,5 @@
+import React, {useState, useEffect} from "react";
+import {useNavigate, useParams} from "react-router-dom";
 import {
   Box,
   Button,
@@ -21,15 +23,15 @@ import {
   ArrowBack as ArrowBackIcon,
   Save as SaveIcon,
 } from "@mui/icons-material";
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {marriageAPI} from "../../services/api";
-import type {MassType, YesNo} from "../../types/marriage.types";
+import type {Marriage, MassType, YesNo} from "../../types/marriage.types";
 
-const AddMarriage = () => {
+const EditMarriage: React.FC = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const {id} = useParams<{id: string}>();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [fetchLoading, setFetchLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     nameOfBride: "",
@@ -41,6 +43,38 @@ const AddMarriage = () => {
     needChurchChoir: "No" as YesNo,
     useChurchDecos: "No" as YesNo,
   });
+
+  useEffect(() => {
+    if (id) {
+      fetchMarriageDetails();
+    }
+  }, [id]);
+
+  const fetchMarriageDetails = async (): Promise<void> => {
+    try {
+      setFetchLoading(true);
+      const response = await marriageAPI.getMarriageById(id!);
+      const marriage: Marriage = response.data;
+
+      // Convert date to YYYY-MM-DD format for input field
+      setFormData({
+        nameOfBride: marriage.nameOfBride,
+        nameOfGroom: marriage.nameOfGroom,
+        dateOfMarriage: marriage.dateOfMarriage.split("T")[0],
+        timeOfMass: marriage.timeOfMass,
+        shortenedCoupleName: marriage.shortenedCoupleName,
+        massType: marriage.massType,
+        needChurchChoir: marriage.needChurchChoir,
+        useChurchDecos: marriage.useChurchDecos,
+      });
+      setError(null);
+    } catch (err) {
+      setError("Failed to fetch marriage record. Please try again.");
+      console.error("Error fetching marriage:", err);
+    } finally {
+      setFetchLoading(false);
+    }
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -65,21 +99,21 @@ const AddMarriage = () => {
     setError(null);
 
     try {
-      await marriageAPI.addMarriage(formData);
+      await marriageAPI.updateMarriage(id!, formData);
       navigate("/marriages");
     } catch (error) {
-      console.error("Error creating marriage record:", error);
+      console.error("Error updating marriage record:", error);
 
       // Type-safe error handling
       if (axios.isAxiosError(error)) {
         setError(
           error.response?.data?.error ||
-            "Failed to create marriage record. Please try again."
+            "Failed to update marriage record. Please try again."
         );
       } else if (error instanceof Error) {
         setError(error.message);
       } else {
-        setError("Failed to create marriage record. Please try again.");
+        setError("Failed to update marriage record. Please try again.");
       }
     } finally {
       setLoading(false);
@@ -90,8 +124,22 @@ const AddMarriage = () => {
     navigate("/marriages");
   };
 
+  if (fetchLoading) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "400px",
+        }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
-    <Box>
+    <Box sx={{p: 3}}>
       <Paper
         elevation={0}
         sx={{
@@ -100,7 +148,7 @@ const AddMarriage = () => {
           border: "1px solid",
           borderColor: "divider",
           backgroundColor: "#ffffff",
-          maxWidth: 1400,
+          maxWidth: 1200,
           margin: "0 auto",
         }}>
         {/* Header */}
@@ -116,10 +164,10 @@ const AddMarriage = () => {
             </Button>
           </Box>
           <Typography variant="h4" fontWeight={600} gutterBottom>
-            Add New Marriage Record
+            Edit Marriage Record
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Fill in the details to create a new marriage record
+            Update the marriage record information
           </Typography>
         </Box>
 
@@ -145,7 +193,7 @@ const AddMarriage = () => {
             <Grid item xs={12} md={6}>
               <TextField
                 fullWidth
-                label="Bride's Name with initials"
+                label="Name of Bride"
                 name="nameOfBride"
                 value={formData.nameOfBride}
                 onChange={handleChange}
@@ -163,7 +211,7 @@ const AddMarriage = () => {
             <Grid item xs={12} md={6}>
               <TextField
                 fullWidth
-                label="Groom's Name with initials"
+                label="Name of Groom"
                 name="nameOfGroom"
                 value={formData.nameOfGroom}
                 onChange={handleChange}
@@ -311,9 +359,9 @@ const AddMarriage = () => {
                 elevation={0}
                 sx={{
                   p: 3,
-                  backgroundColor: "#def0dfff",
+                  backgroundColor: "#fef3c7",
                   border: "1px solid",
-                  borderColor: "#7cdc87ff",
+                  borderColor: "#fde68a",
                   borderRadius: 1,
                 }}>
                 <FormControl component="fieldset">
@@ -373,7 +421,7 @@ const AddMarriage = () => {
                 textTransform: "none",
                 px: 4,
               }}>
-              {loading ? "Saving..." : "Save Record"}
+              {loading ? "Updating..." : "Update Record"}
             </Button>
           </Box>
         </form>
@@ -382,4 +430,4 @@ const AddMarriage = () => {
   );
 };
 
-export default AddMarriage;
+export default EditMarriage;
