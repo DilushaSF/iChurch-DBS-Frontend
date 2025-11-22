@@ -246,7 +246,7 @@ const MarriagesList: React.FC = () => {
                     <TableCell>{marriage.nameOfGroom}</TableCell>
                     <TableCell>{formatDate(marriage.dateOfMarriage)}</TableCell>
                     {/* <TableCell>{marriage.timeOfMass}</TableCell> */}
-                    <TableCell>
+                    <TableCell align="center">
                       <Chip
                         label={marriage.needChurchChoir}
                         size="small"
@@ -257,7 +257,7 @@ const MarriagesList: React.FC = () => {
                         }
                       />
                     </TableCell>
-                    <TableCell>
+                    <TableCell align="center">
                       <Chip
                         label={marriage.useChurchDecos}
                         size="small"

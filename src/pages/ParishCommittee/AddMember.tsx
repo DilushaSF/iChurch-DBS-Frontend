@@ -88,7 +88,7 @@ const AddParishCommitteeMember = () => {
   };
 
   return (
-    <Box sx={{p: 3}}>
+    <Box>
       <Paper
         elevation={0}
         sx={{
@@ -97,7 +97,7 @@ const AddParishCommitteeMember = () => {
           border: "1px solid",
           borderColor: "divider",
           backgroundColor: "#ffffff",
-          maxWidth: 1200,
+          maxWidth: 1400,
           margin: "0 auto",
         }}>
         {/* Header */}
@@ -387,7 +387,7 @@ const AddParishCommitteeMember = () => {
                 textTransform: "none",
                 px: 4,
               }}>
-              {loading ? "Saving..." : "Save Member"}
+              {loading ? "Saving..." : "Save"}
             </Button>
           </Box>
         </form>

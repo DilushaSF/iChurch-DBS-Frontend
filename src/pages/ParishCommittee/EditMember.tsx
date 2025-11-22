@@ -167,7 +167,7 @@ const EditParishCommitteeMember: React.FC = () => {
             </Button>
           </Box>
           <Typography variant="h4" fontWeight={600} gutterBottom>
-            Edit Parish Committee Member
+            Edit Committee Member - {formData.firstName} {formData.lastName}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             Update the committee member information
@@ -439,7 +439,7 @@ const EditParishCommitteeMember: React.FC = () => {
                 textTransform: "none",
                 px: 4,
               }}>
-              {loading ? "Updating..." : "Update Member"}
+              {loading ? "Updating..." : "Update"}
             </Button>
           </Box>
         </form>

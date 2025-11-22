@@ -112,7 +112,7 @@ const ViewMarriage: React.FC = () => {
   }
 
   return (
-    <Box sx={{p: 3}}>
+    <Box>
       <Paper
         elevation={0}
         sx={{
@@ -121,7 +121,7 @@ const ViewMarriage: React.FC = () => {
           border: "1px solid",
           borderColor: "divider",
           backgroundColor: "#ffffff",
-          maxWidth: 1200,
+          maxWidth: 1400,
           margin: "0 auto",
         }}>
         {/* Header */}
@@ -146,7 +146,7 @@ const ViewMarriage: React.FC = () => {
             }}>
             <Box>
               <Typography variant="h4" fontWeight={600} gutterBottom>
-                Marriage Record Details
+                View Marriage Record - {marriage.shortenedCoupleName}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 View complete information about this marriage record
@@ -175,7 +175,7 @@ const ViewMarriage: React.FC = () => {
             </Typography>
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={4}>
             <TextField
               fullWidth
               label="Name of Bride"
@@ -192,7 +192,7 @@ const ViewMarriage: React.FC = () => {
             />
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={4}>
             <TextField
               fullWidth
               label="Name of Groom"
@@ -209,7 +209,7 @@ const ViewMarriage: React.FC = () => {
             />
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={4}>
             <TextField
               fullWidth
               label="Shortened Couple Name"

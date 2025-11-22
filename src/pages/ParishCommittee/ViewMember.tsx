@@ -107,7 +107,7 @@ const ViewParishCommitteeMember: React.FC = () => {
   }
 
   return (
-    <Box sx={{p: 3}}>
+    <Box>
       <Paper
         elevation={0}
         sx={{
@@ -116,7 +116,7 @@ const ViewParishCommitteeMember: React.FC = () => {
           border: "1px solid",
           borderColor: "divider",
           backgroundColor: "#ffffff",
-          maxWidth: 1200,
+          maxWidth: 1400,
           margin: "0 auto",
         }}>
         {/* Header */}
@@ -141,7 +141,7 @@ const ViewParishCommitteeMember: React.FC = () => {
             }}>
             <Box>
               <Typography variant="h4" fontWeight={600} gutterBottom>
-                Parish Committee Member Details
+                View Committee Member - {member.firstName} {member.lastName}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 View complete information about this committee member
@@ -170,7 +170,7 @@ const ViewParishCommitteeMember: React.FC = () => {
             </Typography>
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item xs={4}>
             <TextField
               fullWidth
               label="Full Name"
@@ -188,7 +188,7 @@ const ViewParishCommitteeMember: React.FC = () => {
             />
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={4}>
             <TextField
               fullWidth
               label="Address"
@@ -206,7 +206,7 @@ const ViewParishCommitteeMember: React.FC = () => {
             />
           </Grid>
 
-          <Grid item xs={6} md={6}>
+          <Grid item xs={4} md={4}>
             <TextField
               fullWidth
               label="Phone Number"

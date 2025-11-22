@@ -235,7 +235,7 @@ const BurialsList: React.FC = () => {
                     <TableCell>{formatDate(burial.dateOfDeath)}</TableCell>
                     <TableCell>{formatDate(burial.dateOfBirth)}</TableCell>
                     <TableCell>{formatDate(burial.dateWillBurry)}</TableCell>
-                    <TableCell>
+                    <TableCell align="center">
                       <Chip
                         label={burial.baptized ? "Yes" : "No"}
                         size="small"

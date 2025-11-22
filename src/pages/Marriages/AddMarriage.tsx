@@ -142,7 +142,7 @@ const AddMarriage = () => {
               </Typography>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 fullWidth
                 label="Bride's Name with initials"
@@ -160,7 +160,7 @@ const AddMarriage = () => {
               />
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 fullWidth
                 label="Groom's Name with initials"
@@ -178,7 +178,7 @@ const AddMarriage = () => {
               />
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 fullWidth
                 label="Shortened Couple Name"
@@ -373,7 +373,7 @@ const AddMarriage = () => {
                 textTransform: "none",
                 px: 4,
               }}>
-              {loading ? "Saving..." : "Save Record"}
+              {loading ? "Saving..." : "Save"}
             </Button>
           </Box>
         </form>

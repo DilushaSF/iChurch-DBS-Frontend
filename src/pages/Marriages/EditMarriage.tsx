@@ -139,7 +139,7 @@ const EditMarriage: React.FC = () => {
   }
 
   return (
-    <Box sx={{p: 3}}>
+    <Box>
       <Paper
         elevation={0}
         sx={{
@@ -148,7 +148,7 @@ const EditMarriage: React.FC = () => {
           border: "1px solid",
           borderColor: "divider",
           backgroundColor: "#ffffff",
-          maxWidth: 1200,
+          maxWidth: 1400,
           margin: "0 auto",
         }}>
         {/* Header */}
@@ -164,7 +164,7 @@ const EditMarriage: React.FC = () => {
             </Button>
           </Box>
           <Typography variant="h4" fontWeight={600} gutterBottom>
-            Edit Marriage Record
+            Edit Marriage Record - {formData.shortenedCoupleName}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             Update the marriage record information
@@ -190,7 +190,7 @@ const EditMarriage: React.FC = () => {
               </Typography>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 fullWidth
                 label="Name of Bride"
@@ -208,7 +208,7 @@ const EditMarriage: React.FC = () => {
               />
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 fullWidth
                 label="Name of Groom"
@@ -226,7 +226,7 @@ const EditMarriage: React.FC = () => {
               />
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 fullWidth
                 label="Shortened Couple Name"
@@ -421,7 +421,7 @@ const EditMarriage: React.FC = () => {
                 textTransform: "none",
                 px: 4,
               }}>
-              {loading ? "Updating..." : "Update Record"}
+              {loading ? "Updating..." : "Update"}
             </Button>
           </Box>
         </form>

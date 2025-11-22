@@ -139,7 +139,7 @@ const ViewBurial: React.FC = () => {
             }}>
             <Box>
               <Typography variant="h4" fontWeight={600} gutterBottom>
-                Burial Record Details
+                View Burial Record - {burial.nameOfDeceased}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 View complete information about this burial record
@@ -308,7 +308,7 @@ const ViewBurial: React.FC = () => {
                   </Typography>
                 </Box>
                 <Chip
-                  label={burial.baptized}
+                  label={burial.baptized ? "Yes" : "No"}
                   color={burial.baptized === true ? "success" : "warning"}
                   sx={{fontWeight: 600, fontSize: "14px", px: 1}}
                 />

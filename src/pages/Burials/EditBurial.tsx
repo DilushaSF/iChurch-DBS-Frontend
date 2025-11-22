@@ -154,7 +154,7 @@ const EditBurial: React.FC = () => {
             </Button>
           </Box>
           <Typography variant="h4" fontWeight={600} gutterBottom>
-            Edit Burial Record
+            Edit Burial Record - {formData.nameOfDeceased}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             Update the burial record information
@@ -176,7 +176,7 @@ const EditBurial: React.FC = () => {
             {/* Deceased Information Section */}
             <Grid item xs={12}>
               <Typography variant="h6" fontWeight={600} gutterBottom>
-                Deceased Information
+                Deceased Person's Information
               </Typography>
             </Grid>
 
@@ -320,7 +320,7 @@ const EditBurial: React.FC = () => {
                         Baptized
                       </Typography>
                       <Typography variant="caption" color="text.secondary">
-                        Check if the deceased was baptized
+                        Check if the deceased person was baptized
                       </Typography>
                     </Box>
                   }
@@ -359,7 +359,7 @@ const EditBurial: React.FC = () => {
                 textTransform: "none",
                 px: 4,
               }}>
-              {loading ? "Updating..." : "Update Record"}
+              {loading ? "Updating..." : "Update"}
             </Button>
           </Box>
         </form>
