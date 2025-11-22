@@ -20,14 +20,10 @@ import {
   Save as SaveIcon,
 } from "@mui/icons-material";
 import axios from "axios";
-import {parishCommitteeAPI} from "../../services/api";
-import type {
-  ParishCommittee,
-  ZonalNumber,
-  UnitNumber,
-} from "../../types/parishcCommittee.types";
+import {zonalLeaderAPI} from "../../services/api";
+import type {ZonalLeader, ZoneNumber} from "../../types/zonalLeader.types";
 
-const EditParishCommitteeMember: React.FC = () => {
+const EditZonalLeader: React.FC = () => {
   const navigate = useNavigate();
   const {id} = useParams<{id: string}>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -36,44 +32,38 @@ const EditParishCommitteeMember: React.FC = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
+    dateOfBirth: "",
     address: "",
-    phoneNumber: "",
-    zonalNumber: "1" as ZonalNumber,
-    unitNumber: "1" as UnitNumber,
-    position: "",
-    joinedDate: "",
-    representingCommittee: "",
+    contactNumber: "",
+    appointedDate: "",
+    zoneNumber: "1" as ZoneNumber,
   });
 
   useEffect(() => {
     if (id) {
-      fetchMemberDetails();
+      fetchLeaderDetails();
     }
   }, [id]);
 
-  const fetchMemberDetails = async (): Promise<void> => {
+  const fetchLeaderDetails = async (): Promise<void> => {
     try {
       setFetchLoading(true);
-      const response = await parishCommitteeAPI.getParishCommitteeMemberById(
-        id!
-      );
-      const member: ParishCommittee = response.data;
+      const response = await zonalLeaderAPI.getZonalLeaderById(id!);
+      const leader: ZonalLeader = response.data;
 
       setFormData({
-        firstName: member.firstName,
-        lastName: member.lastName,
-        address: member.address,
-        phoneNumber: member.phoneNumber || "",
-        zonalNumber: member.zonalNumber,
-        unitNumber: member.unitNumber,
-        position: member.position || "",
-        joinedDate: member.joinedDate.split("T")[0],
-        representingCommittee: member.representingCommittee,
+        firstName: leader.firstName,
+        lastName: leader.lastName,
+        dateOfBirth: leader.dateOfBirth.split("T")[0],
+        address: leader.address,
+        contactNumber: leader.contactNumber,
+        appointedDate: leader.appointedDate.split("T")[0],
+        zoneNumber: leader.zoneNumber,
       });
       setError(null);
     } catch (err) {
-      setError("Failed to fetch parish committee member. Please try again.");
-      console.error("Error fetching member:", err);
+      setError("Failed to fetch zonal leader. Please try again.");
+      console.error("Error fetching leader:", err);
     } finally {
       setFetchLoading(false);
     }
@@ -102,21 +92,21 @@ const EditParishCommitteeMember: React.FC = () => {
     setError(null);
 
     try {
-      await parishCommitteeAPI.editParishCommitteeMember(id!, formData);
-      navigate("/parish-committee");
+      await zonalLeaderAPI.editZonalLeader(id!, formData);
+      navigate("/zonal-leaders");
     } catch (error) {
-      console.error("Error updating parish committee member:", error);
+      console.error("Error updating zonal leader:", error);
 
       // Type-safe error handling
       if (axios.isAxiosError(error)) {
         setError(
           error.response?.data?.error ||
-            "Failed to update parish committee member. Please try again."
+            "Failed to update zonal leader. Please try again."
         );
       } else if (error instanceof Error) {
         setError(error.message);
       } else {
-        setError("Failed to update parish committee member. Please try again.");
+        setError("Failed to update zonal leader. Please try again.");
       }
     } finally {
       setLoading(false);
@@ -124,7 +114,7 @@ const EditParishCommitteeMember: React.FC = () => {
   };
 
   const handleCancel = () => {
-    navigate("/parish-committee");
+    navigate("/zonal-leaders");
   };
 
   if (fetchLoading) {
@@ -142,7 +132,7 @@ const EditParishCommitteeMember: React.FC = () => {
   }
 
   return (
-    <Box sx={{p: 3}}>
+    <Box>
       <Paper
         elevation={0}
         sx={{
@@ -151,7 +141,7 @@ const EditParishCommitteeMember: React.FC = () => {
           border: "1px solid",
           borderColor: "divider",
           backgroundColor: "#ffffff",
-          maxWidth: 1200,
+          maxWidth: 1400,
           margin: "0 auto",
         }}>
         {/* Header */}
@@ -167,10 +157,10 @@ const EditParishCommitteeMember: React.FC = () => {
             </Button>
           </Box>
           <Typography variant="h4" fontWeight={600} gutterBottom>
-            Edit Parish Committee Member
+            Edit Zonal Leader - {formData.firstName} {formData.lastName}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Update the committee member information
+            Update the zonal leader information
           </Typography>
         </Box>
 
@@ -229,7 +219,43 @@ const EditParishCommitteeMember: React.FC = () => {
               />
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={12} md={4}>
+              <TextField
+                fullWidth
+                label="Date of Birth"
+                name="dateOfBirth"
+                type="date"
+                value={formData.dateOfBirth}
+                onChange={handleChange}
+                InputLabelProps={{shrink: true}}
+                required
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    backgroundColor: "#f9fafb",
+                  },
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+              <TextField
+                fullWidth
+                label="Contact Number"
+                name="contactNumber"
+                value={formData.contactNumber}
+                onChange={handleChange}
+                required
+                variant="outlined"
+                placeholder="Enter contact number"
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    backgroundColor: "#f9fafb",
+                  },
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={4}>
               <TextField
                 fullWidth
                 label="Address"
@@ -238,7 +264,7 @@ const EditParishCommitteeMember: React.FC = () => {
                 onChange={handleChange}
                 required
                 multiline
-                rows={2}
+                rows={3}
                 placeholder="Enter full address"
                 sx={{
                   "& .MuiOutlinedInput-root": {
@@ -248,29 +274,30 @@ const EditParishCommitteeMember: React.FC = () => {
               />
             </Grid>
 
+            {/* Leadership Information Section */}
+            <Grid item xs={12} sx={{mt: 2}}>
+              <Typography variant="h6" fontWeight={600} gutterBottom>
+                Leadership Information
+              </Typography>
+            </Grid>
+
             <Grid item xs={12} md={6}>
               <TextField
                 fullWidth
-                label="Phone Number"
-                name="phoneNumber"
-                value={formData.phoneNumber}
+                label="Appointed Date"
+                name="appointedDate"
+                type="date"
+                value={formData.appointedDate}
                 onChange={handleChange}
-                variant="outlined"
-                placeholder="Enter phone number"
-                helperText="Optional"
+                InputLabelProps={{shrink: true}}
+                required
+                helperText="Date when appointed as zonal leader"
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     backgroundColor: "#f9fafb",
                   },
                 }}
               />
-            </Grid>
-
-            {/* Location Information Section */}
-            <Grid item xs={12} sx={{mt: 2}}>
-              <Typography variant="h6" fontWeight={600} gutterBottom>
-                Location Information
-              </Typography>
             </Grid>
 
             <Grid item xs={12} md={6}>
@@ -282,13 +309,13 @@ const EditParishCommitteeMember: React.FC = () => {
                     backgroundColor: "#f9fafb",
                   },
                 }}>
-                <InputLabel>Zonal Number</InputLabel>
+                <InputLabel>Zone Number</InputLabel>
                 <Select
-                  name="zonalNumber"
-                  value={formData.zonalNumber}
-                  label="Zonal Number"
+                  name="zoneNumber"
+                  value={formData.zoneNumber}
+                  label="Zone Number"
                   onChange={(e) =>
-                    handleSelectChange("zonalNumber", e.target.value)
+                    handleSelectChange("zoneNumber", e.target.value)
                   }>
                   <MenuItem value="1">Zone 1</MenuItem>
                   <MenuItem value="2">Zone 2</MenuItem>
@@ -302,108 +329,24 @@ const EditParishCommitteeMember: React.FC = () => {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12} md={6}>
-              <FormControl
-                fullWidth
-                required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}>
-                <InputLabel>Unit Number</InputLabel>
-                <Select
-                  name="unitNumber"
-                  value={formData.unitNumber}
-                  label="Unit Number"
-                  onChange={(e) =>
-                    handleSelectChange("unitNumber", e.target.value)
-                  }>
-                  <MenuItem value="1">Unit 1</MenuItem>
-                  <MenuItem value="2">Unit 2</MenuItem>
-                  <MenuItem value="3">Unit 3</MenuItem>
-                  <MenuItem value="4">Unit 4</MenuItem>
-                  <MenuItem value="5">Unit 5</MenuItem>
-                  <MenuItem value="6">Unit 6</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-
-            {/* Committee Information Section */}
-            <Grid item xs={12} sx={{mt: 2}}>
-              <Typography variant="h6" fontWeight={600} gutterBottom>
-                Committee Information
-              </Typography>
-            </Grid>
-
-            <Grid item xs={12} md={4}>
-              <TextField
-                fullWidth
-                label="Position"
-                name="position"
-                value={formData.position}
-                onChange={handleChange}
-                variant="outlined"
-                placeholder="e.g., Chairman, Secretary, Treasurer"
-                helperText="Optional"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
-              />
-            </Grid>
-
-            <Grid item xs={12} md={4}>
-              <TextField
-                fullWidth
-                label="Joined Date"
-                name="joinedDate"
-                type="date"
-                value={formData.joinedDate}
-                onChange={handleChange}
-                InputLabelProps={{shrink: true}}
-                required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
-              />
-            </Grid>
-
-            <Grid item xs={4}>
-              <TextField
-                fullWidth
-                label="Representing Committee"
-                name="representingCommittee"
-                value={formData.representingCommittee}
-                onChange={handleChange}
-                required
-                variant="outlined"
-                placeholder="e.g., Finance Committee, Youth Committee"
-                helperText="Which committee does this member represent?"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
-              />
-            </Grid>
-
+            {/* Information Box */}
             <Grid item xs={12}>
               <Paper
                 elevation={0}
                 sx={{
-                  p: 2,
+                  p: 3,
                   backgroundColor: "#f0f9ff",
                   border: "1px solid",
                   borderColor: "#bfdbfe",
                   borderRadius: 1,
                 }}>
+                <Typography variant="body1" fontWeight={500} gutterBottom>
+                  Update Information
+                </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  <strong>Note:</strong> Fields marked with * are required. Make
-                  sure all required information is accurate before updating.
+                  Before upgrading, confirm that all the information is correct.
+                  The leader's duties and those of the members they oversee will
+                  be impacted by changes to the zone number.
                 </Typography>
               </Paper>
             </Grid>
@@ -439,7 +382,7 @@ const EditParishCommitteeMember: React.FC = () => {
                 textTransform: "none",
                 px: 4,
               }}>
-              {loading ? "Updating..." : "Update Member"}
+              {loading ? "Updating..." : "Update"}
             </Button>
           </Box>
         </form>
@@ -448,4 +391,4 @@ const EditParishCommitteeMember: React.FC = () => {
   );
 };
 
-export default EditParishCommitteeMember;
+export default EditZonalLeader;

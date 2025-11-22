@@ -3,6 +3,7 @@ import type { Burial, BurialFormData } from '../types/burial.types';
 import axios from "axios";
 import type { Marriage, MarriageFormData } from "../types/marriage.types";
 import type { ParishCommittee, ParishCommitteeFormData } from "../types/parishcCommittee.types";
+import type { ZonalLeader, ZonalLeaderFormData } from "../types/zonalLeader.types"
 
 const API_URL = 'http://localhost:5000/api';
 
@@ -68,6 +69,20 @@ export const parishCommitteeAPI = {
         api.patch<ParishCommittee>(`/parish-committee/${id}`, data),
 
     deleteParishCommitteeMember: (id: string) => api.delete(`/parish-committee/${id}`),
+
+};
+
+export const zonalLeaderAPI = {
+    getAllZonalLeaders: () => api.get<ZonalLeader[]>('/zonal-leaders'),
+
+    getZonalLeaderById: (id: string) => api.get<ZonalLeader>(`/zonal-leaders/${id}`),
+
+    addZonalLeader: (data: ZonalLeaderFormData) => api.post<ZonalLeader>('/zonal-leaders', data),
+
+    editZonalLeader: (id: string, data: Partial<ZonalLeaderFormData>) =>
+        api.patch<ZonalLeader>(`/zonal-leaders/${id}`, data),
+
+    deleteZonalLeader: (id: string) => api.delete(`/zonal-leaders/${id}`),
 
 };
 

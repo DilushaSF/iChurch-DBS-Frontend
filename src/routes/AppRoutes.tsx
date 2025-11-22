@@ -30,6 +30,12 @@ import AddMember from "../pages/ParishCommittee/AddMember.tsx";
 import ViewMember from "../pages/ParishCommittee/ViewMember.tsx";
 import EditMember from "../pages/ParishCommittee/EditMember.tsx";
 
+// Zonal Leader Page import
+import ZonalLeaderList from "../pages/ZonalLeaders/ZonalLeaderList.tsx";
+import AddZonalLeader from "../pages/ZonalLeaders/AddZonalLeader.tsx";
+import ViewZonalLeader from "../pages/ZonalLeaders/ViewZonalLeader.tsx";
+import EditZonalLeader from "../pages/ZonalLeaders/EditZonalLeader.tsx";
+
 // Protected Route Component
 interface PrivateRouteProps {
   children: ReactNode;
@@ -113,6 +119,12 @@ const AppRoutes = () => {
         <Route path="parish-committee/add" element={<AddMember />} />
         <Route path="parish-committee/view/:id" element={<ViewMember />} />
         <Route path="parish-committee/edit/:id" element={<EditMember />} />
+
+        {/* Zonal leader Routes */}
+        <Route path="zonal-leaders" element={<ZonalLeaderList />} />
+        <Route path="zonal-leaders/add" element={<AddZonalLeader />} />
+        <Route path="zonal-leaders/view/:id" element={<ViewZonalLeader />} />
+        <Route path="zonal-leaders/edit/:id" element={<EditZonalLeader />} />
 
         {/* Placeholder routes */}
         <Route path="members" element={<div>Members Page (Coming Soon)</div>} />
