@@ -36,6 +36,9 @@ import AddZonalLeader from "../pages/ZonalLeaders/AddZonalLeader.tsx";
 import ViewZonalLeader from "../pages/ZonalLeaders/ViewZonalLeader.tsx";
 import EditZonalLeader from "../pages/ZonalLeaders/EditZonalLeader.tsx";
 
+// Unit Leader Page import
+import UnitLeaderList from "../pages/UnitLeaders/UnitLeaderList.tsx";
+
 // Protected Route Component
 interface PrivateRouteProps {
   children: ReactNode;
@@ -125,6 +128,9 @@ const AppRoutes = () => {
         <Route path="zonal-leaders/add" element={<AddZonalLeader />} />
         <Route path="zonal-leaders/view/:id" element={<ViewZonalLeader />} />
         <Route path="zonal-leaders/edit/:id" element={<EditZonalLeader />} />
+
+        {/* Unit leader Routes */}
+        <Route path="unit-leaders" element={<UnitLeaderList />} />
 
         {/* Placeholder routes */}
         <Route path="members" element={<div>Members Page (Coming Soon)</div>} />

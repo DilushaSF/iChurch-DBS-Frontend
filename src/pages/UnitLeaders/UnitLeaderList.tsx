@@ -26,71 +26,70 @@ import {
   Delete as DeleteIcon,
   Search as SearchIcon,
 } from "@mui/icons-material";
-import {parishCommitteeAPI} from "../../services/api";
-import type {ParishCommittee} from "../../types/parishcCommittee.types";
+import {unitLeaderAPI} from "../../services/api";
+import type {UnitLeader} from "../../types/unitLeader.types";
 
-const ParishCommitteeMemberList: React.FC = () => {
-  const [parishCommitteeMembers, setParishCommitteeMembers] = useState<
-    ParishCommittee[]
-  >([]);
+const UnitLeaderList: React.FC = () => {
+  const [unitLeaders, setUnitLeaders] = useState<UnitLeader[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const navigate = useNavigate();
 
+  // Fetch unit leaders on component mount
   useEffect(() => {
-    fetchMemberList();
+    fetchUnitLeaders();
   }, []);
 
-  const fetchMemberList = async (): Promise<void> => {
+  const fetchUnitLeaders = async (): Promise<void> => {
     try {
       setLoading(true);
-      const response = await parishCommitteeAPI.getAllParishCommitteeMembers();
-      setParishCommitteeMembers(response.data);
+      const response = await unitLeaderAPI.getAllUnitLeaders();
+      setUnitLeaders(response.data);
       setError(null);
     } catch (err) {
-      setError("Failed to fetch parish committee records. Please try again.");
-      console.error("Error fetching parish committee members:", err);
+      setError("Failed to fetch unit leader records. Please try again.");
+      console.error("Error fetching unit leaders:", err);
     } finally {
       setLoading(false);
     }
   };
 
   const handleDelete = async (id: string): Promise<void> => {
-    if (window.confirm("Are you sure you want to delete this member?")) {
+    if (window.confirm("Are you sure you want to delete this unit leader?")) {
       try {
-        await parishCommitteeAPI.deleteParishCommitteeMember(id);
-        setParishCommitteeMembers(
-          parishCommitteeMembers.filter((member) => member._id !== id)
+        await unitLeaderAPI.deleteUnitLeader(id);
+        setUnitLeaders(
+          unitLeaders.filter((unitLeader) => unitLeader._id !== id)
         );
         // Optional: Show success message with Snackbar
       } catch (err) {
-        alert("Failed to delete memeber");
-        console.error("Error deleting parish committee member:", err);
+        alert("Failed to delete unit leader");
+        console.error("Error deleting unit leader:", err);
       }
     }
   };
 
   const handleView = (id: string): void => {
-    navigate(`/parish-committee/view/${id}`);
+    navigate(`/unit-leaders/view/${id}`);
   };
 
   const handleEdit = (id: string): void => {
-    navigate(`/parish-committee/edit/${id}`);
+    navigate(`/unit-leaders/edit/${id}`);
   };
 
   const handleAddNew = (): void => {
-    navigate("/parish-committee/add");
+    navigate("/unit-leaders/add");
   };
 
-  // Filter records based on search
-  const filteredParishCommitteeMembers = parishCommitteeMembers.filter(
-    (member) =>
-      member.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      member.lastName.toLowerCase().includes(searchTerm.toLowerCase())
+  // Filter unit leaders based on search
+  const filteredUnitLeaders = unitLeaders.filter(
+    (unitLeader) =>
+      unitLeader.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      unitLeader.lastName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Formatting date
+  // Format date
   const formatDate = (dateString: string): string => {
     return new Date(dateString).toLocaleDateString("en-US", {
       year: "numeric",
@@ -140,10 +139,10 @@ const ParishCommitteeMemberList: React.FC = () => {
               component="h1"
               fontWeight={600}
               gutterBottom>
-              Parish Committee Members
+              Unit Leaders
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Manage all parish committee members
+              Manage all unit leader records
             </Typography>
           </Box>
           <Button
@@ -151,7 +150,7 @@ const ParishCommitteeMemberList: React.FC = () => {
             startIcon={<AddIcon />}
             onClick={handleAddNew}
             sx={{textTransform: "none", fontWeight: 500}}>
-            Add Parish Committee Member
+            Add Unit Leader Record
           </Button>
         </Box>
 
@@ -166,7 +165,7 @@ const ParishCommitteeMemberList: React.FC = () => {
             flexWrap: "wrap",
           }}>
           <TextField
-            placeholder="Search by first or last name..."
+            placeholder="Search by Unit Leader's name..."
             variant="outlined"
             size="small"
             value={searchTerm}
@@ -183,7 +182,7 @@ const ParishCommitteeMemberList: React.FC = () => {
           <Typography variant="body2" color="text.secondary">
             Total Records:{" "}
             <Typography component="span" fontWeight={600} color="primary">
-              {filteredParishCommitteeMembers.length}
+              {filteredUnitLeaders.length}
             </Typography>
           </Typography>
         </Box>
@@ -195,11 +194,11 @@ const ParishCommitteeMemberList: React.FC = () => {
           </Alert>
         )}
 
-        {/* Parish Committee Members Table */}
-        {filteredParishCommitteeMembers.length === 0 ? (
+        {/* Unit Leaders Table */}
+        {filteredUnitLeaders.length === 0 ? (
           <Card sx={{p: 6, textAlign: "center"}}>
             <Typography variant="h6" color="text.secondary" gutterBottom>
-              No parish committee members found.
+              No unit leader records found.
             </Typography>
             <Button
               variant="contained"
@@ -216,32 +215,37 @@ const ParishCommitteeMemberList: React.FC = () => {
                 <TableRow sx={{backgroundColor: "#f5f5f5"}}>
                   <TableCell sx={{fontWeight: 600}}>Full Name</TableCell>
                   <TableCell sx={{fontWeight: 600}}>Address</TableCell>
-                  <TableCell sx={{fontWeight: 600}}>Zonal Number</TableCell>
                   <TableCell sx={{fontWeight: 600}}>Unit Number</TableCell>
-                  <TableCell sx={{fontWeight: 600}}>Joined Date</TableCell>
-                  <TableCell sx={{fontWeight: 600}}>
-                    Representing Committee
-                  </TableCell>
+                  <TableCell sx={{fontWeight: 600}}>Zonal Number</TableCell>
+                  <TableCell sx={{fontWeight: 600}}>Appointed Date</TableCell>
+                  <TableCell sx={{fontWeight: 600}}>Contact Number</TableCell>
                   <TableCell sx={{fontWeight: 600}} align="center">
                     Actions
                   </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {filteredParishCommitteeMembers.map((member) => (
+                {filteredUnitLeaders.map((unitLeader) => (
                   <TableRow
-                    key={member._id}
+                    key={unitLeader._id}
                     hover
                     sx={{"&:last-child td, &:last-child th": {border: 0}}}>
                     <TableCell sx={{fontWeight: 500}}>
-                      {`${member.firstName} ${member.lastName}`}
+                      {`${unitLeader.firstName} ${unitLeader.lastName}`}
                     </TableCell>
-                    <TableCell>{member.address}</TableCell>
-                    <TableCell align="center">{member.zonalNumber}</TableCell>
-                    <TableCell align="center">{member.unitNumber}</TableCell>
-                    <TableCell>{formatDate(member.joinedDate)}</TableCell>
-                    <TableCell>{member.representingCommittee}</TableCell>
+                    <TableCell>{unitLeader.address}</TableCell>
+                    <TableCell align="center">
+                      {unitLeader.unitNumber}
+                    </TableCell>
+                    <TableCell align="center">
+                      {unitLeader.zonalNumber}
+                    </TableCell>
+                    <TableCell>
+                      {formatDate(unitLeader.appointedDate)}
+                    </TableCell>
+                    <TableCell>{unitLeader.contactNumber}</TableCell>
 
+                    {/* Actions */}
                     <TableCell align="center">
                       <Box
                         sx={{
@@ -252,7 +256,7 @@ const ParishCommitteeMemberList: React.FC = () => {
                         <Tooltip title="View Details">
                           <IconButton
                             size="small"
-                            onClick={() => handleView(member._id)}
+                            onClick={() => handleView(unitLeader._id)}
                             sx={{
                               color: "primary.main",
                               border: "1px solid",
@@ -270,7 +274,7 @@ const ParishCommitteeMemberList: React.FC = () => {
                         <Tooltip title="Edit Record">
                           <IconButton
                             size="small"
-                            onClick={() => handleEdit(member._id)}
+                            onClick={() => handleEdit(unitLeader._id)}
                             sx={{
                               color: "info.main",
                               border: "1px solid",
@@ -288,7 +292,7 @@ const ParishCommitteeMemberList: React.FC = () => {
                         <Tooltip title="Delete Record">
                           <IconButton
                             size="small"
-                            onClick={() => handleDelete(member._id)}
+                            onClick={() => handleDelete(unitLeader._id)}
                             sx={{
                               color: "error.main",
                               border: "1px solid",
@@ -316,4 +320,4 @@ const ParishCommitteeMemberList: React.FC = () => {
   );
 };
 
-export default ParishCommitteeMemberList;
+export default UnitLeaderList;

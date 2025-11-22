@@ -85,7 +85,7 @@ const DashboardLayout = () => {
       path: "/parish-committee",
     },
     {text: "Zonal Leaders", icon: <Groups />, path: "/zonal-leaders"},
-    {text: "Unit Leaders", icon: <Groups />, path: "/volunteers"},
+    {text: "Unit Leaders", icon: <Groups />, path: "/unit-leaders"},
     {text: "Choir", icon: <SpatialAudioOffIcon />, path: "/ministry"},
     {
       text: "Youth Association",
