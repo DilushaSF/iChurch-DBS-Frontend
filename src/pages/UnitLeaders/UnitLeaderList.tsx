@@ -150,7 +150,7 @@ const UnitLeaderList: React.FC = () => {
             startIcon={<AddIcon />}
             onClick={handleAddNew}
             sx={{textTransform: "none", fontWeight: 500}}>
-            Add Unit Leader Record
+            Add Unit Leader
           </Button>
         </Box>
 

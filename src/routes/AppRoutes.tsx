@@ -39,6 +39,8 @@ import EditZonalLeader from "../pages/ZonalLeaders/EditZonalLeader.tsx";
 // Unit Leader Page import
 import UnitLeaderList from "../pages/UnitLeaders/UnitLeaderList.tsx";
 import AddUnitLeader from "../pages/UnitLeaders/AddUnitLeader.tsx";
+import ViewUnitLeader from "../pages/UnitLeaders/ViewUnitLeader.tsx";
+import EditUnitLeader from "../pages/UnitLeaders/EditUnitLeader.tsx";
 
 // Protected Route Component
 interface PrivateRouteProps {
@@ -133,6 +135,8 @@ const AppRoutes = () => {
         {/* Unit leader Routes */}
         <Route path="unit-leaders" element={<UnitLeaderList />} />
         <Route path="unit-leaders/add" element={<AddUnitLeader />} />
+        <Route path="unit-leaders/view/:id" element={<ViewUnitLeader />} />
+        <Route path="unit-leaders/edit/:id" element={<EditUnitLeader />} />
 
         {/* Placeholder routes */}
         <Route path="members" element={<div>Members Page (Coming Soon)</div>} />
