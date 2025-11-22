@@ -170,40 +170,6 @@ const ViewParishCommitteeMember: React.FC = () => {
             </Typography>
           </Grid>
 
-          <Grid item xs={12} md={6}>
-            <TextField
-              fullWidth
-              label="First Name"
-              value={member.firstName}
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="outlined"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
-            />
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <TextField
-              fullWidth
-              label="Last Name"
-              value={member.lastName}
-              InputProps={{
-                readOnly: true,
-              }}
-              variant="outlined"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
-            />
-          </Grid>
-
           <Grid item xs={12}>
             <TextField
               fullWidth
@@ -222,7 +188,7 @@ const ViewParishCommitteeMember: React.FC = () => {
             />
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <TextField
               fullWidth
               label="Address"
@@ -240,7 +206,7 @@ const ViewParishCommitteeMember: React.FC = () => {
             />
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid item xs={6} md={6}>
             <TextField
               fullWidth
               label="Phone Number"
@@ -337,7 +303,7 @@ const ViewParishCommitteeMember: React.FC = () => {
             </Typography>
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={4}>
             <TextField
               fullWidth
               label="Position"
@@ -354,7 +320,7 @@ const ViewParishCommitteeMember: React.FC = () => {
             />
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={4}>
             <TextField
               fullWidth
               label="Joined Date"
@@ -370,7 +336,7 @@ const ViewParishCommitteeMember: React.FC = () => {
             />
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item xs={4}>
             <TextField
               fullWidth
               label="Representing Committee"

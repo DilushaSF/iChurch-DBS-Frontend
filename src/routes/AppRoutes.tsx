@@ -28,6 +28,7 @@ import EditMarriage from "../pages/Marriages/EditMarriage.tsx";
 import ParishCommitteeMemberList from "../pages/ParishCommittee/ParishCommitteeMemberList.tsx";
 import AddMember from "../pages/ParishCommittee/AddMember.tsx";
 import ViewMember from "../pages/ParishCommittee/ViewMember.tsx";
+import EditMember from "../pages/ParishCommittee/EditMember.tsx";
 
 // Protected Route Component
 interface PrivateRouteProps {
@@ -111,6 +112,7 @@ const AppRoutes = () => {
         />
         <Route path="parish-committee/add" element={<AddMember />} />
         <Route path="parish-committee/view/:id" element={<ViewMember />} />
+        <Route path="parish-committee/edit/:id" element={<EditMember />} />
 
         {/* Placeholder routes */}
         <Route path="members" element={<div>Members Page (Coming Soon)</div>} />
