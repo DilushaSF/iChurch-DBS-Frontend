@@ -82,7 +82,7 @@ const DashboardLayout = () => {
     {
       text: "Parish Committee",
       icon: <ConnectWithoutContact />,
-      path: "/attendance",
+      path: "/parish-committee",
     },
     {text: "Zonal Leaders", icon: <Groups />, path: "/donations"},
     {text: "Unit Leaders", icon: <Groups />, path: "/volunteers"},

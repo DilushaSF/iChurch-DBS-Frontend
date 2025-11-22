@@ -2,6 +2,7 @@ import type { AxiosInstance } from "axios"; // ✅ Correct when using verbatimMo
 import type { Burial, BurialFormData } from '../types/burial.types';
 import axios from "axios";
 import type { Marriage, MarriageFormData } from "../types/marriage.types";
+import type { ParishCommittee, ParishCommitteeFormData } from "../types/parishcCommittee.types";
 
 const API_URL = 'http://localhost:5000/api';
 
@@ -44,11 +45,29 @@ export const burialAPI = {
 
 export const marriageAPI = {
     getAllMarriages: () => api.get<Marriage[]>('/marriages'),
+
     getMarriageById: (id: string) => api.get<Marriage>(`/marriages/${id}`),
+
     addMarriage: (data: MarriageFormData) => api.post<Marriage>('/marriages', data),
+
     updateMarriage: (id: string, data: Partial<MarriageFormData>) =>
         api.patch<Marriage>(`/marriages/${id}`, data),
+
     deleteMarriage: (id: string) => api.delete(`/marriages/${id}`),
+
+};
+
+export const parishCommitteeAPI = {
+    getAllParishCommitteeMembers: () => api.get<ParishCommittee[]>('/parish-committee'),
+
+    getParishCommitteeMemberById: (id: string) => api.get<ParishCommittee>(`/parish-committee/${id}`),
+
+    addParishCommitteeMember: (data: ParishCommitteeFormData) => api.post<ParishCommittee>('/parish-committee', data),
+
+    editParishCommitteeMember: (id: string, data: Partial<ParishCommitteeFormData>) =>
+        api.patch<ParishCommittee>(`/parish-committee/${id}`, data),
+
+    deleteParishCommitteeMember: (id: string) => api.delete(`/parish-committee/${id}`),
 
 };
 

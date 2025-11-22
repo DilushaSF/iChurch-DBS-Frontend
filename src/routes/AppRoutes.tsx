@@ -24,6 +24,11 @@ import AddMarriage from "../pages/Marriages/AddMarriage.tsx";
 import ViewMarriage from "../pages/Marriages/ViewMarriage.tsx";
 import EditMarriage from "../pages/Marriages/EditMarriage.tsx";
 
+// Parish Committee Page import
+import ParishCommitteeMemberList from "../pages/ParishCommittee/ParishCommitteeMemberList.tsx";
+import AddMember from "../pages/ParishCommittee/AddMember.tsx";
+import ViewMember from "../pages/ParishCommittee/ViewMember.tsx";
+
 // Protected Route Component
 interface PrivateRouteProps {
   children: ReactNode;
@@ -98,6 +103,14 @@ const AppRoutes = () => {
         <Route path="marriages/add" element={<AddMarriage />} />
         <Route path="marriages/view/:id" element={<ViewMarriage />} />
         <Route path="marriages/edit/:id" element={<EditMarriage />} />
+
+        {/* Parish Committee Routes */}
+        <Route
+          path="parish-committee"
+          element={<ParishCommitteeMemberList />}
+        />
+        <Route path="parish-committee/add" element={<AddMember />} />
+        <Route path="parish-committee/view/:id" element={<ViewMember />} />
 
         {/* Placeholder routes */}
         <Route path="members" element={<div>Members Page (Coming Soon)</div>} />
