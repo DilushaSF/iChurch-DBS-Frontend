@@ -7,6 +7,7 @@ import type { ZonalLeader, ZonalLeaderFormData } from "../types/zonalLeader.type
 import type { UnitLeader, UnitLeaderFormData } from "../types/unitLeader.types";
 import type { Choir, ChoirFormData } from "../types/choir.types";
 import type { Youth, YouthFormData } from "../types/youth.types";
+import type { SundaySchoolFormData, SundaySchoolTeacher } from "../types/sundaySchool.types";
 
 const API_URL = 'http://localhost:5000/api';
 
@@ -119,10 +120,24 @@ export const youthAPI = {
     getYouthMemberById: (id: string) => api.get<Youth>(`/youth-association/${id}`),
 
     addYouthMember: (data: YouthFormData) => api.post<Youth>('/youth-association', data),
+
     editYouthMember: (id: string, data: Partial<YouthFormData>) =>
         api.patch<Youth>(`/youth-association/${id}`, data),
 
     deleteYouthMember: (id: string) => api.delete(`/youth-association/${id}`),
+};
+
+export const sundaySchoolAPI = {
+    getAllTeachers: () => api.get<SundaySchoolTeacher[]>('/sunday-school-teachers'),
+
+    getTeacherById: (id: string) => api.get<SundaySchoolTeacher>(`/sunday-school-teachers/${id}`),
+
+    addTeacher: (data: SundaySchoolFormData) => api.post<SundaySchoolTeacher>('/sunday-school-teachers', data),
+
+    editTeacher: (id: string, data: Partial<SundaySchoolFormData>) =>
+        api.patch<SundaySchoolTeacher>(`/sunday-school-teachers/${id}`, data),
+
+    deleteTeacher: (id: string) => api.delete(`/sunday-school-teachers/${id}`),
 };
 
 export default api;

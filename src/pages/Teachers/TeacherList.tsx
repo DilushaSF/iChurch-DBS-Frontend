@@ -14,11 +14,11 @@ import {
   TableRow,
   TextField,
   Typography,
+  Chip,
   CircularProgress,
   Alert,
   InputAdornment,
   Tooltip,
-  Chip,
 } from "@mui/material";
 import {
   Add as AddIcon,
@@ -27,67 +27,67 @@ import {
   Delete as DeleteIcon,
   Search as SearchIcon,
 } from "@mui/icons-material";
-import type {Youth} from "../../types/youth.types";
-import {youthAPI} from "../../services/api";
+import {sundaySchoolAPI} from "../../services/api";
+import type {SundaySchoolTeacher} from "../../types/sundaySchool.types";
 
-const YouthMemberList: React.FC = () => {
-  const [youthMembers, setYouthMembers] = useState<Youth[]>([]);
+const TeachersList: React.FC = () => {
+  const [teachers, setTeachers] = useState<SundaySchoolTeacher[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const navigate = useNavigate();
 
-  // Fetch youth members on component mount
+  // Fetch teachers on component mount
   useEffect(() => {
-    fetchYouthMembers();
+    fetchTeachers();
   }, []);
 
-  const fetchYouthMembers = async (): Promise<void> => {
+  const fetchTeachers = async (): Promise<void> => {
     try {
       setLoading(true);
-      const response = await youthAPI.getAllYouthMembers();
-      setYouthMembers(response.data);
+      const response = await sundaySchoolAPI.getAllTeachers();
+      setTeachers(response.data);
       setError(null);
     } catch (err) {
-      setError("Failed to fetch youth member records. Please try again.");
-      console.error("Error fetching youth members:", err);
+      setError("Failed to fetch teachers. Please try again.");
+      console.error("Error fetching teachers:", err);
     } finally {
       setLoading(false);
     }
   };
 
   const handleDelete = async (id: string): Promise<void> => {
-    if (window.confirm("Are you sure you want to delete this youth member?")) {
+    if (
+      window.confirm("Are you sure you want to delete this teacher record?")
+    ) {
       try {
-        await youthAPI.deleteYouthMember(id);
-        setYouthMembers(
-          youthMembers.filter((youthMember) => youthMember._id !== id)
-        );
+        await sundaySchoolAPI.deleteTeacher(id);
+        setTeachers(teachers.filter((teacher) => teacher._id !== id));
         // Optional: Show success message with Snackbar
       } catch (err) {
-        alert("Failed to delete youth member");
-        console.error("Error deleting youth member:", err);
+        alert("Failed to delete teacher record");
+        console.error("Error deleting teacher:", err);
       }
     }
   };
 
   const handleView = (id: string): void => {
-    navigate(`/youth-association/view/${id}`);
+    navigate(`/sunday-school-teachers/view/${id}`);
   };
 
   const handleEdit = (id: string): void => {
-    navigate(`/youth-association/edit/${id}`);
+    navigate(`/sunday-school-teachers/edit/${id}`);
   };
 
   const handleAddNew = (): void => {
-    navigate("/youth-association/add");
+    navigate("/sunday-school-teachers/add");
   };
 
-  // Filter youth members based on search
-  const filteredYouthMembers = youthMembers.filter(
-    (youthMember) =>
-      youthMember.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      youthMember.lastName.toLowerCase().includes(searchTerm.toLowerCase())
+  // Filter records based on search
+  const filteredTeachers = teachers.filter(
+    (teacher) =>
+      teacher.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      teacher.lastName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   // Format date
@@ -140,10 +140,10 @@ const YouthMemberList: React.FC = () => {
               component="h1"
               fontWeight={600}
               gutterBottom>
-              Youth Association
+              Sunday School Teachers
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Manage all Youth Members
+              Manage all teachers
             </Typography>
           </Box>
           <Button
@@ -151,7 +151,7 @@ const YouthMemberList: React.FC = () => {
             startIcon={<AddIcon />}
             onClick={handleAddNew}
             sx={{textTransform: "none", fontWeight: 500}}>
-            Add Member
+            Add Teacher
           </Button>
         </Box>
 
@@ -166,7 +166,7 @@ const YouthMemberList: React.FC = () => {
             flexWrap: "wrap",
           }}>
           <TextField
-            placeholder="Search by Member's name..."
+            placeholder="Search by teacher's Name..."
             variant="outlined"
             size="small"
             value={searchTerm}
@@ -183,7 +183,7 @@ const YouthMemberList: React.FC = () => {
           <Typography variant="body2" color="text.secondary">
             Total Records:{" "}
             <Typography component="span" fontWeight={600} color="primary">
-              {filteredYouthMembers.length}
+              {filteredTeachers.length}
             </Typography>
           </Typography>
         </Box>
@@ -195,11 +195,11 @@ const YouthMemberList: React.FC = () => {
           </Alert>
         )}
 
-        {/* Youth Members Grid */}
-        {filteredYouthMembers.length === 0 ? (
+        {/* Teachers Table */}
+        {filteredTeachers.length === 0 ? (
           <Card sx={{p: 6, textAlign: "center"}}>
             <Typography variant="h6" color="text.secondary" gutterBottom>
-              No youth member records found.
+              No teachers found.
             </Typography>
             <Button
               variant="contained"
@@ -215,50 +215,41 @@ const YouthMemberList: React.FC = () => {
               <TableHead>
                 <TableRow sx={{backgroundColor: "#f5f5f5"}}>
                   <TableCell sx={{fontWeight: 600}}>Full Name</TableCell>
+                  <TableCell sx={{fontWeight: 600}}>Date of Birth</TableCell>
+                  <TableCell sx={{fontWeight: 600}}>Appointed Date</TableCell>
                   <TableCell sx={{fontWeight: 600}}>Address</TableCell>
-                  <TableCell sx={{fontWeight: 600}}>Contact Number</TableCell>
-                  <TableCell sx={{fontWeight: 600}}>Date Of Birth</TableCell>
                   <TableCell sx={{fontWeight: 600}}>
-                    Is Active Member?
+                    Class of Teaching
                   </TableCell>
-                  <TableCell sx={{fontWeight: 600}}>Position</TableCell>
-                  <TableCell sx={{fontWeight: 600}}>Joined Date</TableCell>
+                  <TableCell sx={{fontWeight: 600}}>Is Active</TableCell>
                   <TableCell sx={{fontWeight: 600}} align="center">
                     Actions
                   </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {filteredYouthMembers.map((youthMember) => (
+                {filteredTeachers.map((teacher) => (
                   <TableRow
-                    key={youthMember._id}
+                    key={teacher._id}
                     hover
                     sx={{"&:last-child td, &:last-child th": {border: 0}}}>
-                    <TableCell sx={{fontWeight: 500, width: 180}}>
-                      {`${youthMember.firstName} ${youthMember.lastName}`}
+                    <TableCell sx={{fontWeight: 500}}>
+                      {teacher.firstName} {teacher.lastName}
                     </TableCell>
-                    <TableCell>{youthMember.address}</TableCell>
-                    <TableCell>{youthMember.contactNumber}</TableCell>
-                    <TableCell sx={{width: 140}}>
-                      {formatDate(youthMember.dateOfBirth)}
-                    </TableCell>
-                    <TableCell sx={{width: 90}} align="center">
+                    <TableCell>{formatDate(teacher.dateOfBirth)}</TableCell>
+                    <TableCell>{formatDate(teacher.appointedDate)}</TableCell>
+                    <TableCell>{teacher.address}</TableCell>
+                    <TableCell>{teacher.className}</TableCell>
+                    <TableCell align="center">
                       <Chip
-                        label={youthMember.isActiveMember ? "Yes" : "No"}
+                        label={teacher.isActive ? "Yes" : "No"}
                         size="small"
                         color={
-                          youthMember.isActiveMember === true
-                            ? "success"
-                            : "warning"
+                          teacher.isActive === true ? "success" : "warning"
                         }
                       />
                     </TableCell>
-                    <TableCell>{youthMember.position}</TableCell>
-                    <TableCell sx={{width: 150}}>
-                      {formatDate(youthMember.joinedDate)}
-                    </TableCell>
 
-                    {/* Actions */}
                     <TableCell align="center">
                       <Box
                         sx={{
@@ -269,7 +260,7 @@ const YouthMemberList: React.FC = () => {
                         <Tooltip title="View Details">
                           <IconButton
                             size="small"
-                            onClick={() => handleView(youthMember._id)}
+                            onClick={() => handleView(teacher._id)}
                             sx={{
                               color: "primary.main",
                               border: "1px solid",
@@ -287,7 +278,7 @@ const YouthMemberList: React.FC = () => {
                         <Tooltip title="Edit Record">
                           <IconButton
                             size="small"
-                            onClick={() => handleEdit(youthMember._id)}
+                            onClick={() => handleEdit(teacher._id)}
                             sx={{
                               color: "info.main",
                               border: "1px solid",
@@ -305,7 +296,7 @@ const YouthMemberList: React.FC = () => {
                         <Tooltip title="Delete Record">
                           <IconButton
                             size="small"
-                            onClick={() => handleDelete(youthMember._id)}
+                            onClick={() => handleDelete(teacher._id)}
                             sx={{
                               color: "error.main",
                               border: "1px solid",
@@ -333,4 +324,4 @@ const YouthMemberList: React.FC = () => {
   );
 };
 
-export default YouthMemberList;
+export default TeachersList;

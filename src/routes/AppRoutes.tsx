@@ -54,6 +54,10 @@ import AddYouthMember from "../pages/Youth/AddYouthMember.tsx";
 import ViewYouthMember from "../pages/Youth/ViewYouthMember.tsx";
 import EditYouthMember from "../pages/Youth/EditYouthMember.tsx";
 
+// Sunday School Page import
+import TeacherList from "../pages/Teachers/TeacherList.tsx";
+import AddTeacher from "../pages/Teachers/AddTeacher.tsx";
+
 // Protected Route Component
 interface PrivateRouteProps {
   children: ReactNode;
@@ -167,6 +171,9 @@ const AppRoutes = () => {
           path="youth-association/edit/:id"
           element={<EditYouthMember />}
         />
+        {/* Sunday School Routes */}
+        <Route path="sunday-school-teachers" element={<TeacherList />} />
+        <Route path="sunday-school-teachers/add" element={<AddTeacher />} />
 
         {/* Placeholder routes */}
         <Route path="members" element={<div>Members Page (Coming Soon)</div>} />

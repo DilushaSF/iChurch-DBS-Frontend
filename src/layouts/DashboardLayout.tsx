@@ -95,7 +95,7 @@ const DashboardLayout = () => {
     {
       text: "Sunday School Teachers",
       icon: <AccountBalance />,
-      path: "/reports",
+      path: "/sunday-school-teachers",
     },
     {text: "Event Management", icon: <CalendarMonth />, path: "/ministry"},
   ];
