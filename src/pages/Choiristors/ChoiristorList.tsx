@@ -73,15 +73,15 @@ const ChoiristorList: React.FC = () => {
   };
 
   const handleView = (id: string): void => {
-    navigate(`/unit-leaders/view/${id}`);
+    navigate(`/choiristors/view/${id}`);
   };
 
   const handleEdit = (id: string): void => {
-    navigate(`/unit-leaders/edit/${id}`);
+    navigate(`/choiristors/edit/${id}`);
   };
 
   const handleAddNew = (): void => {
-    navigate("/unit-leaders/add");
+    navigate("/choiristors/add");
   };
 
   // Filter choiristors based on search
@@ -235,15 +235,13 @@ const ChoiristorList: React.FC = () => {
                     key={choiristor._id}
                     hover
                     sx={{"&:last-child td, &:last-child th": {border: 0}}}>
-                    <TableCell sx={{fontWeight: 500}}>
+                    <TableCell sx={{fontWeight: 500, width: 180}}>
                       {`${choiristor.firstName} ${choiristor.lastName}`}
                     </TableCell>
                     <TableCell>{choiristor.address}</TableCell>
-                    <TableCell align="center">
-                      {choiristor.contactNumber}
-                    </TableCell>
-                    <TableCell align="center">{choiristor.voicePart}</TableCell>
-                    <TableCell align="center">
+                    <TableCell>{choiristor.contactNumber}</TableCell>
+                    <TableCell>{choiristor.voicePart}</TableCell>
+                    <TableCell>
                       <Chip
                         label={choiristor.isActiveMember ? "Yes" : "No"}
                         size="small"
