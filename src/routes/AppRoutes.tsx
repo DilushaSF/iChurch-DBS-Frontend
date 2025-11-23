@@ -51,6 +51,7 @@ import EditChoiristor from "../pages/Choiristors/EditChoiristor.tsx";
 // Youth Association Page import
 import YouthMemberList from "../pages/Youth/YouthMemberList.tsx";
 import AddYouthMember from "../pages/Youth/AddYouthMember.tsx";
+import ViewYouthMember from "../pages/Youth/ViewYouthMember.tsx";
 
 // Protected Route Component
 interface PrivateRouteProps {
@@ -157,6 +158,10 @@ const AppRoutes = () => {
         {/* Youth Association Routes */}
         <Route path="youth-association" element={<YouthMemberList />} />
         <Route path="youth-association/add" element={<AddYouthMember />} />
+        <Route
+          path="youth-association/view/:id"
+          element={<ViewYouthMember />}
+        />
 
         {/* Placeholder routes */}
         <Route path="members" element={<div>Members Page (Coming Soon)</div>} />
