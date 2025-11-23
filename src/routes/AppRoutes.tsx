@@ -52,6 +52,7 @@ import EditChoiristor from "../pages/Choiristors/EditChoiristor.tsx";
 import YouthMemberList from "../pages/Youth/YouthMemberList.tsx";
 import AddYouthMember from "../pages/Youth/AddYouthMember.tsx";
 import ViewYouthMember from "../pages/Youth/ViewYouthMember.tsx";
+import EditYouthMember from "../pages/Youth/EditYouthMember.tsx";
 
 // Protected Route Component
 interface PrivateRouteProps {
@@ -161,6 +162,10 @@ const AppRoutes = () => {
         <Route
           path="youth-association/view/:id"
           element={<ViewYouthMember />}
+        />
+        <Route
+          path="youth-association/edit/:id"
+          element={<EditYouthMember />}
         />
 
         {/* Placeholder routes */}
