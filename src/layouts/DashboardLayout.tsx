@@ -90,7 +90,7 @@ const DashboardLayout = () => {
     {
       text: "Youth Association",
       icon: <SettingsAccessibility />,
-      path: "/resources",
+      path: "/youth-association",
     },
     {
       text: "Sunday School Teachers",

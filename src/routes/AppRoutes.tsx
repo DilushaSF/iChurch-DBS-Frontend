@@ -48,6 +48,10 @@ import AddChoiristor from "../pages/Choiristors/AddChoiristor.tsx";
 import ViewChoiristor from "../pages/Choiristors/ViewChoiristor.tsx";
 import EditChoiristor from "../pages/Choiristors/EditChoiristor.tsx";
 
+// Youth Association Page import
+import YouthMemberList from "../pages/Youth/YouthMemberList.tsx";
+import AddYouthMember from "../pages/Youth/AddYouthMember.tsx";
+
 // Protected Route Component
 interface PrivateRouteProps {
   children: ReactNode;
@@ -149,6 +153,10 @@ const AppRoutes = () => {
         <Route path="choiristors/add" element={<AddChoiristor />} />
         <Route path="choiristors/view/:id" element={<ViewChoiristor />} />
         <Route path="choiristors/edit/:id" element={<EditChoiristor />} />
+
+        {/* Youth Association Routes */}
+        <Route path="youth-association" element={<YouthMemberList />} />
+        <Route path="youth-association/add" element={<AddYouthMember />} />
 
         {/* Placeholder routes */}
         <Route path="members" element={<div>Members Page (Coming Soon)</div>} />

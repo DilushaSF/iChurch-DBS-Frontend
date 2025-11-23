@@ -6,6 +6,7 @@ import type { ParishCommittee, ParishCommitteeFormData } from "../types/parishcC
 import type { ZonalLeader, ZonalLeaderFormData } from "../types/zonalLeader.types"
 import type { UnitLeader, UnitLeaderFormData } from "../types/unitLeader.types";
 import type { Choir, ChoirFormData } from "../types/choir.types";
+import type { Youth, YouthFormData } from "../types/youth.types";
 
 const API_URL = 'http://localhost:5000/api';
 
@@ -71,7 +72,6 @@ export const parishCommitteeAPI = {
         api.patch<ParishCommittee>(`/parish-committee/${id}`, data),
 
     deleteParishCommitteeMember: (id: string) => api.delete(`/parish-committee/${id}`),
-
 };
 
 export const zonalLeaderAPI = {
@@ -85,7 +85,6 @@ export const zonalLeaderAPI = {
         api.patch<ZonalLeader>(`/zonal-leaders/${id}`, data),
 
     deleteZonalLeader: (id: string) => api.delete(`/zonal-leaders/${id}`),
-
 };
 
 export const unitLeaderAPI = {
@@ -99,7 +98,6 @@ export const unitLeaderAPI = {
         api.patch<UnitLeader>(`/unit-leaders/${id}`, data),
 
     deleteUnitLeader: (id: string) => api.delete(`/unit-leaders/${id}`),
-
 };
 
 export const choirAPI = {
@@ -113,7 +111,18 @@ export const choirAPI = {
         api.patch<Choir>(`/choiristors/${id}`, data),
 
     deleteChoiristor: (id: string) => api.delete(`/choiristors/${id}`),
+};
 
+export const youthAPI = {
+    getAllYouthMembers: () => api.get<Youth[]>('/youth-association'),
+
+    getYouthMemberById: (id: string) => api.get<Youth>(`/youth-association/${id}`),
+
+    addYouthMember: (data: YouthFormData) => api.post<Youth>('/youth-association', data),
+    editYouthMember: (id: string, data: Partial<YouthFormData>) =>
+        api.patch<Youth>(`/youth-association/${id}`, data),
+
+    deleteYouthMember: (id: string) => api.delete(`/youth-association/${id}`),
 };
 
 export default api;
