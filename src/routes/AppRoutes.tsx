@@ -46,6 +46,7 @@ import EditUnitLeader from "../pages/UnitLeaders/EditUnitLeader.tsx";
 import ChoiristorList from "../pages/Choiristors/ChoiristorList.tsx";
 import AddChoiristor from "../pages/Choiristors/AddChoiristor.tsx";
 import ViewChoiristor from "../pages/Choiristors/ViewChoiristor.tsx";
+import EditChoiristor from "../pages/Choiristors/EditChoiristor.tsx";
 
 // Protected Route Component
 interface PrivateRouteProps {
@@ -147,6 +148,7 @@ const AppRoutes = () => {
         <Route path="choiristors" element={<ChoiristorList />} />
         <Route path="choiristors/add" element={<AddChoiristor />} />
         <Route path="choiristors/view/:id" element={<ViewChoiristor />} />
+        <Route path="choiristors/edit/:id" element={<EditChoiristor />} />
 
         {/* Placeholder routes */}
         <Route path="members" element={<div>Members Page (Coming Soon)</div>} />

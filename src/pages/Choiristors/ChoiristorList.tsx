@@ -241,7 +241,7 @@ const ChoiristorList: React.FC = () => {
                     <TableCell>{choiristor.address}</TableCell>
                     <TableCell>{choiristor.contactNumber}</TableCell>
                     <TableCell>{choiristor.voicePart}</TableCell>
-                    <TableCell>
+                    <TableCell sx={{width: 90}}>
                       <Chip
                         label={choiristor.isActiveMember ? "Yes" : "No"}
                         size="small"
@@ -253,7 +253,9 @@ const ChoiristorList: React.FC = () => {
                       />
                     </TableCell>
                     <TableCell>{choiristor.choirType}</TableCell>
-                    <TableCell>{formatDate(choiristor.joinedDate)}</TableCell>
+                    <TableCell sx={{width: 160}}>
+                      {formatDate(choiristor.joinedDate)}
+                    </TableCell>
 
                     {/* Actions */}
                     <TableCell align="center">
