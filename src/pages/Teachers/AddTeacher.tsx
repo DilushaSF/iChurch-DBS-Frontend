@@ -108,11 +108,11 @@ const AddSundaySchoolTeacher = () => {
   };
 
   const handleCancel = () => {
-    navigate("/sunday-school");
+    navigate("/sunday-school-teachers");
   };
 
   return (
-    <Box sx={{p: 3}}>
+    <Box>
       <Paper
         elevation={0}
         sx={{
@@ -121,7 +121,7 @@ const AddSundaySchoolTeacher = () => {
           border: "1px solid",
           borderColor: "divider",
           backgroundColor: "#ffffff",
-          maxWidth: 1200,
+          maxWidth: 1400,
           margin: "0 auto",
         }}>
         {/* Header */}

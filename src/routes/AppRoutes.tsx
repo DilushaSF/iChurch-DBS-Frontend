@@ -57,6 +57,7 @@ import EditYouthMember from "../pages/Youth/EditYouthMember.tsx";
 // Sunday School Page import
 import TeacherList from "../pages/Teachers/TeacherList.tsx";
 import AddTeacher from "../pages/Teachers/AddTeacher.tsx";
+import ViewTeacher from "../pages/Teachers/ViewTeacher.tsx";
 
 // Protected Route Component
 interface PrivateRouteProps {
@@ -174,6 +175,10 @@ const AppRoutes = () => {
         {/* Sunday School Routes */}
         <Route path="sunday-school-teachers" element={<TeacherList />} />
         <Route path="sunday-school-teachers/add" element={<AddTeacher />} />
+        <Route
+          path="sunday-school-teachers/view/:id"
+          element={<ViewTeacher />}
+        />
 
         {/* Placeholder routes */}
         <Route path="members" element={<div>Members Page (Coming Soon)</div>} />
