@@ -60,6 +60,9 @@ import AddTeacher from "../pages/Teachers/AddTeacher.tsx";
 import ViewTeacher from "../pages/Teachers/ViewTeacher.tsx";
 import EditTeacher from "../pages/Teachers/EditTeacher.tsx";
 
+// Member Registration Page import
+import MemberList from "../pages/MemberRegistrations/MemberList.tsx";
+
 // Protected Route Component
 interface PrivateRouteProps {
   children: ReactNode;
@@ -184,6 +187,9 @@ const AppRoutes = () => {
           path="sunday-school-teachers/edit/:id"
           element={<EditTeacher />}
         />
+
+        {/* Member Registration Routes  */}
+        <Route path="member-registrations" element={<MemberList />} />
 
         {/* Placeholder routes */}
         <Route path="members" element={<div>Members Page (Coming Soon)</div>} />

@@ -8,6 +8,7 @@ import type { UnitLeader, UnitLeaderFormData } from "../types/unitLeader.types";
 import type { Choir, ChoirFormData } from "../types/choir.types";
 import type { Youth, YouthFormData } from "../types/youth.types";
 import type { SundaySchoolFormData, SundaySchoolTeacher } from "../types/sundaySchool.types";
+import type { MemberRegistration, MemberRegistrationFormData } from "../types/memberRegistration.types";
 
 const API_URL = 'http://localhost:5000/api';
 
@@ -138,6 +139,20 @@ export const sundaySchoolAPI = {
         api.patch<SundaySchoolTeacher>(`/sunday-school-teachers/${id}`, data),
 
     deleteTeacher: (id: string) => api.delete(`/sunday-school-teachers/${id}`),
+};
+
+// member registration API
+export const memberRegistrationAPI = {
+    getAllMembers: () => api.get<MemberRegistration[]>('/member-registrations'),
+
+    getMemberById: (id: string) => api.get<MemberRegistration>(`/member-registrations/${id}`),
+
+    addMemberRegistration: (data: MemberRegistrationFormData) => api.post<MemberRegistration>('/member-registrations', data),
+
+    editMemberRegistration: (id: string, data: Partial<MemberRegistrationFormData>) =>
+        api.patch<MemberRegistration>(`/member-registrations/${id}`, data),
+
+    deleteMemberRegistration: (id: string) => api.delete(`/member-registrations/${id}`),
 };
 
 export default api;

@@ -73,7 +73,11 @@ const DashboardLayout = () => {
   // Navigation menu items
   const registrations: MenuItem[] = [
     // {text: "Home", icon: <DashboardIcon />, path: "/dashboard"},
-    {text: "Member Registration", icon: <FamilyRestroom />, path: "/members"},
+    {
+      text: "Member Registration",
+      icon: <FamilyRestroom />,
+      path: "/member-registrations",
+    },
     {text: "Burials", icon: <Healing />, path: "/burials"},
     {text: "Marriages", icon: <Diversity2 />, path: "/marriages"},
   ];
