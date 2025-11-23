@@ -42,6 +42,9 @@ import AddUnitLeader from "../pages/UnitLeaders/AddUnitLeader.tsx";
 import ViewUnitLeader from "../pages/UnitLeaders/ViewUnitLeader.tsx";
 import EditUnitLeader from "../pages/UnitLeaders/EditUnitLeader.tsx";
 
+// Choir Page import
+import ChoiristorList from "../pages/Choiristors/ChoiristorList.tsx";
+
 // Protected Route Component
 interface PrivateRouteProps {
   children: ReactNode;
@@ -137,6 +140,9 @@ const AppRoutes = () => {
         <Route path="unit-leaders/add" element={<AddUnitLeader />} />
         <Route path="unit-leaders/view/:id" element={<ViewUnitLeader />} />
         <Route path="unit-leaders/edit/:id" element={<EditUnitLeader />} />
+
+        {/* Choir Routes */}
+        <Route path="choiristors" element={<ChoiristorList />} />
 
         {/* Placeholder routes */}
         <Route path="members" element={<div>Members Page (Coming Soon)</div>} />

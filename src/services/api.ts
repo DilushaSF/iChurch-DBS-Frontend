@@ -5,6 +5,7 @@ import type { Marriage, MarriageFormData } from "../types/marriage.types";
 import type { ParishCommittee, ParishCommitteeFormData } from "../types/parishcCommittee.types";
 import type { ZonalLeader, ZonalLeaderFormData } from "../types/zonalLeader.types"
 import type { UnitLeader, UnitLeaderFormData } from "../types/unitLeader.types";
+import type { Choir, ChoirFormData } from "../types/choir.types";
 
 const API_URL = 'http://localhost:5000/api';
 
@@ -98,6 +99,20 @@ export const unitLeaderAPI = {
         api.patch<UnitLeader>(`/unit-leaders/${id}`, data),
 
     deleteUnitLeader: (id: string) => api.delete(`/unit-leaders/${id}`),
+
+};
+
+export const choirAPI = {
+    getAllChoiristors: () => api.get<Choir[]>('/choiristors'),
+
+    getChoiristorById: (id: string) => api.get<Choir>(`/choiristors/${id}`),
+
+    addChoiristor: (data: ChoirFormData) => api.post<Choir>('/choiristors', data),
+
+    editChoiristor: (id: string, data: Partial<ChoirFormData>) =>
+        api.patch<Choir>(`/choiristors/${id}`, data),
+
+    deleteChoiristor: (id: string) => api.delete(`/choiristors/${id}`),
 
 };
 
