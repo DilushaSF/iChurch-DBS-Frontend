@@ -58,6 +58,7 @@ import EditYouthMember from "../pages/Youth/EditYouthMember.tsx";
 import TeacherList from "../pages/Teachers/TeacherList.tsx";
 import AddTeacher from "../pages/Teachers/AddTeacher.tsx";
 import ViewTeacher from "../pages/Teachers/ViewTeacher.tsx";
+import EditTeacher from "../pages/Teachers/EditTeacher.tsx";
 
 // Protected Route Component
 interface PrivateRouteProps {
@@ -178,6 +179,10 @@ const AppRoutes = () => {
         <Route
           path="sunday-school-teachers/view/:id"
           element={<ViewTeacher />}
+        />
+        <Route
+          path="sunday-school-teachers/edit/:id"
+          element={<EditTeacher />}
         />
 
         {/* Placeholder routes */}
