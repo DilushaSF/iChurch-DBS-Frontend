@@ -126,7 +126,7 @@ const ViewMemberRegistration = () => {
             </Button>
           </Box>
           <Typography variant="h4" fontWeight={600} gutterBottom>
-            View Member Registration
+            View Registration - {memberData.nameOfFather}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             Complete family registration details
