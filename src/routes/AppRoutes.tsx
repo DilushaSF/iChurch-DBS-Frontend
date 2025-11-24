@@ -63,6 +63,7 @@ import EditTeacher from "../pages/Teachers/EditTeacher.tsx";
 // Member Registration Page import
 import MemberList from "../pages/MemberRegistrations/MemberList.tsx";
 import AddRegistration from "../pages/MemberRegistrations/AddRegistration.tsx";
+import ViewRegistration from "../pages/MemberRegistrations/ViewRegistration.tsx";
 
 // Protected Route Component
 interface PrivateRouteProps {
@@ -192,6 +193,10 @@ const AppRoutes = () => {
         {/* Member Registration Routes  */}
         <Route path="member-registrations" element={<MemberList />} />
         <Route path="member-registrations/add" element={<AddRegistration />} />
+        <Route
+          path="member-registrations/view/:id"
+          element={<ViewRegistration />}
+        />
 
         {/* Placeholder routes */}
         <Route path="members" element={<div>Members Page (Coming Soon)</div>} />

@@ -35,11 +35,12 @@ const AddMemberRegistration = () => {
     occupationOfFather: "",
     dateOfBirthFather: "",
     baptisedDateOfFather: "",
-    baptisedChurch: "",
+    baptisedChurchOfFather: "",
     nameOfMother: "",
     occupationOfMother: "",
     dateOfBirthOfMother: "",
     baptisedDateOfMother: "",
+    baptisedChurchOfMother: "",
     address: "",
     contactNo: "",
     marriedDate: "",
@@ -208,7 +209,7 @@ const AddMemberRegistration = () => {
               </Typography>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 fullWidth
                 label="Father's Name"
@@ -226,7 +227,7 @@ const AddMemberRegistration = () => {
               />
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 fullWidth
                 label="Father's Occupation"
@@ -281,8 +282,8 @@ const AddMemberRegistration = () => {
               <TextField
                 fullWidth
                 label="Father's Baptised Church"
-                name="baptisedChurch"
-                value={formData.baptisedChurch}
+                name="baptisedChurchOfFather"
+                value={formData.baptisedChurchOfFather}
                 onChange={handleChange}
                 variant="outlined"
                 placeholder="Church name (optional)"
@@ -301,7 +302,7 @@ const AddMemberRegistration = () => {
               </Typography>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 fullWidth
                 label="Mother's Name"
@@ -319,7 +320,7 @@ const AddMemberRegistration = () => {
               />
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 fullWidth
                 label="Mother's Occupation"
@@ -336,7 +337,7 @@ const AddMemberRegistration = () => {
               />
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 fullWidth
                 label="Mother's Date of Birth"
@@ -353,7 +354,7 @@ const AddMemberRegistration = () => {
               />
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 fullWidth
                 label="Mother's Baptised Date"
@@ -362,6 +363,23 @@ const AddMemberRegistration = () => {
                 value={formData.baptisedDateOfMother}
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    backgroundColor: "#f9fafb",
+                  },
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={4}>
+              <TextField
+                fullWidth
+                label="Mother's Baptised Church"
+                name="baptisedChurchOfMother"
+                value={formData.baptisedChurchOfMother}
+                onChange={handleChange}
+                variant="outlined"
+                placeholder="Church name (optional)"
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     backgroundColor: "#f9fafb",

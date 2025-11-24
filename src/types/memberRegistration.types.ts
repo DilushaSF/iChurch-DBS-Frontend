@@ -13,12 +13,13 @@ export interface MemberRegistration {
     occupationOfFather?: string;
     dateOfBirthFather?: string;
     baptisedDateOfFather?: string;
-    baptisedChurch?: string;
+    baptisedChurchOfFather?: string;
 
     nameOfMother: string;
     occupationOfMother?: string;
     dateOfBirthOfMother?: string;
     baptisedDateOfMother?: string;
+    baptisedChurchOfMother?: string;
 
     address: string;
     contactNo: string;
@@ -41,12 +42,13 @@ export interface MemberRegistrationFormData {
     occupationOfFather?: string;
     dateOfBirthFather?: string;
     baptisedDateOfFather?: string;
-    baptisedChurch?: string;
+    baptisedChurchOfFather?: string;
 
     nameOfMother: string;
     occupationOfMother?: string;
     dateOfBirthOfMother?: string;
     baptisedDateOfMother?: string;
+    baptisedChurchOfMother?: string;
 
     address: string;
     contactNo: string;
