@@ -84,7 +84,7 @@ const MemberRow: React.FC<MemberRowProps> = ({
             size="small"
             color={
               member.children && member.children.length > 0
-                ? "primary"
+                ? "success"
                 : "default"
             }
             icon={
