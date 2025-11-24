@@ -1,10 +1,9 @@
-// src/theme/theme.ts
 import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2', // Blue - Change this to your church brand color
+      main: '#1976d2', // Blue
       light: '#42a5f5',
       dark: '#1565c0',
     },

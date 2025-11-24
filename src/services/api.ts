@@ -1,4 +1,4 @@
-import type { AxiosInstance } from "axios"; // ✅ Correct when using verbatimModuleSyntax
+import type { AxiosInstance } from "axios";
 import type { Burial, BurialFormData } from '../types/burial.types';
 import axios from "axios";
 import type { Marriage, MarriageFormData } from "../types/marriage.types";

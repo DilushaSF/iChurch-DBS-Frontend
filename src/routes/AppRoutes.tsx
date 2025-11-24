@@ -203,34 +203,15 @@ const AppRoutes = () => {
           element={<EditRegistration />}
         />
 
-        {/* Placeholder routes */}
+        {/* Sample routes */}
         <Route path="members" element={<div>Members Page (Coming Soon)</div>} />
-        <Route path="groups" element={<div>Groups Page (Coming Soon)</div>} />
-        <Route path="events" element={<div>Events Page (Coming Soon)</div>} />
-        <Route
-          path="attendance"
-          element={<div>Attendance Page (Coming Soon)</div>}
-        />
-        <Route
-          path="donations"
-          element={<div>Donations Page (Coming Soon)</div>}
-        />
-        <Route
-          path="volunteers"
-          element={<div>Volunteers Page (Coming Soon)</div>}
-        />
         <Route
           path="ministry"
-          element={<div>Ministry Page (Coming Soon)</div>}
+          element={<div>Event Scheduler (Coming Soon)</div>}
         />
-        <Route
-          path="resources"
-          element={<div>Resources Page (Coming Soon)</div>}
-        />
-        <Route path="reports" element={<div>Reports Page (Coming Soon)</div>} />
         <Route
           path="settings"
-          element={<div>Settings Page (Coming Soon)</div>}
+          element={<div>User Management (Coming Soon)</div>}
         />
         <Route path="profile" element={<div>Profile Page (Coming Soon)</div>} />
       </Route>
