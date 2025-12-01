@@ -1,31 +1,11 @@
-// src/context/AuthContext.tsx
-import {createContext, useState, useContext, useEffect} from "react";
+import {createContext, useState, useEffect} from "react";
 import type {ReactNode} from "react";
+import {authUtils} from "../utils/authUtils";
+import {tokenUtils} from "../utils/token";
+import type {AuthContextType, User} from "../types/auth.types";
+import {authAPI} from "../services/api";
 
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  role: string;
-}
-
-interface AuthContextType {
-  user: User | null;
-  login: (
-    email: string,
-    password: string
-  ) => Promise<{success: boolean; error?: string}>;
-  register: (
-    name: string,
-    email: string,
-    password: string
-  ) => Promise<{success: boolean; error?: string}>;
-  logout: () => void;
-  loading: boolean;
-  isAuthenticated: boolean;
-}
-
-const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext<AuthContextType | null>(null);
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -33,81 +13,103 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({children}: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
+  const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Check if user is already logged in (from localStorage)
+  // Initialize auth state from localStorage
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+    try {
+      const storedToken = tokenUtils.getToken();
+      const storedUser = tokenUtils.getUser();
+
+      if (storedToken && storedUser) {
+        setToken(storedToken);
+        setUser(storedUser);
+      }
+    } catch (error) {
+      console.error("Error loading auth state:", error);
+      tokenUtils.clearAuth();
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
 
-  // Login function (will connect to backend later)
-  const login = async (email: string, _password: string) => {
+  // Login function
+  const login = async (email: string, password: string) => {
     try {
-      // TODO: Replace with actual API call when backend is ready
-      // Simulating login for now (password will be used when backend is connected)
-      const mockUser: User = {
-        id: 1,
-        name: "Admin User",
-        email: email,
-        role: "admin",
-      };
+      const response = await authAPI.login({email, password});
+      const {user, token} = response.data;
 
-      setUser(mockUser);
-      localStorage.setItem("user", JSON.stringify(mockUser));
+      // Store in state
+      setUser(user);
+      setToken(token);
+
+      authUtils.handleLoginSuccess(token, user);
+
       return {success: true};
-    } catch (error) {
-      return {success: false, error: (error as Error).message};
+    } catch (error: any) {
+      console.error("Login error:", error);
+      const errorMessage =
+        error.response?.data?.error ||
+        error.message ||
+        "Login failed. Please try again.";
+      return {success: false, error: errorMessage};
     }
   };
 
-  // Register function (will connect to backend later)
-  const register = async (name: string, email: string, _password: string) => {
+  // Register function
+  const register = async (
+    churchName: string,
+    parishName: string,
+    email: string,
+    password: string
+  ) => {
     try {
-      // TODO: Replace with actual API call when backend is ready
-      // (password will be used when backend is connected)
-      const mockUser: User = {
-        id: 1,
-        name: name,
-        email: email,
-        role: "member",
-      };
+      const response = await authAPI.register({
+        churchName,
+        parishName,
+        email,
+        password,
+      });
 
-      setUser(mockUser);
-      localStorage.setItem("user", JSON.stringify(mockUser));
+      if (!response.data || !response.data.user || !response.data.token) {
+        throw new Error("Invalid response from server");
+      }
+
+      const {user, token} = response.data;
+
+      setUser(user);
+      setToken(token);
+
+      authUtils.handleLoginSuccess(token, user);
+
       return {success: true};
-    } catch (error) {
-      return {success: false, error: (error as Error).message};
+    } catch (error: any) {
+      console.error("Registration error:", error);
+      const errorMessage =
+        error.response?.data?.error ||
+        error.message ||
+        "Registration failed. Please try again.";
+      return {success: false, error: errorMessage};
     }
   };
 
   // Logout function
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("user");
+    setToken(null);
+    authUtils.handleLogout();
   };
 
   const value: AuthContextType = {
     user,
+    token,
     login,
     register,
     logout,
     loading,
-    isAuthenticated: !!user,
+    isAuthenticated: !!user && !!token,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-};
-
-// Custom hook to use auth context
-// eslint-disable-next-line react-refresh/only-export-components
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error("useAuth must be used within AuthProvider");
-  }
-  return context;
 };

@@ -15,8 +15,9 @@ import {
   TrendingUp,
   TrendingDown,
 } from "@mui/icons-material";
-import {useAuth} from "../../context/AuthContext";
+
 import type {JSX} from "react";
+import {useAuth} from "../../hooks/useAuth";
 
 interface Stat {
   title: string;
@@ -44,7 +45,7 @@ interface Event {
 const Dashboard = () => {
   const {user} = useAuth();
 
-  // Mock data - replace with real data from API later
+  // mock data
   const stats: Stat[] = [
     {
       title: "Total Members",
@@ -133,7 +134,7 @@ const Dashboard = () => {
       {/* Welcome Section */}
       <Box sx={{mb: 4}}>
         <Typography variant="h4" gutterBottom sx={{fontWeight: 600}}>
-          Welcome back, {user?.name}! 👋
+          Welcome back, {user?.churchName}! 👋
         </Typography>
         <Typography variant="body1" color="text.secondary">
           Here's what's happening with your church today.

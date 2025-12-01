@@ -37,7 +37,8 @@ import {
   SpatialAudioOff as SpatialAudioOffIcon,
   CalendarMonth,
 } from "@mui/icons-material";
-import {useAuth} from "../context/AuthContext";
+import {useAuth} from "../hooks/useAuth";
+// import {useAuth} from "../context/AuthContext";
 
 const drawerWidth = 260;
 
@@ -277,7 +278,7 @@ const DashboardLayout = () => {
                     bgcolor: "primary.main",
                     fontSize: 16,
                   }}>
-                  {user?.name?.charAt(0).toUpperCase()}
+                  {user?.churchName?.charAt(0).toUpperCase()}
                 </Avatar>
               </IconButton>
             </Tooltip>
@@ -293,7 +294,7 @@ const DashboardLayout = () => {
             anchorOrigin={{horizontal: "right", vertical: "bottom"}}>
             <Box sx={{px: 2, py: 1}}>
               <Typography variant="subtitle1" sx={{fontWeight: 600}}>
-                {user?.name}
+                {user?.churchName}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 {user?.email}

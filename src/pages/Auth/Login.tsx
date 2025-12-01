@@ -20,7 +20,7 @@ import {
   Lock,
   Church,
 } from "@mui/icons-material";
-import {useAuth} from "../../context/AuthContext";
+import {useAuth} from "../../hooks/useAuth";
 
 interface FormData {
   email: string;
@@ -52,7 +52,6 @@ const Login = () => {
     setError("");
     setLoading(true);
 
-    // Basic validation
     if (!formData.email || !formData.password) {
       setError("Please fill in all fields");
       setLoading(false);
@@ -91,31 +90,22 @@ const Login = () => {
           boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
         }}>
         <CardContent sx={{p: 4}}>
-          {/* Logo and Title */}
           <Box sx={{textAlign: "center", mb: 3}}>
-            <Church
-              sx={{
-                fontSize: 60,
-                color: "primary.main",
-                mb: 1,
-              }}
-            />
+            <Church sx={{fontSize: 60, color: "primary.main", mb: 1}} />
             <Typography variant="h4" gutterBottom>
               iChurch
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Church Admin Portal ~ Manage your ministry here !
+              Church Admin Portal ~ Manage your ministry here!
             </Typography>
           </Box>
 
-          {/* Error */}
           {error && (
             <Alert severity="error" sx={{mb: 2}}>
               {error}
             </Alert>
           )}
 
-          {/* Login Form */}
           <form onSubmit={handleSubmit}>
             <TextField
               fullWidth
@@ -179,7 +169,6 @@ const Login = () => {
             </Typography>
           </Divider>
 
-          {/* Register Link */}
           <Box sx={{textAlign: "center", mt: 2}}>
             <Typography variant="body2" color="text.secondary">
               Don't have an account?{" "}

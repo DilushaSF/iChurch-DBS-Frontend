@@ -11,6 +11,7 @@ import {
   Alert,
   InputAdornment,
   IconButton,
+  Divider,
 } from "@mui/material";
 import {
   Visibility,
@@ -18,16 +19,15 @@ import {
   Email,
   Lock,
   Church,
-  HolidayVillage,
+  Business,
 } from "@mui/icons-material";
-import {useAuth} from "../../context/AuthContext";
+import {useAuth} from "../../hooks/useAuth";
 
 interface FormData {
   churchName: string;
   parishName: string;
   email: string;
   password: string;
-  confirmPassword: string;
 }
 
 const Register = () => {
@@ -39,7 +39,6 @@ const Register = () => {
     parishName: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
@@ -58,27 +57,13 @@ const Register = () => {
     setError("");
     setLoading(true);
 
-    // Validations
     if (
       !formData.churchName ||
       !formData.parishName ||
       !formData.email ||
-      !formData.password ||
-      !formData.confirmPassword
+      !formData.password
     ) {
       setError("Please fill in all fields");
-      setLoading(false);
-      return;
-    }
-
-    if (formData.password.length < 6) {
-      setError("Password must be at least 6 characters long");
-      setLoading(false);
-      return;
-    }
-
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
       setLoading(false);
       return;
     }
@@ -86,17 +71,19 @@ const Register = () => {
     try {
       const result = await register(
         formData.churchName,
+        formData.parishName,
         formData.email,
         formData.password
       );
+
       if (result.success) {
         navigate("/dashboard");
       } else {
         setError(result.error || "Registration failed. Please try again.");
       }
     } catch (err) {
-      console.error(err);
       setError("An error occurred. Please try again.");
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -119,46 +106,31 @@ const Register = () => {
           boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
         }}>
         <CardContent sx={{p: 4}}>
-          {/* Logo and Title */}
           <Box sx={{textAlign: "center", mb: 3}}>
-            <Church
-              sx={{
-                fontSize: 60,
-                color: "primary.main",
-                mb: 1,
-              }}
-            />
+            <Church sx={{fontSize: 60, color: "primary.main", mb: 1}} />
             <Typography variant="h4" gutterBottom>
-              Create Account
+              iChurch
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Register now to get started
+              Register your church account
             </Typography>
           </Box>
 
-          {/* Error */}
           {error && (
             <Alert severity="error" sx={{mb: 2}}>
               {error}
             </Alert>
           )}
 
-          {/* Registration Form */}
           <form onSubmit={handleSubmit}>
             <TextField
               fullWidth
-              size="small"
               label="Church Name"
               name="churchName"
               value={formData.churchName}
               onChange={handleChange}
               margin="normal"
               required
-              sx={{
-                "& .MuiInputBase-root": {
-                  height: 45, // adjust as needed
-                },
-              }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -170,22 +142,16 @@ const Register = () => {
 
             <TextField
               fullWidth
-              size="small"
-              label="Parish"
+              label="Parish Name"
               name="parishName"
               value={formData.parishName}
               onChange={handleChange}
               margin="normal"
               required
-              sx={{
-                "& .MuiInputBase-root": {
-                  height: 45, // adjust as needed
-                },
-              }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <HolidayVillage color="action" />
+                    <Business color="action" />
                   </InputAdornment>
                 ),
               }}
@@ -193,7 +159,6 @@ const Register = () => {
 
             <TextField
               fullWidth
-              size="small"
               label="Email Address"
               name="email"
               type="email"
@@ -201,11 +166,6 @@ const Register = () => {
               onChange={handleChange}
               margin="normal"
               required
-              sx={{
-                "& .MuiInputBase-root": {
-                  height: 45, // adjust as needed
-                },
-              }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -217,7 +177,6 @@ const Register = () => {
 
             <TextField
               fullWidth
-              size="small"
               label="Password"
               name="password"
               type={showPassword ? "text" : "password"}
@@ -225,11 +184,6 @@ const Register = () => {
               onChange={handleChange}
               margin="normal"
               required
-              sx={{
-                "& .MuiInputBase-root": {
-                  height: 45, // adjust as needed
-                },
-              }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -248,30 +202,6 @@ const Register = () => {
               }}
             />
 
-            <TextField
-              fullWidth
-              size="small"
-              label="Confirm Password"
-              name="confirmPassword"
-              type={showPassword ? "text" : "password"}
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              margin="normal"
-              required
-              sx={{
-                "& .MuiInputBase-root": {
-                  height: 45, // adjust as needed
-                },
-              }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Lock color="action" />
-                  </InputAdornment>
-                ),
-              }}
-            />
-
             <Button
               fullWidth
               type="submit"
@@ -279,11 +209,16 @@ const Register = () => {
               size="large"
               disabled={loading}
               sx={{mt: 3, mb: 2, py: 1.5}}>
-              {loading ? "Creating Account..." : "Create Account"}
+              {loading ? "Registering..." : "Register"}
             </Button>
           </form>
 
-          {/* Link for login */}
+          <Divider sx={{my: 2}}>
+            <Typography variant="body2" color="text.secondary">
+              OR
+            </Typography>
+          </Divider>
+
           <Box sx={{textAlign: "center", mt: 2}}>
             <Typography variant="body2" color="text.secondary">
               Already have an account?{" "}
@@ -294,7 +229,7 @@ const Register = () => {
                   textDecoration: "none",
                   fontWeight: 600,
                 }}>
-                Sign in here
+                Login here
               </Link>
             </Typography>
           </Box>

@@ -1,5 +1,5 @@
 import {Routes, Route, Navigate} from "react-router-dom";
-import {useAuth} from "../context/AuthContext";
+
 import type {ReactNode} from "react";
 
 // Layout imports
@@ -65,6 +65,7 @@ import MemberList from "../pages/MemberRegistrations/MemberList.tsx";
 import AddRegistration from "../pages/MemberRegistrations/AddRegistration.tsx";
 import ViewRegistration from "../pages/MemberRegistrations/ViewRegistration.tsx";
 import EditRegistration from "../pages/MemberRegistrations/EditRegistration.tsx";
+import {useAuth} from "../hooks/useAuth.ts";
 
 // Protected Route Component
 interface PrivateRouteProps {
@@ -204,7 +205,6 @@ const AppRoutes = () => {
         />
 
         {/* Sample routes */}
-        <Route path="members" element={<div>Members Page (Coming Soon)</div>} />
         <Route
           path="ministry"
           element={<div>Event Scheduler (Coming Soon)</div>}
