@@ -37,7 +37,7 @@ const BaptismList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const navigate = useNavigate();
 
-  // Fetch baptisms on component mount
+  // Fetch baptisms
   useEffect(() => {
     fetchBaptisms();
   }, []);
@@ -157,7 +157,7 @@ const BaptismList: React.FC = () => {
             startIcon={<AddIcon />}
             onClick={handleAddNew}
             sx={{textTransform: "none", fontWeight: 500}}>
-            Add Burial Record
+            Add Baptism Record
           </Button>
         </Box>
 
