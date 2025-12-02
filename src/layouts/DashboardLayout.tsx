@@ -102,7 +102,7 @@ const DashboardLayout = () => {
       icon: <AccountBalance />,
       path: "/sunday-school-teachers",
     },
-    {text: "Event Management", icon: <CalendarMonth />, path: "/ministry"},
+    {text: "Event Management", icon: <CalendarMonth />, path: "/events"},
   ];
 
   const drawer = (

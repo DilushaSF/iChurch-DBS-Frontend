@@ -66,6 +66,7 @@ import AddRegistration from "../pages/MemberRegistrations/AddRegistration.tsx";
 import ViewRegistration from "../pages/MemberRegistrations/ViewRegistration.tsx";
 import EditRegistration from "../pages/MemberRegistrations/EditRegistration.tsx";
 import {useAuth} from "../hooks/useAuth.ts";
+import EventCalendar from "../pages/EventScheduler/EventCalendar.tsx";
 
 // Protected Route Component
 interface PrivateRouteProps {
@@ -203,6 +204,8 @@ const AppRoutes = () => {
           path="member-registrations/edit/:id"
           element={<EditRegistration />}
         />
+
+        <Route path="events" element={<EventCalendar />} />
 
         {/* Sample routes */}
         <Route

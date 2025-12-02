@@ -14,6 +14,7 @@ import type { Choir, ChoirFormData } from "../types/choir.types";
 import type { Youth, YouthFormData } from "../types/youth.types";
 import type { SundaySchoolFormData, SundaySchoolTeacher } from "../types/sundaySchool.types";
 import type { MemberRegistration, MemberRegistrationFormData } from "../types/memberRegistration.types";
+import type { EventSchedule, EventScheduleFormData } from "../types/event.types";
 
 // Axios instance
 const api: AxiosInstance = axios.create({
@@ -141,4 +142,15 @@ export const memberRegistrationAPI = {
     deleteMemberRegistration: (id: string) => api.delete(`/api/member-registrations/${id}`),
 };
 
+export const eventSchedulerAPI = {
+    getAllEvents: () => api.get<EventSchedule[]>('/api/events'),
+    getEventById: (id: string) => api.get<EventSchedule>(`/api/events/${id}`),
+    getEventsByDateRange: (startDate: string, endDate: string) =>
+        api.get<EventSchedule[]>(`/api/events/range?startDate=${startDate}&endDate=${endDate}`),
+
+    addEvent: (data: EventScheduleFormData) => api.post<EventSchedule>('/api/events', data),
+    updateEvent: (id: string, data: Partial<EventScheduleFormData>) => api.patch<EventSchedule>(`/api/events/${id}`, data),
+    deleteEvent: (id: string) => api.delete(`/api/events/${id}`),
+
+}
 export default api;
