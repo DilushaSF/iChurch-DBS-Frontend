@@ -74,6 +74,7 @@ import EventCalendar from "../pages/EventScheduler/EventCalendar.tsx";
 import BaptismList from "../pages/Baptisms/BaptismList.tsx";
 import AddBaptism from "../pages/Baptisms/AddBaptism.tsx";
 import ViewBaptism from "../pages/Baptisms/ViewBaptism.tsx";
+import EditBaptism from "../pages/Baptisms/EditBaptism.tsx";
 
 // Protected Route Component
 interface PrivateRouteProps {
@@ -219,6 +220,7 @@ const AppRoutes = () => {
         <Route path="baptisms" element={<BaptismList />} />
         <Route path="baptisms/add" element={<AddBaptism />} />
         <Route path="baptisms/view/:id" element={<ViewBaptism />} />
+        <Route path="baptisms/edit/:id" element={<EditBaptism />} />
 
         {/* Sample routes */}
         <Route
