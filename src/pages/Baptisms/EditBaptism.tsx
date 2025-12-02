@@ -45,7 +45,6 @@ const EditBaptism = () => {
     isFatherCatholic: true,
   });
 
-  // Helper function to format date for input field (YYYY-MM-DD)
   const formatDateForInput = (
     dateString: string | undefined | null
   ): string => {
@@ -66,7 +65,7 @@ const EditBaptism = () => {
     }
   };
 
-  // Fetch baptism data on component mount
+  // Fetch baptism data
   useEffect(() => {
     const fetchBaptismData = async () => {
       if (!id) return;
@@ -154,7 +153,6 @@ const EditBaptism = () => {
     navigate("/baptisms");
   };
 
-  // Loading skeleton
   if (fetchLoading) {
     return (
       <Box>
