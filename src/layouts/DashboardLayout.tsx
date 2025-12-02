@@ -22,7 +22,7 @@ import {
 } from "@mui/material";
 import {
   Menu as MenuIcon,
-  ManageAccounts,
+  FamilyRestroom,
   Diversity2,
   ConnectWithoutContact,
   Notifications as NotificationsIcon,
@@ -32,10 +32,10 @@ import {
   Groups,
   SettingsAccessibility,
   AccountBalance,
-  FamilyRestroom,
   Healing,
   SpatialAudioOff as SpatialAudioOffIcon,
   CalendarMonth,
+  ChildCare,
 } from "@mui/icons-material";
 import {useAuth} from "../hooks/useAuth";
 // import {useAuth} from "../context/AuthContext";
@@ -75,9 +75,9 @@ const DashboardLayout = () => {
   const registrations: MenuItem[] = [
     // {text: "Home", icon: <DashboardIcon />, path: "/dashboard"},
     {
-      text: "Member Registration",
-      icon: <FamilyRestroom />,
-      path: "/member-registrations",
+      text: "Baptisms",
+      icon: <ChildCare />,
+      path: "/baptisms",
     },
     {text: "Burials", icon: <Healing />, path: "/burials"},
     {text: "Marriages", icon: <Diversity2 />, path: "/marriages"},
@@ -201,11 +201,11 @@ const DashboardLayout = () => {
 
       <Divider />
 
-      {/* Settings */}
+      {/* Member Registration */}
       <List sx={{px: 1, py: 2}}>
         <ListItem disablePadding>
           <ListItemButton
-            onClick={() => navigate("/settings")}
+            onClick={() => navigate("/member-registrations")}
             sx={{
               borderRadius: 2,
               "&:hover": {
@@ -219,10 +219,10 @@ const DashboardLayout = () => {
               },
             }}>
             <ListItemIcon sx={{minWidth: 40, color: "text.secondary"}}>
-              <ManageAccounts />
+              <FamilyRestroom />
             </ListItemIcon>
             <ListItemText
-              primary="User Management"
+              primary="Member Registration"
               primaryTypographyProps={{
                 fontSize: 14,
                 fontWeight: 500,

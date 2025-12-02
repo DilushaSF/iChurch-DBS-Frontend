@@ -15,6 +15,7 @@ import type { Youth, YouthFormData } from "../types/youth.types";
 import type { SundaySchoolFormData, SundaySchoolTeacher } from "../types/sundaySchool.types";
 import type { MemberRegistration, MemberRegistrationFormData } from "../types/memberRegistration.types";
 import type { EventSchedule, EventScheduleFormData } from "../types/event.types";
+import type { Baptism, BaptismFormData } from "../types/baptism.types";
 
 // Axios instance
 const api: AxiosInstance = axios.create({
@@ -152,5 +153,14 @@ export const eventSchedulerAPI = {
     updateEvent: (id: string, data: Partial<EventScheduleFormData>) => api.patch<EventSchedule>(`/api/events/${id}`, data),
     deleteEvent: (id: string) => api.delete(`/api/events/${id}`),
 
+}
+
+export const baptismAPI = {
+    getAllBaptisms: () => api.get<Baptism[]>('/api/baptisms'),
+    getBaptismById: (id: string) => api.get<Baptism>(`/api/baptisms/${id}`),
+    addBaptism: (data: BaptismFormData) => api.post<Baptism>('/api/baptisms', data),
+    editBaptism: (id: string, data: Partial<BaptismFormData>) =>
+        api.patch<Baptism>(`/api/baptisms/${id}`, data),
+    deleteBaptism: (id: string) => api.delete(`/api/baptisms/${id}`),
 }
 export default api;
