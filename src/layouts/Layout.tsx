@@ -39,7 +39,7 @@ import {
   CalendarMonth as CalendarIcon,
   Upcoming as UpcomingIcon,
 } from "@mui/icons-material";
-import {useAuth} from "../context/AuthContext";
+import {useAuth} from "../hooks/useAuth";
 
 const drawerWidth = 280;
 
@@ -325,7 +325,7 @@ const Layout = () => {
           </Typography>
           <IconButton onClick={handleProfileMenuOpen} sx={{ml: 2}}>
             <Avatar sx={{bgcolor: "primary.main"}}>
-              {user?.name?.charAt(0) || "U"}
+              {user?.churchName?.charAt(0) || "U"}
             </Avatar>
           </IconButton>
           <Menu
@@ -342,7 +342,7 @@ const Layout = () => {
             }}>
             <Box sx={{px: 2, py: 1}}>
               <Typography variant="subtitle1" sx={{fontWeight: 600}}>
-                {user?.name}
+                {user?.churchName}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 {user?.email}

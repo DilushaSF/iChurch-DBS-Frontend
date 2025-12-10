@@ -119,7 +119,7 @@ export const choirAPI = {
 export const youthAPI = {
     getAllYouthMembers: () => api.get<Youth[]>('/api/youth-association'),
     getYouthMemberById: (id: string) => api.get<Youth>(`/api/youth-association/${id}`),
-    addYouthMember: (data: YouthFormData) => api.post<Youth>('/youth-association', data),
+    addYouthMember: (data: YouthFormData) => api.post<Youth>('/api/youth-association', data),
     editYouthMember: (id: string, data: Partial<YouthFormData>) =>
         api.patch<Youth>(`/api/youth-association/${id}`, data),
     deleteYouthMember: (id: string) => api.delete(`/api/youth-association/${id}`),
