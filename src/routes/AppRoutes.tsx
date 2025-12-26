@@ -221,17 +221,6 @@ const AppRoutes = () => {
         <Route path="baptisms/add" element={<AddBaptism />} />
         <Route path="baptisms/view/:id" element={<ViewBaptism />} />
         <Route path="baptisms/edit/:id" element={<EditBaptism />} />
-
-        {/* Sample routes */}
-        <Route
-          path="ministry"
-          element={<div>Event Scheduler (Coming Soon)</div>}
-        />
-        <Route
-          path="settings"
-          element={<div>User Management (Coming Soon)</div>}
-        />
-        <Route path="profile" element={<div>Profile Page (Coming Soon)</div>} />
       </Route>
 
       {/* Catch all - redirect to login */}

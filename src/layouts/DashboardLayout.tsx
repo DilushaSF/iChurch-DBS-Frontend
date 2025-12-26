@@ -17,7 +17,6 @@ import {
   Avatar,
   Menu,
   MenuItem,
-  Badge,
   Tooltip,
 } from "@mui/material";
 import {
@@ -25,8 +24,6 @@ import {
   FamilyRestroom,
   Diversity2,
   ConnectWithoutContact,
-  Notifications as NotificationsIcon,
-  AccountCircle,
   Logout,
   Church,
   Groups,
@@ -261,13 +258,13 @@ const DashboardLayout = () => {
 
           {/* Right side icons */}
           <Box sx={{display: "flex", alignItems: "center", gap: 1}}>
-            <Tooltip title="Notifications">
+            {/* <Tooltip title="Notifications">
               <IconButton color="inherit">
                 <Badge badgeContent={4} color="error">
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
-            </Tooltip>
+            </Tooltip> */}
 
             <Tooltip title="Account">
               <IconButton onClick={handleProfileMenuOpen} color="inherit">
@@ -301,12 +298,7 @@ const DashboardLayout = () => {
               </Typography>
             </Box>
             <Divider />
-            <MenuItem onClick={() => navigate("/profile")}>
-              <ListItemIcon>
-                <AccountCircle fontSize="small" />
-              </ListItemIcon>
-              Profile
-            </MenuItem>
+
             <MenuItem onClick={handleLogout}>
               <ListItemIcon>
                 <Logout fontSize="small" />

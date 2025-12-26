@@ -1,292 +1,423 @@
+import {useState, useEffect} from "react";
 import {
   Box,
   Grid,
   Card,
-  CardContent,
   Typography,
-  Avatar,
   Paper,
-  LinearProgress,
+  Chip,
+  CircularProgress,
 } from "@mui/material";
 import {
-  People as PeopleIcon,
+  Wc,
+  FamilyRestroom,
   Event as EventIcon,
-  AttachMoney as MoneyIcon,
-  TrendingUp,
-  TrendingDown,
+  ChildCare,
+  Healing,
+  Groups,
 } from "@mui/icons-material";
-
-import type {JSX} from "react";
+import {useNavigate} from "react-router-dom";
 import {useAuth} from "../../hooks/useAuth";
+import {
+  baptismAPI,
+  burialAPI,
+  marriageAPI,
+  memberRegistrationAPI,
+  unitLeaderAPI,
+  zonalLeaderAPI,
+  eventSchedulerAPI,
+  youthAPI,
+  choirAPI,
+  sundaySchoolAPI,
+} from "../../services/api";
 
-interface Stat {
-  title: string;
-  value: string;
-  change: string;
-  trend: "up" | "down";
-  icon: JSX.Element;
-  color: string;
-  bgColor: string;
+interface DashboardStats {
+  baptisms: number;
+  burials: number;
+  marriages: number;
+  families: number;
+  unitLeaders: number;
+  zonalLeaders: number;
+  youthMembers: number;
+  choiristors: number;
+  teachers: number;
 }
 
-interface Activity {
+interface UpcomingEvent {
+  // _id: string;
   title: string;
-  name: string;
-  time: string;
-}
-
-interface Event {
-  title: string;
-  date: string;
-  time: string;
-  attendees: number;
+  startDate: string;
+  category?: string;
+  location?: string;
 }
 
 const Dashboard = () => {
   const {user} = useAuth();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [, setError] = useState<string | null>(null);
+  const [stats, setStats] = useState<DashboardStats>({
+    baptisms: 0,
+    burials: 0,
+    marriages: 0,
+    families: 0,
+    unitLeaders: 0,
+    zonalLeaders: 0,
+    youthMembers: 0,
+    choiristors: 0,
+    teachers: 0,
+  });
+  const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEvent[]>([]);
 
-  // mock data
-  const stats: Stat[] = [
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
+
+  const fetchDashboardData = async () => {
+    try {
+      setLoading(true);
+
+      const [
+        baptismsRes,
+        burialsRes,
+        marriagesRes,
+        familiesRes,
+        eventsRes,
+        unitLeadersRes,
+        zonalLeadersRes,
+        youthMembersRes,
+        choiristorsRes,
+        teachersRes,
+      ] = await Promise.all([
+        baptismAPI.getAllBaptisms(),
+        burialAPI.getAllBurials(),
+        marriageAPI.getAllMarriages(),
+        memberRegistrationAPI.getAllMembers(),
+        eventSchedulerAPI.getAllEvents(),
+        unitLeaderAPI.getAllUnitLeaders(),
+        zonalLeaderAPI.getAllZonalLeaders(),
+        youthAPI.getAllYouthMembers(),
+        choirAPI.getAllChoiristors(),
+        sundaySchoolAPI.getAllTeachers(),
+      ]);
+
+      setStats({
+        baptisms: baptismsRes.data.length,
+        burials: burialsRes.data.length,
+        marriages: marriagesRes.data.length,
+        families: familiesRes.data.length,
+        unitLeaders: unitLeadersRes.data.length,
+        zonalLeaders: zonalLeadersRes.data.length,
+        youthMembers: youthMembersRes.data.length,
+        choiristors: choiristorsRes.data.length,
+        teachers: teachersRes.data.length,
+      });
+
+      // Filter upcoming events
+      const today = new Date();
+      const upcoming = eventsRes.data.filter(
+        (event: UpcomingEvent) => new Date(event.startDate) >= today
+      );
+
+      setUpcomingEvents(upcoming);
+      setError(null);
+    } catch (error) {
+      console.error("Error fetching dashboard data:", error);
+      setError("Failed to load dashboard data");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.toLocaleDateString("en-US", {month: "short"});
+    return {day, month};
+  };
+
+  const formatTime = (dateString: string) => {
+    return new Date(dateString).toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+
+  const statCards = [
     {
-      title: "Total Members",
-      value: "1,234",
-      change: "+12%",
-      trend: "up",
-      icon: <PeopleIcon />,
-      color: "#1976d2",
-      bgColor: "#e3f2fd",
+      title: "Baptisms",
+      count: stats.baptisms,
+      icon: <ChildCare sx={{fontSize: 60}} />,
+      color: "#3b82f6",
+      bgColor: "#eff6ff",
+      path: "/baptisms",
     },
     {
-      title: "Upcoming Events",
-      value: "24",
-      change: "+5",
-      trend: "up",
-      icon: <EventIcon />,
-      color: "#2e7d32",
-      bgColor: "#e8f5e9",
+      title: "Burials",
+      count: stats.burials,
+      icon: <Healing sx={{fontSize: 60}} />,
+      color: "#8b5cf6",
+      bgColor: "#f5f3ff",
+      path: "/burials",
     },
     {
-      title: "Monthly Donations",
-      value: "$45,680",
-      change: "+18%",
-      trend: "up",
-      icon: <MoneyIcon />,
-      color: "#ed6c02",
-      bgColor: "#fff3e0",
+      title: "Marriages",
+      count: stats.marriages,
+      icon: <Wc sx={{fontSize: 60}} />,
+      color: "#ec4899",
+      bgColor: "#fdf2f8",
+      path: "/marriages",
     },
     {
-      title: "Attendance Rate",
-      value: "87%",
-      change: "-3%",
-      trend: "down",
-      icon: <PeopleIcon />,
-      color: "#9c27b0",
-      bgColor: "#f3e5f5",
+      title: "Families",
+      count: stats.families,
+      icon: <FamilyRestroom sx={{fontSize: 60}} />,
+      color: "#10b981",
+      bgColor: "#f0fdf4",
+      path: "/member-registrations",
+    },
+    {
+      title: "Zone Heads",
+      count: stats.families,
+      icon: <Groups sx={{fontSize: 60}} />,
+      color: "#c6e81dff",
+      bgColor: "#f0fdf4",
+      path: "/member-registrations",
+    },
+    {
+      title: "Unit Heads",
+      count: stats.families,
+      icon: <Groups sx={{fontSize: 60}} />,
+      color: "#e8770dff",
+      bgColor: "#fdf5f0ff",
+      path: "/member-registrations",
     },
   ];
 
-  const recentActivities: Activity[] = [
-    {
-      title: "New member registered",
-      name: "John Doe",
-      time: "2 hours ago",
-    },
-    {
-      title: "Event created",
-      name: "Sunday Service",
-      time: "5 hours ago",
-    },
-    {
-      title: "Donation received",
-      name: "$500 from Jane Smith",
-      time: "1 day ago",
-    },
-    {
-      title: "Volunteer signed up",
-      name: "Mike Johnson",
-      time: "2 days ago",
-    },
-  ];
-
-  const upcomingEvents: Event[] = [
-    {
-      title: "Sunday Morning Service",
-      date: "Nov 10, 2025",
-      time: "9:00 AM",
-      attendees: 245,
-    },
-    {
-      title: "Youth Group Meeting",
-      date: "Nov 12, 2025",
-      time: "6:00 PM",
-      attendees: 45,
-    },
-    {
-      title: "Bible Study",
-      date: "Nov 13, 2025",
-      time: "7:00 PM",
-      attendees: 67,
-    },
-  ];
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "60vh",
+        }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <Box>
-      {/* Welcome Section */}
-      <Box sx={{mb: 4}}>
-        <Typography variant="h4" gutterBottom sx={{fontWeight: 600}}>
-          Welcome back, {user?.churchName}! 👋
+      {/* Header Section */}
+      <Paper
+        elevation={3}
+        sx={{
+          p: 3,
+          mb: 3,
+          borderRadius: 3,
+          background: "linear-gradient(135deg, #f8fafc, #eef2ff)",
+          border: "1px solid #e5e7eb",
+        }}>
+        <Typography variant="h4" fontWeight={700} sx={{mb: 1}}>
+          Welcome Back — {user?.churchName}
         </Typography>
-        <Typography variant="body1" color="text.secondary">
-          Here's what's happening with your church today.
-        </Typography>
-      </Box>
 
-      {/* Stats Cards */}
-      <Grid container spacing={3} sx={{mb: 4}}>
-        {stats.map((stat, index) => (
-          <Grid item xs={12} sm={6} md={3} key={index}>
+        <Typography variant="subtitle1" color="text.secondary">
+          {user?.parishName} Parish Dashboard
+        </Typography>
+
+        <Typography
+          variant="caption"
+          sx={{color: "text.secondary", display: "block", mt: 1}}>
+          {new Date().toLocaleDateString("en-US", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </Typography>
+      </Paper>
+
+      <Grid container spacing={1} sx={{mb: 1}}>
+        {statCards.map((card, index) => (
+          <Grid item xs={12} sm={6} md={2} key={index}>
             <Card
+              onClick={() => navigate(card.path)}
               sx={{
-                height: "100%",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                "&:hover": {
-                  boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
-                  transform: "translateY(-4px)",
-                  transition: "all 0.3s",
-                },
+                cursor: "pointer",
+                p: 2,
+                borderRadius: 3,
+                display: "flex",
+                alignItems: "center",
+                gap: 2,
+                backgroundColor: card.bgColor,
+                transition: "0.3s",
+                "&:hover": {boxShadow: "0px 4px 18px rgba(0,0,0,0.08)"},
               }}>
-              <CardContent>
-                <Box sx={{display: "flex", alignItems: "center", mb: 2}}>
-                  <Avatar
-                    sx={{
-                      bgcolor: stat.bgColor,
-                      color: stat.color,
-                      width: 56,
-                      height: 56,
-                    }}>
-                    {stat.icon}
-                  </Avatar>
-                </Box>
-                <Typography variant="body2" color="text.secondary" gutterBottom>
-                  {stat.title}
+              <Box
+                sx={{
+                  width: 60,
+                  height: 60,
+                  borderRadius: "50%",
+                  backgroundColor: card.bgColor,
+                  color: card.color,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}>
+                {card.icon}
+              </Box>
+
+              <Box>
+                <Typography variant="h3" fontWeight={800}>
+                  {card.count}
                 </Typography>
-                <Box sx={{display: "flex", alignItems: "baseline", gap: 1}}>
-                  <Typography variant="h4" sx={{fontWeight: 700}}>
-                    {stat.value}
-                  </Typography>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      color:
-                        stat.trend === "up" ? "success.main" : "error.main",
-                    }}>
-                    {stat.trend === "up" ? (
-                      <TrendingUp fontSize="small" />
-                    ) : (
-                      <TrendingDown fontSize="small" />
-                    )}
-                    <Typography variant="body2" sx={{fontWeight: 600}}>
-                      {stat.change}
-                    </Typography>
-                  </Box>
-                </Box>
-              </CardContent>
+                <Typography variant="body1" sx={{fontWeight: 800}}>
+                  {card.title}
+                </Typography>
+              </Box>
             </Card>
           </Grid>
         ))}
       </Grid>
 
-      {/* Content Grid */}
       <Grid container spacing={3}>
-        {/* Recent Activities */}
-        <Grid item xs={12} md={6}>
-          <Paper sx={{p: 3, boxShadow: "0 2px 8px rgba(0,0,0,0.1)"}}>
-            <Typography variant="h6" gutterBottom sx={{fontWeight: 600, mb: 3}}>
-              Recent Activities
-            </Typography>
-            <Box>
-              {recentActivities.map((activity, index) => (
-                <Box
-                  key={index}
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    mb: 2,
-                    pb: 2,
-                    borderBottom:
-                      index !== recentActivities.length - 1
-                        ? "1px solid #e0e0e0"
-                        : "none",
-                  }}>
-                  <Avatar
-                    sx={{
-                      bgcolor: "primary.light",
-                      width: 40,
-                      height: 40,
-                      mr: 2,
-                    }}>
-                    {activity.name.charAt(0)}
-                  </Avatar>
-                  <Box sx={{flexGrow: 1}}>
-                    <Typography variant="body2" sx={{fontWeight: 600}}>
-                      {activity.title}
-                    </Typography>
-                    <Typography variant="caption" color="text.secondary">
-                      {activity.name}
-                    </Typography>
-                  </Box>
-                  <Typography variant="caption" color="text.secondary">
-                    {activity.time}
-                  </Typography>
-                </Box>
-              ))}
+        {/* UPCOMING EVENTS */}
+        <Grid item xs={12} md={8}>
+          <Paper
+            elevation={0}
+            sx={{
+              p: 3,
+              borderRadius: 3,
+              border: "1px solid #e5e7eb",
+            }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                mb: 3,
+                alignItems: "center",
+              }}>
+              <Typography variant="h5" fontWeight={700}>
+                Upcoming Events
+              </Typography>
+
+              <Chip
+                label={`${upcomingEvents.length} Events`}
+                color="primary"
+                variant="outlined"
+              />
             </Box>
+
+            {upcomingEvents.length === 0 ? (
+              <Box sx={{textAlign: "center", py: 5}}>
+                <EventIcon
+                  sx={{fontSize: 50, mb: 1, color: "text.secondary"}}
+                />
+                <Typography>No upcoming events</Typography>
+              </Box>
+            ) : (
+              <Grid container spacing={2}>
+                {upcomingEvents.map((event, idx) => {
+                  const {day, month} = formatDate(event.startDate);
+                  return (
+                    <Grid item xs={12} key={idx}>
+                      <Paper
+                        sx={{
+                          p: 2,
+                          borderRadius: 2,
+                          cursor: "pointer",
+                          border: "1px solid #e5e7eb",
+                          "&:hover": {
+                            backgroundColor: "#f9fafb",
+                            borderColor: "primary.main",
+                          },
+                        }}
+                        onClick={() => navigate("/events")}>
+                        <Box sx={{display: "flex", gap: 2}}>
+                          {/* Date */}
+                          <Box
+                            sx={{
+                              width: 60,
+                              borderRadius: 2,
+                              textAlign: "center",
+                              background: "#eff6ff",
+                              border: "1px solid #bfdbfe",
+                              py: 1,
+                            }}>
+                            <Typography
+                              variant="h5"
+                              fontWeight={700}
+                              sx={{color: "#2563eb"}}>
+                              {day}
+                            </Typography>
+                            <Typography variant="body2" sx={{color: "#2563eb"}}>
+                              {month}
+                            </Typography>
+                          </Box>
+
+                          {/* Details */}
+                          <Box sx={{flex: 1}}>
+                            <Typography variant="h6" fontWeight={600}>
+                              {event.title}
+                            </Typography>
+
+                            <Typography variant="body2" color="text.secondary">
+                              ⏰ {formatTime(event.startDate)}
+                            </Typography>
+
+                            {event.location && (
+                              <Typography
+                                variant="body2"
+                                color="text.secondary">
+                                📍 {event.location}
+                              </Typography>
+                            )}
+                          </Box>
+                        </Box>
+                      </Paper>
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            )}
           </Paper>
         </Grid>
 
-        {/* Upcoming Events */}
-        <Grid item xs={12} md={6}>
-          <Paper sx={{p: 3, boxShadow: "0 2px 8px rgba(0,0,0,0.1)"}}>
-            <Typography variant="h6" gutterBottom sx={{fontWeight: 600, mb: 3}}>
-              Upcoming Events
+        <Grid item xs={12} md={4}>
+          <Paper
+            elevation={0}
+            sx={{
+              p: 3,
+              borderRadius: 3,
+              border: "1px solid #e5e7eb",
+            }}>
+            <Typography variant="h5" fontWeight={700} sx={{mb: 2}}>
+              Quick Info
             </Typography>
-            <Box>
-              {upcomingEvents.map((event, index) => (
-                <Box
-                  key={index}
-                  sx={{
-                    mb: 3,
-                    pb: 3,
-                    borderBottom:
-                      index !== upcomingEvents.length - 1
-                        ? "1px solid #e0e0e0"
-                        : "none",
-                  }}>
-                  <Typography variant="body1" sx={{fontWeight: 600, mb: 1}}>
-                    {event.title}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{mb: 1}}>
-                    {event.date} at {event.time}
-                  </Typography>
-                  <Box sx={{display: "flex", alignItems: "center", gap: 1}}>
-                    <Typography variant="caption" color="text.secondary">
-                      Expected Attendees:
-                    </Typography>
-                    <Typography variant="caption" sx={{fontWeight: 600}}>
-                      {event.attendees}
-                    </Typography>
-                  </Box>
-                  <LinearProgress
-                    variant="determinate"
-                    value={(event.attendees / 300) * 100}
-                    sx={{mt: 1, height: 6, borderRadius: 3}}
-                  />
-                </Box>
-              ))}
+
+            <Box sx={{display: "flex", flexDirection: "column", gap: 2}}>
+              <Paper sx={{p: 2, borderRadius: 2}}>
+                <Typography fontWeight={700}>Total Choiristors:</Typography>
+                <Typography>{stats.choiristors}</Typography>
+              </Paper>
+
+              <Paper sx={{p: 2, borderRadius: 2}}>
+                <Typography fontWeight={700}>
+                  Total Sunday School Teachers:
+                </Typography>
+                <Typography>{stats.teachers}</Typography>
+              </Paper>
+
+              <Paper sx={{p: 2, borderRadius: 2}}>
+                <Typography fontWeight={700}>
+                  Total in Youth Association:
+                </Typography>
+                <Typography>{stats.youthMembers}</Typography>
+              </Paper>
             </Box>
           </Paper>
         </Grid>

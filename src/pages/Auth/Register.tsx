@@ -21,6 +21,7 @@ import {
   Church,
   Business,
 } from "@mui/icons-material";
+import backgroundImg from "../../assets/images/background.png";
 import {useAuth} from "../../hooks/useAuth";
 
 interface FormData {
@@ -96,7 +97,11 @@ const Register = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        // background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        backgroundImage: `linear-gradient(rgba(102, 126, 234, 0.5),rgba(118, 75, 162, 0.7)), url(${backgroundImg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
         padding: 2,
       }}>
       <Card
