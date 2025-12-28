@@ -26,9 +26,13 @@ import {
   Edit as EditIcon,
   Delete as DeleteIcon,
   Search as SearchIcon,
+  Print,
 } from "@mui/icons-material";
 import type {Baptism} from "../../types/baptism.types";
 import {baptismAPI} from "../../services/api";
+import {generateBaptismCertificate} from "../../utils/baptismCertificate";
+import {useAuth} from "../../hooks/useAuth";
+// import { baptismCertificate } from "../utils/
 
 const BaptismList: React.FC = () => {
   const [baptisms, setBaptisms] = useState<Baptism[]>([]);
@@ -56,6 +60,8 @@ const BaptismList: React.FC = () => {
     }
   };
 
+  const {user} = useAuth();
+
   const handleDelete = async (id: string): Promise<void> => {
     if (
       window.confirm("Are you sure you want to delete this baptism record?")
@@ -65,7 +71,7 @@ const BaptismList: React.FC = () => {
         setBaptisms(baptisms.filter((baptism) => baptism._id !== id));
       } catch (err) {
         alert("Failed to delete baptism record");
-        console.error("Error deleting baptism:", err);
+        console.error("Error deleting baotism:", err);
       }
     }
   };
@@ -94,15 +100,6 @@ const BaptismList: React.FC = () => {
       month: "long",
       day: "numeric",
     });
-  };
-
-  const formatTime = (timeString: string): string => {
-    // If time is in HH:MM format, convert to 12-hour format
-    const [hours, minutes] = timeString.split(":");
-    const hour = parseInt(hours, 10);
-    const ampm = hour >= 12 ? "PM" : "AM";
-    const displayHour = hour % 12 || 12;
-    return `${displayHour}:${minutes} ${ampm}`;
   };
 
   if (loading) {
@@ -227,10 +224,9 @@ const BaptismList: React.FC = () => {
                   <TableCell sx={{fontWeight: 600}}>Name of Father</TableCell>
                   <TableCell sx={{fontWeight: 600}}>Name of Mother</TableCell>
                   <TableCell sx={{fontWeight: 600}}>Date of Baptism</TableCell>
-                  <TableCell sx={{fontWeight: 600}}>Time of Baptism</TableCell>
-
-                  <TableCell sx={{fontWeight: 600}}>
-                    Parents Married ?
+                  <TableCell sx={{fontWeight: 600}}>Parents Married</TableCell>
+                  <TableCell sx={{fontWeight: 600}} align="center">
+                    Baptism Certificate
                   </TableCell>
                   <TableCell sx={{fontWeight: 600}} align="center">
                     Actions
@@ -250,8 +246,6 @@ const BaptismList: React.FC = () => {
                     <TableCell>{baptism.nameOfFather}</TableCell>
                     <TableCell>{baptism.nameOfMother}</TableCell>
                     <TableCell>{formatDate(baptism.dateOfBaptism)}</TableCell>
-                    <TableCell>{formatTime(baptism.timeOfBaptism)}</TableCell>
-
                     <TableCell align="center">
                       <Chip
                         label={baptism.areParentsMarried ? "Yes" : "No"}
@@ -262,6 +256,38 @@ const BaptismList: React.FC = () => {
                             : "warning"
                         }
                       />
+                    </TableCell>
+                    <TableCell>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          gap: 0.5,
+                          justifyContent: "center",
+                        }}>
+                        <Tooltip title="Print Certificate">
+                          <IconButton
+                            size="small"
+                            onClick={() =>
+                              generateBaptismCertificate(
+                                baptism,
+                                user?.churchName || ""
+                              )
+                            }
+                            sx={{
+                              color: "warning.main",
+                              border: "1px solid",
+                              borderColor: "warning.main",
+                              borderRadius: 1,
+                              padding: "6px",
+                              "&:hover": {
+                                backgroundColor: "error.main",
+                                color: "white",
+                              },
+                            }}>
+                            <Print fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                      </Box>
                     </TableCell>
 
                     <TableCell align="center">
@@ -307,6 +333,7 @@ const BaptismList: React.FC = () => {
                             <EditIcon fontSize="small" />
                           </IconButton>
                         </Tooltip>
+
                         <Tooltip title="Delete Record">
                           <IconButton
                             size="small"
