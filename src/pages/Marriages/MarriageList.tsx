@@ -26,9 +26,12 @@ import {
   Edit as EditIcon,
   Delete as DeleteIcon,
   Search as SearchIcon,
+  Print,
 } from "@mui/icons-material";
 import {marriageAPI} from "../../services/api";
 import type {Marriage} from "../../types/marriage.types";
+import {useAuth} from "../../hooks/useAuth";
+import {generateMarriageCertificate} from "../../utils/marriageCertificate";
 
 const MarriagesList: React.FC = () => {
   const [marriages, setMarriages] = useState<Marriage[]>([]);
@@ -37,7 +40,7 @@ const MarriagesList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const navigate = useNavigate();
 
-  // Fetch marriages on component mount
+  // Fetch marriages
   useEffect(() => {
     fetchMarriages();
   }, []);
@@ -56,14 +59,15 @@ const MarriagesList: React.FC = () => {
     }
   };
 
-  const handleDelete = async (id: string): Promise<void> => {
+  const {user} = useAuth();
+
+  const deleteMarriage = async (id: string): Promise<void> => {
     if (
       window.confirm("Are you sure you want to delete this marriage record?")
     ) {
       try {
         await marriageAPI.deleteMarriage(id);
         setMarriages(marriages.filter((marriage) => marriage._id !== id));
-        // Optional: Show success message with Snackbar
       } catch (err) {
         alert("Failed to delete marriage record");
         console.error("Error deleting marriage:", err);
@@ -71,11 +75,11 @@ const MarriagesList: React.FC = () => {
     }
   };
 
-  const handleView = (id: string): void => {
+  const viewMarriage = (id: string): void => {
     navigate(`/marriages/view/${id}`);
   };
 
-  const handleEdit = (id: string): void => {
+  const updateMarriage = (id: string): void => {
     navigate(`/marriages/edit/${id}`);
   };
 
@@ -158,7 +162,7 @@ const MarriagesList: React.FC = () => {
           </Button>
         </Box>
 
-        {/* Search Bar and Count */}
+        {/* Search Bar */}
         <Box
           sx={{
             display: "flex",
@@ -191,7 +195,7 @@ const MarriagesList: React.FC = () => {
           </Typography>
         </Box>
 
-        {/* Error Message */}
+        {/* Error Alert */}
         {error && (
           <Alert severity="error" sx={{mb: 3}}>
             {error}
@@ -202,7 +206,7 @@ const MarriagesList: React.FC = () => {
         {filteredMarriages.length === 0 ? (
           <Card sx={{p: 6, textAlign: "center"}}>
             <Typography variant="h6" color="text.secondary" gutterBottom>
-              No burial records found.
+              No records found.
             </Typography>
             <Button
               variant="contained"
@@ -224,9 +228,11 @@ const MarriagesList: React.FC = () => {
                   <TableCell sx={{fontWeight: 600}}>Bride's Name</TableCell>
                   <TableCell sx={{fontWeight: 600}}>Marriage Date</TableCell>
                   {/* <TableCell sx={{fontWeight: 600}}>Time of Mass</TableCell> */}
-                  <TableCell sx={{fontWeight: 600}}>Church Choir ?</TableCell>
                   <TableCell sx={{fontWeight: 600}}>
-                    Church Decorations ?
+                    Need Church Choir
+                  </TableCell>
+                  <TableCell sx={{fontWeight: 600}} align="center">
+                    Marriage Certificate
                   </TableCell>
                   <TableCell sx={{fontWeight: 600}} align="center">
                     Actions
@@ -257,16 +263,38 @@ const MarriagesList: React.FC = () => {
                         }
                       />
                     </TableCell>
-                    <TableCell align="center">
-                      <Chip
-                        label={marriage.useChurchDecos}
-                        size="small"
-                        color={
-                          marriage.useChurchDecos === "Yes"
-                            ? "success"
-                            : "warning"
-                        }
-                      />
+
+                    <TableCell>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          gap: 0.5,
+                          justifyContent: "center",
+                        }}>
+                        <Tooltip title="Print Certificate">
+                          <IconButton
+                            size="small"
+                            onClick={() =>
+                              generateMarriageCertificate(
+                                marriage,
+                                user?.churchName || ""
+                              )
+                            }
+                            sx={{
+                              color: "warning.main",
+                              border: "1px solid",
+                              borderColor: "warning.main",
+                              borderRadius: 1,
+                              padding: "6px",
+                              "&:hover": {
+                                backgroundColor: "error.main",
+                                color: "white",
+                              },
+                            }}>
+                            <Print fontSize="small" />
+                          </IconButton>
+                        </Tooltip>
+                      </Box>
                     </TableCell>
 
                     {/* Actions */}
@@ -280,7 +308,7 @@ const MarriagesList: React.FC = () => {
                         <Tooltip title="View Details">
                           <IconButton
                             size="small"
-                            onClick={() => handleView(marriage._id)}
+                            onClick={() => viewMarriage(marriage._id)}
                             sx={{
                               color: "primary.main",
                               border: "1px solid",
@@ -298,7 +326,7 @@ const MarriagesList: React.FC = () => {
                         <Tooltip title="Edit Record">
                           <IconButton
                             size="small"
-                            onClick={() => handleEdit(marriage._id)}
+                            onClick={() => updateMarriage(marriage._id)}
                             sx={{
                               color: "info.main",
                               border: "1px solid",
@@ -316,7 +344,7 @@ const MarriagesList: React.FC = () => {
                         <Tooltip title="Delete Record">
                           <IconButton
                             size="small"
-                            onClick={() => handleDelete(marriage._id)}
+                            onClick={() => deleteMarriage(marriage._id)}
                             sx={{
                               color: "error.main",
                               border: "1px solid",
