@@ -252,6 +252,7 @@ const AddMarriage = () => {
                 <InputLabel>Mass Type</InputLabel>
                 <Select
                   name="massType"
+                  data-testid="mass-type-select"
                   value={formData.massType}
                   label="Mass Type"
                   onChange={(e) =>
@@ -283,6 +284,7 @@ const AddMarriage = () => {
                 <FormControl component="fieldset">
                   <FormLabel
                     component="legend"
+                    data-testid="need-choir"
                     sx={{fontWeight: 600, mb: 1, color: "text.primary"}}>
                     Need Church Choir?
                   </FormLabel>
@@ -319,6 +321,7 @@ const AddMarriage = () => {
                 <FormControl component="fieldset">
                   <FormLabel
                     component="legend"
+                    data-testid="need-deco"
                     sx={{fontWeight: 600, mb: 1, color: "text.primary"}}>
                     Use Church Decorations?
                   </FormLabel>

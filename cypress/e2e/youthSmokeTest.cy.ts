@@ -1,6 +1,6 @@
 describe("Youth Member Registering Smoke Test", () => {
 
-    it("should load add-youth form and redirect after save", () => {
+    it("should load youth member adding form and redirects after submit", () => {
         cy.visit("/login");
 
         cy.get("input[name='email']").type("test@gmail.com");
