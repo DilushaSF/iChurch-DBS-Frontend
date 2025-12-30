@@ -37,7 +37,7 @@ const BurialsList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const navigate = useNavigate();
 
-  // Fetch burials on component mount
+  // Fetch burials
   useEffect(() => {
     fetchBurials();
   }, []);
@@ -61,7 +61,6 @@ const BurialsList: React.FC = () => {
       try {
         await burialAPI.deleteBurial(id);
         setBurials(burials.filter((burial) => burial._id !== id));
-        // Optional: Show success message with Snackbar
       } catch (err) {
         alert("Failed to delete burial record");
         console.error("Error deleting burial:", err);
@@ -69,15 +68,15 @@ const BurialsList: React.FC = () => {
     }
   };
 
-  const handleView = (id: string): void => {
+  const viewBurial = (id: string): void => {
     navigate(`/burials/view/${id}`);
   };
 
-  const handleEdit = (id: string): void => {
+  const editBurial = (id: string): void => {
     navigate(`/burials/edit/${id}`);
   };
 
-  const handleAddNew = (): void => {
+  const addBurial = (): void => {
     navigate("/burials/add");
   };
 
@@ -147,7 +146,7 @@ const BurialsList: React.FC = () => {
           <Button
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={handleAddNew}
+            onClick={addBurial}
             sx={{textTransform: "none", fontWeight: 500}}>
             Add Burial Record
           </Button>
@@ -186,7 +185,6 @@ const BurialsList: React.FC = () => {
           </Typography>
         </Box>
 
-        {/* Error Message */}
         {error && (
           <Alert severity="error" sx={{mb: 3}}>
             {error}
@@ -202,7 +200,7 @@ const BurialsList: React.FC = () => {
             <Button
               variant="contained"
               startIcon={<AddIcon />}
-              onClick={handleAddNew}
+              onClick={addBurial}
               sx={{mt: 2, textTransform: "none"}}>
               Add First Record
             </Button>
@@ -253,7 +251,7 @@ const BurialsList: React.FC = () => {
                         <Tooltip title="View Details">
                           <IconButton
                             size="small"
-                            onClick={() => handleView(burial._id)}
+                            onClick={() => viewBurial(burial._id)}
                             sx={{
                               color: "primary.main",
                               border: "1px solid",
@@ -271,7 +269,7 @@ const BurialsList: React.FC = () => {
                         <Tooltip title="Edit Record">
                           <IconButton
                             size="small"
-                            onClick={() => handleEdit(burial._id)}
+                            onClick={() => editBurial(burial._id)}
                             sx={{
                               color: "info.main",
                               border: "1px solid",

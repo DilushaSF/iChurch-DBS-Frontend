@@ -50,10 +50,6 @@ const ViewBurial: React.FC = () => {
     navigate("/burials");
   };
 
-  // const handleEdit = () => {
-  //   navigate(`/burials/edit/${id}`);
-  // };
-
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to delete this burial record?")) {
       try {
@@ -146,13 +142,6 @@ const ViewBurial: React.FC = () => {
               </Typography>
             </Box>
             <Box sx={{display: "flex", gap: 2}}>
-              {/* <Button
-                variant="contained"
-                startIcon={<EditIcon />}
-                onClick={handleEdit}
-                sx={{textTransform: "none"}}>
-                Edit
-              </Button> */}
               <Button
                 variant="outlined"
                 color="error"
@@ -180,15 +169,9 @@ const ViewBurial: React.FC = () => {
               fullWidth
               label="Name of Deceased"
               value={burial.nameOfDeceased}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               variant="outlined"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -197,15 +180,9 @@ const ViewBurial: React.FC = () => {
               fullWidth
               label="Custodian"
               value={burial.custodian || "N/A"}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               variant="outlined"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -214,14 +191,8 @@ const ViewBurial: React.FC = () => {
               fullWidth
               label="Date of Birth"
               value={formatDate(burial.dateOfBirth)}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -230,14 +201,8 @@ const ViewBurial: React.FC = () => {
               fullWidth
               label="Date of Death"
               value={formatDate(burial.dateOfDeath)}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -249,11 +214,7 @@ const ViewBurial: React.FC = () => {
               InputProps={{
                 readOnly: true,
               }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -304,7 +265,7 @@ const ViewBurial: React.FC = () => {
                     Baptism Status
                   </Typography>
                   <Typography variant="caption" color="text.secondary">
-                    Indicates whether the deceased was baptized
+                    Indicates whether the deceased person was baptized
                   </Typography>
                 </Box>
                 <Chip
@@ -339,14 +300,8 @@ const ViewBurial: React.FC = () => {
                     })
                   : "N/A"
               }
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -365,14 +320,8 @@ const ViewBurial: React.FC = () => {
                     })
                   : "N/A"
               }
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
         </Grid>
@@ -380,31 +329,13 @@ const ViewBurial: React.FC = () => {
         {/* Action Buttons */}
         <Divider sx={{my: 4}} />
 
-        <Box
-          sx={{
-            display: "flex",
-            gap: 2,
-            justifyContent: "flex-end",
-          }}>
+        <Box sx={{display: "flex", gap: 2, justifyContent: "flex-end"}}>
           <Button
             variant="outlined"
             onClick={handleBack}
-            sx={{
-              textTransform: "none",
-              px: 4,
-            }}>
+            sx={{textTransform: "none", px: 4}}>
             Back to List
           </Button>
-          {/* <Button
-            variant="contained"
-            startIcon={<EditIcon />}
-            onClick={handleEdit}
-            sx={{
-              textTransform: "none",
-              px: 4,
-            }}>
-            Edit Record
-          </Button> */}
         </Box>
       </Paper>
     </Box>

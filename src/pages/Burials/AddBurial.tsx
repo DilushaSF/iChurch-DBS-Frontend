@@ -42,13 +42,12 @@ const AddBurial = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
     try {
-      // Convert boolean to "Yes"/"No" string for backend
       const submitData = {
         ...formData,
         baptized: formData.baptized ? true : false,
@@ -114,7 +113,6 @@ const AddBurial = () => {
 
         <Divider sx={{mb: 4}} />
 
-        {/* Error Alert */}
         {error && (
           <Alert severity="error" sx={{mb: 3}} onClose={() => setError(null)}>
             {error}
@@ -122,12 +120,12 @@ const AddBurial = () => {
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={submitForm}>
           <Grid container spacing={3}>
             {/* Deceased Information Section */}
             <Grid item xs={12}>
               <Typography variant="h6" fontWeight={600} gutterBottom>
-                Deceased Information
+                Deceased Person's Information
               </Typography>
             </Grid>
 
@@ -141,11 +139,7 @@ const AddBurial = () => {
                 required
                 variant="outlined"
                 placeholder="Enter full name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -158,11 +152,7 @@ const AddBurial = () => {
                 onChange={handleChange}
                 variant="outlined"
                 placeholder="Enter custodian name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -176,11 +166,7 @@ const AddBurial = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -194,11 +180,7 @@ const AddBurial = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -212,11 +194,7 @@ const AddBurial = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -237,12 +215,8 @@ const AddBurial = () => {
                 required
                 multiline
                 rows={3}
-                placeholder="Describe the cause of death"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                placeholder="Describe the reason for death"
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -271,7 +245,7 @@ const AddBurial = () => {
                         Baptized
                       </Typography>
                       <Typography variant="caption" color="text.secondary">
-                        Check if the deceased was baptized
+                        Check if the deceased person was baptized
                       </Typography>
                     </Box>
                   }

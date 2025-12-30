@@ -82,7 +82,7 @@ const EditBurial: React.FC = () => {
     setError(null);
 
     try {
-      // Convert boolean to "Yes"/"No" string for backend
+      // this Converts t/f to "Yes"/"No"
       const submitData = {
         ...formData,
         baptized: formData.baptized ? true : false,
@@ -109,7 +109,7 @@ const EditBurial: React.FC = () => {
     }
   };
 
-  const handleCancel = () => {
+  const goBack = () => {
     navigate("/burials");
   };
 
@@ -146,7 +146,7 @@ const EditBurial: React.FC = () => {
           <Box sx={{display: "flex", alignItems: "center", gap: 2, mb: 2}}>
             <Button
               startIcon={<ArrowBackIcon />}
-              onClick={handleCancel}
+              onClick={goBack}
               sx={{textTransform: "none"}}
               variant="outlined"
               size="small">
@@ -163,7 +163,6 @@ const EditBurial: React.FC = () => {
 
         <Divider sx={{mb: 4}} />
 
-        {/* Error Alert */}
         {error && (
           <Alert severity="error" sx={{mb: 3}} onClose={() => setError(null)}>
             {error}
@@ -190,11 +189,7 @@ const EditBurial: React.FC = () => {
                 required
                 variant="outlined"
                 placeholder="Enter full name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -207,11 +202,7 @@ const EditBurial: React.FC = () => {
                 onChange={handleChange}
                 variant="outlined"
                 placeholder="Enter custodian name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -225,11 +216,7 @@ const EditBurial: React.FC = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -243,11 +230,7 @@ const EditBurial: React.FC = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -261,11 +244,7 @@ const EditBurial: React.FC = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -286,12 +265,8 @@ const EditBurial: React.FC = () => {
                 required
                 multiline
                 rows={3}
-                placeholder="Describe the cause of death"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                placeholder="Describe the reason for death"
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -332,20 +307,12 @@ const EditBurial: React.FC = () => {
           {/* Action Buttons */}
           <Divider sx={{my: 4}} />
 
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              justifyContent: "flex-end",
-            }}>
+          <Box sx={{display: "flex", gap: 2, justifyContent: "flex-end"}}>
             <Button
               variant="outlined"
-              onClick={handleCancel}
+              onClick={goBack}
               disabled={loading}
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               Cancel
             </Button>
             <Button
@@ -355,10 +322,7 @@ const EditBurial: React.FC = () => {
               startIcon={
                 loading ? <CircularProgress size={20} /> : <SaveIcon />
               }
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               {loading ? "Updating..." : "Update"}
             </Button>
           </Box>
