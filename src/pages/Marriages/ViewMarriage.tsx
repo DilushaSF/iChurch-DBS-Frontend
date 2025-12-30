@@ -46,11 +46,11 @@ const ViewMarriage: React.FC = () => {
     }
   };
 
-  const handleBack = () => {
+  const goBack = () => {
     navigate("/marriages");
   };
 
-  const handleDelete = async () => {
+  const deleteRecord = async () => {
     if (
       window.confirm("Are you sure you want to delete this marriage record?")
     ) {
@@ -73,7 +73,7 @@ const ViewMarriage: React.FC = () => {
   };
 
   const formatTime = (timeString: string): string => {
-    // If time is in HH:MM format, convert to 12-hour format
+    // this converts time to 12-hour format
     const [hours, minutes] = timeString.split(":");
     const hour = parseInt(hours, 10);
     const ampm = hour >= 12 ? "PM" : "AM";
@@ -103,7 +103,7 @@ const ViewMarriage: React.FC = () => {
         </Alert>
         <Button
           startIcon={<ArrowBackIcon />}
-          onClick={handleBack}
+          onClick={goBack}
           variant="outlined">
           Back to List
         </Button>
@@ -129,7 +129,7 @@ const ViewMarriage: React.FC = () => {
           <Box sx={{display: "flex", alignItems: "center", gap: 2, mb: 2}}>
             <Button
               startIcon={<ArrowBackIcon />}
-              onClick={handleBack}
+              onClick={goBack}
               sx={{textTransform: "none"}}
               variant="outlined"
               size="small">
@@ -157,7 +157,7 @@ const ViewMarriage: React.FC = () => {
                 variant="outlined"
                 color="error"
                 startIcon={<DeleteIcon />}
-                onClick={handleDelete}
+                onClick={deleteRecord}
                 sx={{textTransform: "none"}}>
                 Delete
               </Button>
@@ -180,15 +180,9 @@ const ViewMarriage: React.FC = () => {
               fullWidth
               label="Name of Bride"
               value={marriage.nameOfBride}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               variant="outlined"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -197,15 +191,9 @@ const ViewMarriage: React.FC = () => {
               fullWidth
               label="Name of Groom"
               value={marriage.nameOfGroom}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               variant="outlined"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -214,15 +202,9 @@ const ViewMarriage: React.FC = () => {
               fullWidth
               label="Shortened Couple Name"
               value={marriage.shortenedCoupleName}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               variant="outlined"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -238,14 +220,8 @@ const ViewMarriage: React.FC = () => {
               fullWidth
               label="Date of Marriage"
               value={formatDate(marriage.dateOfMarriage)}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -254,14 +230,8 @@ const ViewMarriage: React.FC = () => {
               fullWidth
               label="Time of Mass"
               value={formatTime(marriage.timeOfMass)}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -270,14 +240,8 @@ const ViewMarriage: React.FC = () => {
               fullWidth
               label="Mass Type"
               value={`${marriage.massType} Mass`}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -294,10 +258,10 @@ const ViewMarriage: React.FC = () => {
               sx={{
                 p: 3,
                 backgroundColor:
-                  marriage.needChurchChoir === "Yes" ? "#f0f9ff" : "#fef3c7",
+                  marriage.needChurchChoir === "Yes" ? "#f0f9ff" : "#f9ecb9ff",
                 border: "1px solid",
                 borderColor:
-                  marriage.needChurchChoir === "Yes" ? "#bfdbfe" : "#fde68a",
+                  marriage.needChurchChoir === "Yes" ? "#bfdbfe" : "#fae48bff",
                 borderRadius: 1,
               }}>
               <Box
@@ -366,19 +330,11 @@ const ViewMarriage: React.FC = () => {
         {/* Action Buttons */}
         <Divider sx={{my: 4}} />
 
-        <Box
-          sx={{
-            display: "flex",
-            gap: 2,
-            justifyContent: "flex-end",
-          }}>
+        <Box sx={{display: "flex", gap: 2, justifyContent: "flex-end"}}>
           <Button
             variant="outlined"
-            onClick={handleBack}
-            sx={{
-              textTransform: "none",
-              px: 4,
-            }}>
+            onClick={goBack}
+            sx={{textTransform: "none", px: 4}}>
             Back to List
           </Button>
         </Box>

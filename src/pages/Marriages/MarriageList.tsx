@@ -40,6 +40,8 @@ const MarriagesList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const navigate = useNavigate();
 
+  const {user} = useAuth();
+
   // Fetch marriages
   useEffect(() => {
     fetchMarriages();
@@ -58,8 +60,6 @@ const MarriagesList: React.FC = () => {
       setLoading(false);
     }
   };
-
-  const {user} = useAuth();
 
   const deleteMarriage = async (id: string): Promise<void> => {
     if (
@@ -83,7 +83,7 @@ const MarriagesList: React.FC = () => {
     navigate(`/marriages/edit/${id}`);
   };
 
-  const handleAddNew = (): void => {
+  const addMarriage = (): void => {
     navigate("/marriages/add");
   };
 
@@ -123,13 +123,7 @@ const MarriagesList: React.FC = () => {
   return (
     <Paper
       elevation={3}
-      sx={{
-        padding: 3,
-        borderRadius: 2,
-        maxWidth: 1400,
-        margin: "auto",
-        // mt: 4,
-      }}>
+      sx={{padding: 3, borderRadius: 2, maxWidth: 1400, margin: "auto"}}>
       <Box sx={{maxWidth: "1400px", margin: "0 auto"}}>
         {/* Header Section */}
         <Box
@@ -156,7 +150,7 @@ const MarriagesList: React.FC = () => {
           <Button
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={handleAddNew}
+            onClick={addMarriage}
             sx={{textTransform: "none", fontWeight: 500}}>
             Add Marriage Record
           </Button>
@@ -195,7 +189,6 @@ const MarriagesList: React.FC = () => {
           </Typography>
         </Box>
 
-        {/* Error Alert */}
         {error && (
           <Alert severity="error" sx={{mb: 3}}>
             {error}
@@ -211,7 +204,7 @@ const MarriagesList: React.FC = () => {
             <Button
               variant="contained"
               startIcon={<AddIcon />}
-              onClick={handleAddNew}
+              onClick={addMarriage}
               sx={{mt: 2, textTransform: "none"}}>
               Add First Record
             </Button>
@@ -227,7 +220,6 @@ const MarriagesList: React.FC = () => {
                   <TableCell sx={{fontWeight: 600}}>Groom's Name</TableCell>
                   <TableCell sx={{fontWeight: 600}}>Bride's Name</TableCell>
                   <TableCell sx={{fontWeight: 600}}>Marriage Date</TableCell>
-                  {/* <TableCell sx={{fontWeight: 600}}>Time of Mass</TableCell> */}
                   <TableCell sx={{fontWeight: 600}}>
                     Need Church Choir
                   </TableCell>
@@ -251,7 +243,6 @@ const MarriagesList: React.FC = () => {
                     <TableCell>{marriage.nameOfBride}</TableCell>
                     <TableCell>{marriage.nameOfGroom}</TableCell>
                     <TableCell>{formatDate(marriage.dateOfMarriage)}</TableCell>
-                    {/* <TableCell>{marriage.timeOfMass}</TableCell> */}
                     <TableCell align="center">
                       <Chip
                         label={marriage.needChurchChoir}
