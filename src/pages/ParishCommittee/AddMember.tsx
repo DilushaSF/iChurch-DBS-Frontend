@@ -32,8 +32,8 @@ const AddParishCommitteeMember = () => {
     lastName: "",
     address: "",
     phoneNumber: "",
-    zonalNumber: "1" as ZonalNumber,
-    unitNumber: "1" as UnitNumber,
+    zonalNumber: "" as ZonalNumber,
+    unitNumber: "" as UnitNumber,
     position: "",
     joinedDate: "",
     representingCommittee: "",
@@ -56,7 +56,7 @@ const AddParishCommitteeMember = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -83,7 +83,7 @@ const AddParishCommitteeMember = () => {
     }
   };
 
-  const handleCancel = () => {
+  const goBack = () => {
     navigate("/parish-committee");
   };
 
@@ -105,7 +105,7 @@ const AddParishCommitteeMember = () => {
           <Box sx={{display: "flex", alignItems: "center", gap: 2, mb: 2}}>
             <Button
               startIcon={<ArrowBackIcon />}
-              onClick={handleCancel}
+              onClick={goBack}
               sx={{textTransform: "none"}}
               variant="outlined"
               size="small">
@@ -122,7 +122,6 @@ const AddParishCommitteeMember = () => {
 
         <Divider sx={{mb: 4}} />
 
-        {/* Error Alert */}
         {error && (
           <Alert severity="error" sx={{mb: 3}} onClose={() => setError(null)}>
             {error}
@@ -130,7 +129,7 @@ const AddParishCommitteeMember = () => {
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={submitForm}>
           <Grid container spacing={3}>
             {/* Personal Information Section */}
             <Grid item xs={12}>
@@ -149,11 +148,7 @@ const AddParishCommitteeMember = () => {
                 required
                 variant="outlined"
                 placeholder="Enter first name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -167,11 +162,7 @@ const AddParishCommitteeMember = () => {
                 required
                 variant="outlined"
                 placeholder="Enter last name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -186,11 +177,7 @@ const AddParishCommitteeMember = () => {
                 multiline
                 rows={2}
                 placeholder="Enter full address"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -203,12 +190,7 @@ const AddParishCommitteeMember = () => {
                 onChange={handleChange}
                 variant="outlined"
                 placeholder="Enter phone number"
-                helperText="Optional"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -223,11 +205,7 @@ const AddParishCommitteeMember = () => {
               <FormControl
                 fullWidth
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}>
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}>
                 <InputLabel>Zonal Number</InputLabel>
                 <Select
                   name="zonalNumber"
@@ -252,11 +230,7 @@ const AddParishCommitteeMember = () => {
               <FormControl
                 fullWidth
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}>
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}>
                 <InputLabel>Unit Number</InputLabel>
                 <Select
                   name="unitNumber"
@@ -290,13 +264,8 @@ const AddParishCommitteeMember = () => {
                 value={formData.position}
                 onChange={handleChange}
                 variant="outlined"
-                placeholder="e.g., Chairman, Secretary, Treasurer"
-                helperText="Optional"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                placeholder="e.g - Secretary, Treasurer"
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -310,11 +279,7 @@ const AddParishCommitteeMember = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -327,13 +292,9 @@ const AddParishCommitteeMember = () => {
                 onChange={handleChange}
                 required
                 variant="outlined"
-                placeholder="e.g., Finance Committee, Youth Committee"
-                helperText="Which committee does this member represent?"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                placeholder="e.g - Choir, Youth Association"
+                helperText="Which committee does member represent?"
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -350,8 +311,8 @@ const AddParishCommitteeMember = () => {
                 }}>
                 <Typography variant="body2" color="text.secondary">
                   <strong>Note:</strong> Fields marked with * are required.
-                  Phone number and position are optional but recommended for
-                  better contact and organization.
+                  Contact number is optional but recommended for convenience of
+                  community.
                 </Typography>
               </Paper>
             </Grid>
@@ -360,20 +321,12 @@ const AddParishCommitteeMember = () => {
           {/* Action Buttons */}
           <Divider sx={{my: 4}} />
 
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              justifyContent: "flex-end",
-            }}>
+          <Box sx={{display: "flex", gap: 2, justifyContent: "flex-end"}}>
             <Button
               variant="outlined"
-              onClick={handleCancel}
+              onClick={goBack}
               disabled={loading}
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               Cancel
             </Button>
             <Button
@@ -383,10 +336,7 @@ const AddParishCommitteeMember = () => {
               startIcon={
                 loading ? <CircularProgress size={20} /> : <SaveIcon />
               }
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               {loading ? "Saving..." : "Save"}
             </Button>
           </Box>

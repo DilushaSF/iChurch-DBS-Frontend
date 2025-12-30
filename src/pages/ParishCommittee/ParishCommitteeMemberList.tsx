@@ -63,7 +63,6 @@ const ParishCommitteeMemberList: React.FC = () => {
         setParishCommitteeMembers(
           parishCommitteeMembers.filter((member) => member._id !== id)
         );
-        // Optional: Show success message with Snackbar
       } catch (err) {
         alert("Failed to delete memeber");
         console.error("Error deleting parish committee member:", err);
@@ -71,15 +70,15 @@ const ParishCommitteeMemberList: React.FC = () => {
     }
   };
 
-  const handleView = (id: string): void => {
+  const viewMember = (id: string): void => {
     navigate(`/parish-committee/view/${id}`);
   };
 
-  const handleEdit = (id: string): void => {
+  const editMember = (id: string): void => {
     navigate(`/parish-committee/edit/${id}`);
   };
 
-  const handleAddNew = (): void => {
+  const addMember = (): void => {
     navigate("/parish-committee/add");
   };
 
@@ -121,7 +120,6 @@ const ParishCommitteeMemberList: React.FC = () => {
         borderRadius: 2,
         maxWidth: 1400,
         margin: "auto",
-        // mt: 4,
       }}>
       <Box sx={{maxWidth: "1400px", margin: "0 auto"}}>
         {/* Header Section */}
@@ -149,7 +147,7 @@ const ParishCommitteeMemberList: React.FC = () => {
           <Button
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={handleAddNew}
+            onClick={addMember}
             sx={{textTransform: "none", fontWeight: 500}}>
             Add Parish Committee Member
           </Button>
@@ -204,7 +202,7 @@ const ParishCommitteeMemberList: React.FC = () => {
             <Button
               variant="contained"
               startIcon={<AddIcon />}
-              onClick={handleAddNew}
+              onClick={addMember}
               sx={{mt: 2, textTransform: "none"}}>
               Add First Record
             </Button>
@@ -252,7 +250,7 @@ const ParishCommitteeMemberList: React.FC = () => {
                         <Tooltip title="View Details">
                           <IconButton
                             size="small"
-                            onClick={() => handleView(member._id)}
+                            onClick={() => viewMember(member._id)}
                             sx={{
                               color: "primary.main",
                               border: "1px solid",
@@ -270,7 +268,7 @@ const ParishCommitteeMemberList: React.FC = () => {
                         <Tooltip title="Edit Record">
                           <IconButton
                             size="small"
-                            onClick={() => handleEdit(member._id)}
+                            onClick={() => editMember(member._id)}
                             sx={{
                               color: "info.main",
                               border: "1px solid",

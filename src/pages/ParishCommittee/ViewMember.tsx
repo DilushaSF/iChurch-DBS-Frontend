@@ -48,11 +48,11 @@ const ViewParishCommitteeMember: React.FC = () => {
     }
   };
 
-  const handleBack = () => {
+  const goBack = () => {
     navigate("/parish-committee");
   };
 
-  const handleDelete = async () => {
+  const deleteRecord = async () => {
     if (
       window.confirm(
         "Are you sure you want to delete this parish committee member?"
@@ -98,7 +98,7 @@ const ViewParishCommitteeMember: React.FC = () => {
         </Alert>
         <Button
           startIcon={<ArrowBackIcon />}
-          onClick={handleBack}
+          onClick={goBack}
           variant="outlined">
           Back to List
         </Button>
@@ -124,7 +124,7 @@ const ViewParishCommitteeMember: React.FC = () => {
           <Box sx={{display: "flex", alignItems: "center", gap: 2, mb: 2}}>
             <Button
               startIcon={<ArrowBackIcon />}
-              onClick={handleBack}
+              onClick={goBack}
               sx={{textTransform: "none"}}
               variant="outlined"
               size="small">
@@ -152,7 +152,7 @@ const ViewParishCommitteeMember: React.FC = () => {
                 variant="outlined"
                 color="error"
                 startIcon={<DeleteIcon />}
-                onClick={handleDelete}
+                onClick={deleteRecord}
                 sx={{textTransform: "none"}}>
                 Delete
               </Button>
@@ -175,9 +175,7 @@ const ViewParishCommitteeMember: React.FC = () => {
               fullWidth
               label="Full Name"
               value={`${member.firstName} ${member.lastName}`}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               variant="outlined"
               sx={{
                 "& .MuiOutlinedInput-root": {
@@ -193,16 +191,10 @@ const ViewParishCommitteeMember: React.FC = () => {
               fullWidth
               label="Address"
               value={member.address}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               multiline
               rows={2}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -211,15 +203,9 @@ const ViewParishCommitteeMember: React.FC = () => {
               fullWidth
               label="Phone Number"
               value={member.phoneNumber || "N/A"}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               variant="outlined"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -308,15 +294,9 @@ const ViewParishCommitteeMember: React.FC = () => {
               fullWidth
               label="Position"
               value={member.position || "N/A"}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               variant="outlined"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -325,14 +305,8 @@ const ViewParishCommitteeMember: React.FC = () => {
               fullWidth
               label="Joined Date"
               value={formatDate(member.joinedDate)}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -341,15 +315,9 @@ const ViewParishCommitteeMember: React.FC = () => {
               fullWidth
               label="Representing Committee"
               value={member.representingCommittee}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               variant="outlined"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -376,14 +344,8 @@ const ViewParishCommitteeMember: React.FC = () => {
                     })
                   : "N/A"
               }
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -402,14 +364,8 @@ const ViewParishCommitteeMember: React.FC = () => {
                     })
                   : "N/A"
               }
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
         </Grid>
@@ -417,19 +373,11 @@ const ViewParishCommitteeMember: React.FC = () => {
         {/* Action Buttons */}
         <Divider sx={{my: 4}} />
 
-        <Box
-          sx={{
-            display: "flex",
-            gap: 2,
-            justifyContent: "flex-end",
-          }}>
+        <Box sx={{display: "flex", gap: 2, justifyContent: "flex-end"}}>
           <Button
             variant="outlined"
-            onClick={handleBack}
-            sx={{
-              textTransform: "none",
-              px: 4,
-            }}>
+            onClick={goBack}
+            sx={{textTransform: "none", px: 4}}>
             Back to List
           </Button>
         </Box>
