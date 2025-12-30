@@ -54,7 +54,7 @@ const ZonalLeaderList: React.FC = () => {
     }
   };
 
-  const handleDelete = async (id: string): Promise<void> => {
+  const deleteRecord = async (id: string): Promise<void> => {
     if (
       window.confirm(
         "Are you sure you want to delete this zonal leader record?"
@@ -65,7 +65,6 @@ const ZonalLeaderList: React.FC = () => {
         setZonalLeaders(
           zonalLeaders.filter((zonalLeader) => zonalLeader._id !== id)
         );
-        // Optional: Show success message with Snackbar
       } catch (err) {
         alert("Failed to delete zonal leader record");
         console.error("Error deleting zonal leader:", err);
@@ -73,15 +72,15 @@ const ZonalLeaderList: React.FC = () => {
     }
   };
 
-  const handleView = (id: string): void => {
+  const viewZonalLeader = (id: string): void => {
     navigate(`/zonal-leaders/view/${id}`);
   };
 
-  const handleEdit = (id: string): void => {
+  const editZonalLeader = (id: string): void => {
     navigate(`/zonal-leaders/edit/${id}`);
   };
 
-  const handleAddNew = (): void => {
+  const addZonalLeader = (): void => {
     navigate("/zonal-leaders/add");
   };
 
@@ -123,7 +122,6 @@ const ZonalLeaderList: React.FC = () => {
         borderRadius: 2,
         maxWidth: 1400,
         margin: "auto",
-        // mt: 4,
       }}>
       <Box sx={{maxWidth: "1400px", margin: "0 auto"}}>
         {/* Header Section */}
@@ -151,7 +149,7 @@ const ZonalLeaderList: React.FC = () => {
           <Button
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={handleAddNew}
+            onClick={addZonalLeader}
             sx={{textTransform: "none", fontWeight: 500}}>
             Add Zonal Leader
           </Button>
@@ -190,7 +188,6 @@ const ZonalLeaderList: React.FC = () => {
           </Typography>
         </Box>
 
-        {/* Error Message */}
         {error && (
           <Alert severity="error" sx={{mb: 3}}>
             {error}
@@ -206,7 +203,7 @@ const ZonalLeaderList: React.FC = () => {
             <Button
               variant="contained"
               startIcon={<AddIcon />}
-              onClick={handleAddNew}
+              onClick={addZonalLeader}
               sx={{mt: 2, textTransform: "none"}}>
               Add First Record
             </Button>
@@ -255,7 +252,7 @@ const ZonalLeaderList: React.FC = () => {
                         <Tooltip title="View Details">
                           <IconButton
                             size="small"
-                            onClick={() => handleView(zonalLeader._id)}
+                            onClick={() => viewZonalLeader(zonalLeader._id)}
                             sx={{
                               color: "primary.main",
                               border: "1px solid",
@@ -273,7 +270,7 @@ const ZonalLeaderList: React.FC = () => {
                         <Tooltip title="Edit Record">
                           <IconButton
                             size="small"
-                            onClick={() => handleEdit(zonalLeader._id)}
+                            onClick={() => editZonalLeader(zonalLeader._id)}
                             sx={{
                               color: "info.main",
                               border: "1px solid",
@@ -291,7 +288,7 @@ const ZonalLeaderList: React.FC = () => {
                         <Tooltip title="Delete Record">
                           <IconButton
                             size="small"
-                            onClick={() => handleDelete(zonalLeader._id)}
+                            onClick={() => deleteRecord(zonalLeader._id)}
                             sx={{
                               color: "error.main",
                               border: "1px solid",

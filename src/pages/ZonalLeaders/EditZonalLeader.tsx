@@ -86,7 +86,7 @@ const EditZonalLeader: React.FC = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -166,7 +166,6 @@ const EditZonalLeader: React.FC = () => {
 
         <Divider sx={{mb: 4}} />
 
-        {/* Error Alert */}
         {error && (
           <Alert severity="error" sx={{mb: 3}} onClose={() => setError(null)}>
             {error}
@@ -174,7 +173,7 @@ const EditZonalLeader: React.FC = () => {
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={submitForm}>
           <Grid container spacing={3}>
             {/* Personal Information Section */}
             <Grid item xs={12}>
@@ -193,11 +192,7 @@ const EditZonalLeader: React.FC = () => {
                 required
                 variant="outlined"
                 placeholder="Enter first name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -211,11 +206,7 @@ const EditZonalLeader: React.FC = () => {
                 required
                 variant="outlined"
                 placeholder="Enter last name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -229,11 +220,7 @@ const EditZonalLeader: React.FC = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -247,11 +234,7 @@ const EditZonalLeader: React.FC = () => {
                 required
                 variant="outlined"
                 placeholder="Enter contact number"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -266,11 +249,7 @@ const EditZonalLeader: React.FC = () => {
                 multiline
                 rows={3}
                 placeholder="Enter full address"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -292,11 +271,7 @@ const EditZonalLeader: React.FC = () => {
                 InputLabelProps={{shrink: true}}
                 required
                 helperText="Date when appointed as zonal leader"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -304,11 +279,7 @@ const EditZonalLeader: React.FC = () => {
               <FormControl
                 fullWidth
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}>
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}>
                 <InputLabel>Zone Number</InputLabel>
                 <Select
                   name="zoneNumber"
@@ -344,9 +315,9 @@ const EditZonalLeader: React.FC = () => {
                   Update Information
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Before upgrading, confirm that all the information is correct.
+                  Before updating, ensure that all the information is accurate.
                   The leader's duties and those of the members they oversee will
-                  be impacted by changes to the zone number.
+                  be affected by alterations to the zone number.
                 </Typography>
               </Paper>
             </Grid>
@@ -355,20 +326,12 @@ const EditZonalLeader: React.FC = () => {
           {/* Action Buttons */}
           <Divider sx={{my: 4}} />
 
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              justifyContent: "flex-end",
-            }}>
+          <Box sx={{display: "flex", gap: 2, justifyContent: "flex-end"}}>
             <Button
               variant="outlined"
               onClick={handleCancel}
               disabled={loading}
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               Cancel
             </Button>
             <Button
@@ -378,10 +341,7 @@ const EditZonalLeader: React.FC = () => {
               startIcon={
                 loading ? <CircularProgress size={20} /> : <SaveIcon />
               }
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               {loading ? "Updating..." : "Update"}
             </Button>
           </Box>

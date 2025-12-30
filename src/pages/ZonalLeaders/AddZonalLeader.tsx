@@ -27,6 +27,7 @@ const AddZonalLeader = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [contactError, setContactError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -34,13 +35,31 @@ const AddZonalLeader = () => {
     address: "",
     contactNumber: "",
     appointedDate: "",
-    zoneNumber: "1" as ZoneNumber,
+    zoneNumber: "" as ZoneNumber,
   });
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const {name, value} = e.target;
+
+    if (name === "contactNumber") {
+      // digit only validation
+      if (!/^\d*$/.test(value)) return;
+      setFormData((prev) => ({
+        ...prev,
+        contactNumber: value,
+      }));
+
+      // length validation for contact number
+      if (value.length !== 10) {
+        setContactError("Contact number must be 10 digits");
+      } else {
+        setContactError(null);
+      }
+      return;
+    }
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -54,7 +73,7 @@ const AddZonalLeader = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -81,7 +100,7 @@ const AddZonalLeader = () => {
     }
   };
 
-  const handleCancel = () => {
+  const goBack = () => {
     navigate("/zonal-leaders");
   };
 
@@ -103,7 +122,7 @@ const AddZonalLeader = () => {
           <Box sx={{display: "flex", alignItems: "center", gap: 2, mb: 2}}>
             <Button
               startIcon={<ArrowBackIcon />}
-              onClick={handleCancel}
+              onClick={goBack}
               sx={{textTransform: "none"}}
               variant="outlined"
               size="small">
@@ -128,7 +147,7 @@ const AddZonalLeader = () => {
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={submitForm}>
           <Grid container spacing={3}>
             {/* Personal Information Section */}
             <Grid item xs={12}>
@@ -147,11 +166,7 @@ const AddZonalLeader = () => {
                 required
                 variant="outlined"
                 placeholder="Enter first name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -165,11 +180,7 @@ const AddZonalLeader = () => {
                 required
                 variant="outlined"
                 placeholder="Enter last name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -183,11 +194,7 @@ const AddZonalLeader = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -200,12 +207,10 @@ const AddZonalLeader = () => {
                 onChange={handleChange}
                 required
                 variant="outlined"
-                placeholder="Enter contact number"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                placeholder="Enter 10 digit contact number"
+                error={Boolean(contactError)}
+                helperText={contactError || " "}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -220,11 +225,7 @@ const AddZonalLeader = () => {
                 multiline
                 rows={3}
                 placeholder="Enter full address"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -245,12 +246,7 @@ const AddZonalLeader = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                helperText="Date when appointed as zonal leader"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -258,11 +254,7 @@ const AddZonalLeader = () => {
               <FormControl
                 fullWidth
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}>
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}>
                 <InputLabel>Zone Number</InputLabel>
                 <Select
                   name="zoneNumber"
@@ -295,13 +287,11 @@ const AddZonalLeader = () => {
                   borderRadius: 1,
                 }}>
                 <Typography variant="body1" fontWeight={500} gutterBottom>
-                  Leadership Role
+                  Zonal Leadership Role
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  All operations inside their designated zone must be supervised
-                  and coordinated by the zonal leader. They report to the parish
-                  committee and function as their zone members' main point of
-                  contact.
+                  All operations inside the designated zone must be coordinated
+                  by the zonal leader.
                 </Typography>
               </Paper>
             </Grid>
@@ -310,20 +300,12 @@ const AddZonalLeader = () => {
           {/* Action Buttons */}
           <Divider sx={{my: 4}} />
 
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              justifyContent: "flex-end",
-            }}>
+          <Box sx={{display: "flex", gap: 2, justifyContent: "flex-end"}}>
             <Button
               variant="outlined"
-              onClick={handleCancel}
+              onClick={goBack}
               disabled={loading}
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               Cancel
             </Button>
             <Button
@@ -333,10 +315,7 @@ const AddZonalLeader = () => {
               startIcon={
                 loading ? <CircularProgress size={20} /> : <SaveIcon />
               }
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               {loading ? "Saving..." : "Save"}
             </Button>
           </Box>

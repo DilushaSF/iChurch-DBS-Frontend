@@ -208,9 +208,7 @@ const ViewZonalLeader: React.FC = () => {
               fullWidth
               label="Full Name"
               value={`${leader.firstName} ${leader.lastName}`}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               variant="outlined"
               sx={{
                 "& .MuiOutlinedInput-root": {
@@ -226,14 +224,8 @@ const ViewZonalLeader: React.FC = () => {
               fullWidth
               label="Date of Birth"
               value={formatDate(leader.dateOfBirth)}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -242,14 +234,8 @@ const ViewZonalLeader: React.FC = () => {
               fullWidth
               label="Age"
               value={`${calculateAge(leader.dateOfBirth)} years old`}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -258,15 +244,9 @@ const ViewZonalLeader: React.FC = () => {
               fullWidth
               label="Contact Number"
               value={leader.contactNumber}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               variant="outlined"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -275,16 +255,10 @@ const ViewZonalLeader: React.FC = () => {
               fullWidth
               label="Address"
               value={leader.address}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               multiline
               rows={3}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -300,14 +274,8 @@ const ViewZonalLeader: React.FC = () => {
               fullWidth
               label="Appointed Date"
               value={formatDate(leader.appointedDate)}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -316,14 +284,8 @@ const ViewZonalLeader: React.FC = () => {
               fullWidth
               label="Tenure Duration"
               value={calculateTenure(leader.appointedDate)}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -383,14 +345,8 @@ const ViewZonalLeader: React.FC = () => {
                     })
                   : "N/A"
               }
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -409,14 +365,8 @@ const ViewZonalLeader: React.FC = () => {
                     })
                   : "N/A"
               }
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
         </Grid>
@@ -424,19 +374,11 @@ const ViewZonalLeader: React.FC = () => {
         {/* Action Buttons */}
         <Divider sx={{my: 4}} />
 
-        <Box
-          sx={{
-            display: "flex",
-            gap: 2,
-            justifyContent: "flex-end",
-          }}>
+        <Box sx={{display: "flex", gap: 2, justifyContent: "flex-end"}}>
           <Button
             variant="outlined"
             onClick={handleBack}
-            sx={{
-              textTransform: "none",
-              px: 4,
-            }}>
+            sx={{textTransform: "none", px: 4}}>
             Back to List
           </Button>
         </Box>
