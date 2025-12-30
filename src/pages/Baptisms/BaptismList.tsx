@@ -76,15 +76,15 @@ const BaptismList: React.FC = () => {
     }
   };
 
-  const handleView = (id: string): void => {
+  const viewBaptism = (id: string): void => {
     navigate(`/baptisms/view/${id}`);
   };
 
-  const handleEdit = (id: string): void => {
+  const updateBaptism = (id: string): void => {
     navigate(`/baptisms/edit/${id}`);
   };
 
-  const handleAddNew = (): void => {
+  const addBaptism = (): void => {
     navigate("/baptisms/add");
   };
 
@@ -152,7 +152,7 @@ const BaptismList: React.FC = () => {
           <Button
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={handleAddNew}
+            onClick={addBaptism}
             sx={{textTransform: "none", fontWeight: 500}}>
             Add Baptism Record
           </Button>
@@ -207,7 +207,7 @@ const BaptismList: React.FC = () => {
             <Button
               variant="contained"
               startIcon={<AddIcon />}
-              onClick={handleAddNew}
+              onClick={addBaptism}
               sx={{mt: 2, textTransform: "none"}}>
               Add First Record
             </Button>
@@ -300,7 +300,7 @@ const BaptismList: React.FC = () => {
                         <Tooltip title="View Details">
                           <IconButton
                             size="small"
-                            onClick={() => handleView(baptism._id)}
+                            onClick={() => viewBaptism(baptism._id)}
                             sx={{
                               color: "primary.main",
                               border: "1px solid",
@@ -318,7 +318,7 @@ const BaptismList: React.FC = () => {
                         <Tooltip title="Edit Record">
                           <IconButton
                             size="small"
-                            onClick={() => handleEdit(baptism._id)}
+                            onClick={() => updateBaptism(baptism._id)}
                             sx={{
                               color: "info.main",
                               border: "1px solid",

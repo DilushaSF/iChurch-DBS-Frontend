@@ -29,6 +29,7 @@ const EditBaptism = () => {
   const [loading, setLoading] = useState(false);
   const [fetchLoading, setFetchLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [contactError, setContactError] = useState<string | null>(null);
   const [formData, setFormData] = useState<BaptismFormData>({
     childName: "",
     dateOfBirth: "",
@@ -75,7 +76,6 @@ const EditBaptism = () => {
         const response = await baptismAPI.getBaptismById(id);
         const data = response.data;
 
-        // Populate form data with formatted dates
         setFormData({
           childName: data.childName || "",
           dateOfBirth: formatDateForInput(data.dateOfBirth),
@@ -106,6 +106,24 @@ const EditBaptism = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const {name, value} = e.target;
+
+    if (name === "contactNumber") {
+      // digit only validation
+      if (!/^\d*$/.test(value)) return;
+      setFormData((prev) => ({
+        ...prev,
+        contactNumber: value,
+      }));
+
+      // length validation for contact number
+      if (value.length !== 10) {
+        setContactError("Contact number must be 10 digits");
+      } else {
+        setContactError(null);
+      }
+      return;
+    }
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -120,7 +138,7 @@ const EditBaptism = () => {
       }));
     };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!id) return;
 
@@ -149,7 +167,7 @@ const EditBaptism = () => {
     }
   };
 
-  const handleCancel = () => {
+  const cancelUpdate = () => {
     navigate("/baptisms");
   };
 
@@ -200,7 +218,7 @@ const EditBaptism = () => {
           <Box sx={{display: "flex", alignItems: "center", gap: 2, mb: 2}}>
             <Button
               startIcon={<ArrowBackIcon />}
-              onClick={handleCancel}
+              onClick={cancelUpdate}
               sx={{textTransform: "none"}}
               variant="outlined"
               size="small">
@@ -217,14 +235,13 @@ const EditBaptism = () => {
 
         <Divider sx={{mb: 4}} />
 
-        {/* Error Alert */}
         {error && (
           <Alert severity="error" sx={{mb: 3}} onClose={() => setError(null)}>
             {error}
           </Alert>
         )}
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={submitForm}>
           <Grid container spacing={3}>
             {/* Child Information Section */}
             <Grid item xs={12}>
@@ -304,7 +321,6 @@ const EditBaptism = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                helperText="Date when the baptism will take place"
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     backgroundColor: "#f9fafb",
@@ -323,7 +339,6 @@ const EditBaptism = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                helperText="Scheduled time for the baptism"
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     backgroundColor: "#f9fafb",
@@ -453,7 +468,9 @@ const EditBaptism = () => {
                 onChange={handleChange}
                 required
                 variant="outlined"
-                placeholder="Enter contact number"
+                placeholder="Enter 10 digit contact number"
+                error={Boolean(contactError)}
+                helperText={contactError || " "}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     backgroundColor: "#f9fafb",
@@ -526,7 +543,7 @@ const EditBaptism = () => {
                   border: "1px solid",
                   borderColor: formData.isFatherCatholic
                     ? "#bfdbfe"
-                    : "#fde68a",
+                    : "#f9e491ff",
                   borderRadius: 1,
                 }}>
                 <Box
@@ -578,11 +595,11 @@ const EditBaptism = () => {
                   />
                   <Box>
                     <Typography variant="body1" fontWeight={500} gutterBottom>
-                      Editing Baptism Record
+                      Update Baptism Record
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      Please ensure all information is correct. All required
-                      fields must be filled before updating.
+                      Please enter accurate information. All required fields
+                      must be filled.
                     </Typography>
                   </Box>
                 </Box>
@@ -601,7 +618,7 @@ const EditBaptism = () => {
             }}>
             <Button
               variant="outlined"
-              onClick={handleCancel}
+              onClick={cancelUpdate}
               disabled={loading}
               sx={{
                 textTransform: "none",

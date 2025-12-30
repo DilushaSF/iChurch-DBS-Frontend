@@ -26,6 +26,7 @@ const AddBaptism = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [contactError, setContactError] = useState<string | null>(null);
   const [formData, setFormData] = useState<BaptismFormData>({
     childName: "",
     dateOfBirth: "",
@@ -46,6 +47,23 @@ const AddBaptism = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const {name, value} = e.target;
+
+    if (name === "contactNumber") {
+      // digit only validation
+      if (!/^\d*$/.test(value)) return;
+      setFormData((prev) => ({
+        ...prev,
+        contactNumber: value,
+      }));
+
+      // length validation for contact number
+      if (value.length !== 10) {
+        setContactError("Contact number must be 10 digits");
+      } else {
+        setContactError(null);
+      }
+      return;
+    }
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -196,7 +214,7 @@ const AddBaptism = () => {
               />
             </Grid>
 
-            {/* Baptism Details Section */}
+            {/* Baptism Info Section */}
             <Grid item xs={12} sx={{mt: 2}}>
               <Typography variant="h6" fontWeight={600} gutterBottom>
                 Baptism Details
@@ -213,7 +231,6 @@ const AddBaptism = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                helperText="Date when the baptism will take place"
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     backgroundColor: "#f9fafb",
@@ -232,7 +249,6 @@ const AddBaptism = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                helperText="Scheduled time for the baptism"
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     backgroundColor: "#f9fafb",
@@ -362,7 +378,10 @@ const AddBaptism = () => {
                 onChange={handleChange}
                 required
                 variant="outlined"
-                placeholder="Enter contact number"
+                placeholder="Enter 10 digit contact number"
+                error={Boolean(contactError)}
+                helperText={contactError || " "}
+                inputProps={{maxLength: 10}}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     backgroundColor: "#f9fafb",
@@ -389,7 +408,7 @@ const AddBaptism = () => {
                   border: "1px solid",
                   borderColor: formData.areParentsMarried
                     ? "#bfdbfe"
-                    : "#fde68a",
+                    : "#fde587ff",
                   borderRadius: 1,
                 }}>
                 <Box
@@ -435,7 +454,7 @@ const AddBaptism = () => {
                   border: "1px solid",
                   borderColor: formData.isFatherCatholic
                     ? "#bfdbfe"
-                    : "#fde68a",
+                    : "#fde587ff",
                   borderRadius: 1,
                 }}>
                 <Box
@@ -490,8 +509,8 @@ const AddBaptism = () => {
                       Baptism Registration
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      Please ensure all information is correct. All required
-                      fields must be filled before submission.
+                      Please enter accurate information. All required fields
+                      must be filled.
                     </Typography>
                   </Box>
                 </Box>
