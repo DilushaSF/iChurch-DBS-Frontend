@@ -40,17 +40,17 @@ const AddUnitLeader = () => {
     address: "",
     contactNumber: "",
     appointedDate: "",
-    zonalNumber: "1" as ZonalNumber,
+    zonalNumber: "" as ZonalNumber,
     unitNumber: "",
     zonalLeader: "",
   });
 
-  // Fetch all zonal leaders on component mount
+  // Fetch all zonal leaders
   useEffect(() => {
     fetchZonalLeaders();
   }, []);
 
-  // Auto-select zonal leader when zone number changes
+  // Auto-load zonal leader according to the zone number
   useEffect(() => {
     if (formData.zonalNumber && zonalLeaders.length > 0) {
       fetchZonalLeaderByZone(formData.zonalNumber);
@@ -112,7 +112,7 @@ const AddUnitLeader = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -139,7 +139,7 @@ const AddUnitLeader = () => {
     }
   };
 
-  const handleCancel = () => {
+  const goBack = () => {
     navigate("/unit-leaders");
   };
 
@@ -161,7 +161,7 @@ const AddUnitLeader = () => {
           <Box sx={{display: "flex", alignItems: "center", gap: 2, mb: 2}}>
             <Button
               startIcon={<ArrowBackIcon />}
-              onClick={handleCancel}
+              onClick={goBack}
               sx={{textTransform: "none"}}
               variant="outlined"
               size="small">
@@ -178,7 +178,6 @@ const AddUnitLeader = () => {
 
         <Divider sx={{mb: 4}} />
 
-        {/* Error Alert */}
         {error && (
           <Alert severity="error" sx={{mb: 3}} onClose={() => setError(null)}>
             {error}
@@ -186,7 +185,7 @@ const AddUnitLeader = () => {
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={submitForm}>
           <Grid container spacing={3}>
             {/* Personal Information Section */}
             <Grid item xs={12}>
@@ -205,11 +204,7 @@ const AddUnitLeader = () => {
                 required
                 variant="outlined"
                 placeholder="Enter first name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -223,11 +218,7 @@ const AddUnitLeader = () => {
                 required
                 variant="outlined"
                 placeholder="Enter last name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -241,11 +232,7 @@ const AddUnitLeader = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -259,11 +246,7 @@ const AddUnitLeader = () => {
                 required
                 variant="outlined"
                 placeholder="Enter contact number"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -278,11 +261,7 @@ const AddUnitLeader = () => {
                 multiline
                 rows={3}
                 placeholder="Enter full address"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -303,12 +282,7 @@ const AddUnitLeader = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                helperText="Date when appointed as unit leader"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -316,11 +290,7 @@ const AddUnitLeader = () => {
               <FormControl
                 fullWidth
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}>
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}>
                 <InputLabel>Zonal Number</InputLabel>
                 <Select
                   name="zonalNumber"
@@ -351,12 +321,7 @@ const AddUnitLeader = () => {
                 required
                 variant="outlined"
                 placeholder="Enter unit number (e.g., 1, 2, 3)"
-                helperText="Unit number within the selected zone"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -457,8 +422,7 @@ const AddUnitLeader = () => {
                 }}>
                 <Typography variant="body2" color="text.secondary">
                   <strong>Note:</strong> The zonal leader is chosen
-                  automatically based on the selected zone. Unit leaders work
-                  under that zonal leader and manage their own units.
+                  automatically based on the selected zone.
                 </Typography>
               </Paper>
             </Grid>
@@ -467,20 +431,12 @@ const AddUnitLeader = () => {
           {/* Action Buttons */}
           <Divider sx={{my: 4}} />
 
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              justifyContent: "flex-end",
-            }}>
+          <Box sx={{display: "flex", gap: 2, justifyContent: "flex-end"}}>
             <Button
               variant="outlined"
-              onClick={handleCancel}
+              onClick={goBack}
               disabled={loading}
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               Cancel
             </Button>
             <Button
@@ -490,10 +446,7 @@ const AddUnitLeader = () => {
               startIcon={
                 loading ? <CircularProgress size={20} /> : <SaveIcon />
               }
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               {loading ? "Saving..." : "Save"}
             </Button>
           </Box>

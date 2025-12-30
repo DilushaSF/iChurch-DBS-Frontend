@@ -42,7 +42,7 @@ const ViewUnitLeader: React.FC = () => {
       const response = await unitLeaderAPI.getUnitLeaderById(id!);
       setLeader(response.data);
 
-      // Fetch zonal leader details if zonalLeader ID exists
+      // Fetch zonal leader
       if (response.data.zonalLeader) {
         fetchZonalLeaderDetails(response.data.zonalLeader);
       }
@@ -71,11 +71,11 @@ const ViewUnitLeader: React.FC = () => {
     }
   };
 
-  const handleBack = () => {
+  const goBack = () => {
     navigate("/unit-leaders");
   };
 
-  const handleDelete = async () => {
+  const deleteRecord = async () => {
     if (window.confirm("Are you sure you want to delete this unit leader?")) {
       try {
         await unitLeaderAPI.deleteUnitLeader(id!);
@@ -156,7 +156,7 @@ const ViewUnitLeader: React.FC = () => {
         </Alert>
         <Button
           startIcon={<ArrowBackIcon />}
-          onClick={handleBack}
+          onClick={goBack}
           variant="outlined">
           Back to List
         </Button>
@@ -182,7 +182,7 @@ const ViewUnitLeader: React.FC = () => {
           <Box sx={{display: "flex", alignItems: "center", gap: 2, mb: 2}}>
             <Button
               startIcon={<ArrowBackIcon />}
-              onClick={handleBack}
+              onClick={goBack}
               sx={{textTransform: "none"}}
               variant="outlined"
               size="small">
@@ -210,7 +210,7 @@ const ViewUnitLeader: React.FC = () => {
                 variant="outlined"
                 color="error"
                 startIcon={<DeleteIcon />}
-                onClick={handleDelete}
+                onClick={deleteRecord}
                 sx={{textTransform: "none"}}>
                 Delete
               </Button>
@@ -233,9 +233,7 @@ const ViewUnitLeader: React.FC = () => {
               fullWidth
               label="Full Name"
               value={`${leader.firstName} ${leader.lastName}`}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               variant="outlined"
               sx={{
                 "& .MuiOutlinedInput-root": {
@@ -251,14 +249,8 @@ const ViewUnitLeader: React.FC = () => {
               fullWidth
               label="Date of Birth"
               value={formatDate(leader.dateOfBirth)}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -267,14 +259,8 @@ const ViewUnitLeader: React.FC = () => {
               fullWidth
               label="Age"
               value={`${calculateAge(leader.dateOfBirth)} years old`}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -283,15 +269,9 @@ const ViewUnitLeader: React.FC = () => {
               fullWidth
               label="Contact Number"
               value={leader.contactNumber}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               variant="outlined"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -300,16 +280,10 @@ const ViewUnitLeader: React.FC = () => {
               fullWidth
               label="Address"
               value={leader.address}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               multiline
               rows={3}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -325,14 +299,8 @@ const ViewUnitLeader: React.FC = () => {
               fullWidth
               label="Appointed Date"
               value={formatDate(leader.appointedDate)}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -341,14 +309,8 @@ const ViewUnitLeader: React.FC = () => {
               fullWidth
               label="Tenure Duration"
               value={calculateTenure(leader.appointedDate)}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -515,8 +477,7 @@ const ViewUnitLeader: React.FC = () => {
                   No Zonal Leader Found
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  The zonal leader information is not available or has been
-                  removed.
+                  The zonal leader information is not available.
                 </Typography>
               </Paper>
             )}
@@ -545,14 +506,8 @@ const ViewUnitLeader: React.FC = () => {
                     })
                   : "N/A"
               }
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -571,14 +526,8 @@ const ViewUnitLeader: React.FC = () => {
                     })
                   : "N/A"
               }
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
         </Grid>
@@ -586,19 +535,11 @@ const ViewUnitLeader: React.FC = () => {
         {/* Action Buttons */}
         <Divider sx={{my: 4}} />
 
-        <Box
-          sx={{
-            display: "flex",
-            gap: 2,
-            justifyContent: "flex-end",
-          }}>
+        <Box sx={{display: "flex", gap: 2, justifyContent: "flex-end"}}>
           <Button
             variant="outlined"
-            onClick={handleBack}
-            sx={{
-              textTransform: "none",
-              px: 4,
-            }}>
+            onClick={goBack}
+            sx={{textTransform: "none", px: 4}}>
             Back to List
           </Button>
         </Box>

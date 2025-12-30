@@ -62,7 +62,6 @@ const UnitLeaderList: React.FC = () => {
         setUnitLeaders(
           unitLeaders.filter((unitLeader) => unitLeader._id !== id)
         );
-        // Optional: Show success message with Snackbar
       } catch (err) {
         alert("Failed to delete unit leader");
         console.error("Error deleting unit leader:", err);
@@ -70,15 +69,15 @@ const UnitLeaderList: React.FC = () => {
     }
   };
 
-  const handleView = (id: string): void => {
+  const viewUnitLeader = (id: string): void => {
     navigate(`/unit-leaders/view/${id}`);
   };
 
-  const handleEdit = (id: string): void => {
+  const editUnitLeader = (id: string): void => {
     navigate(`/unit-leaders/edit/${id}`);
   };
 
-  const handleAddNew = (): void => {
+  const addUnitLeader = (): void => {
     navigate("/unit-leaders/add");
   };
 
@@ -120,7 +119,6 @@ const UnitLeaderList: React.FC = () => {
         borderRadius: 2,
         maxWidth: 1400,
         margin: "auto",
-        // mt: 4,
       }}>
       <Box sx={{maxWidth: "1400px", margin: "0 auto"}}>
         {/* Header Section */}
@@ -148,7 +146,7 @@ const UnitLeaderList: React.FC = () => {
           <Button
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={handleAddNew}
+            onClick={addUnitLeader}
             sx={{textTransform: "none", fontWeight: 500}}>
             Add Unit Leader
           </Button>
@@ -203,7 +201,7 @@ const UnitLeaderList: React.FC = () => {
             <Button
               variant="contained"
               startIcon={<AddIcon />}
-              onClick={handleAddNew}
+              onClick={addUnitLeader}
               sx={{mt: 2, textTransform: "none"}}>
               Add First Record
             </Button>
@@ -256,7 +254,7 @@ const UnitLeaderList: React.FC = () => {
                         <Tooltip title="View Details">
                           <IconButton
                             size="small"
-                            onClick={() => handleView(unitLeader._id)}
+                            onClick={() => viewUnitLeader(unitLeader._id)}
                             sx={{
                               color: "primary.main",
                               border: "1px solid",
@@ -274,7 +272,7 @@ const UnitLeaderList: React.FC = () => {
                         <Tooltip title="Edit Record">
                           <IconButton
                             size="small"
-                            onClick={() => handleEdit(unitLeader._id)}
+                            onClick={() => editUnitLeader(unitLeader._id)}
                             sx={{
                               color: "info.main",
                               border: "1px solid",

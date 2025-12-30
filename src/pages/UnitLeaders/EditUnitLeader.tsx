@@ -76,7 +76,7 @@ const EditUnitLeader: React.FC = () => {
       const response = await unitLeaderAPI.getUnitLeaderById(id!);
       const leader: UnitLeader = response.data;
 
-      // Convert dates to YYYY-MM-DD format for input fields
+      // Convert dates
       setFormData({
         firstName: leader.firstName,
         lastName: leader.lastName,
@@ -143,7 +143,7 @@ const EditUnitLeader: React.FC = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -170,7 +170,7 @@ const EditUnitLeader: React.FC = () => {
     }
   };
 
-  const handleCancel = () => {
+  const goBack = () => {
     navigate("/unit-leaders");
   };
 
@@ -206,7 +206,7 @@ const EditUnitLeader: React.FC = () => {
           <Box sx={{display: "flex", alignItems: "center", gap: 2, mb: 2}}>
             <Button
               startIcon={<ArrowBackIcon />}
-              onClick={handleCancel}
+              onClick={goBack}
               sx={{textTransform: "none"}}
               variant="outlined"
               size="small">
@@ -223,7 +223,6 @@ const EditUnitLeader: React.FC = () => {
 
         <Divider sx={{mb: 4}} />
 
-        {/* Error Alert */}
         {error && (
           <Alert severity="error" sx={{mb: 3}} onClose={() => setError(null)}>
             {error}
@@ -231,7 +230,7 @@ const EditUnitLeader: React.FC = () => {
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={submitForm}>
           <Grid container spacing={3}>
             {/* Personal Information Section */}
             <Grid item xs={12}>
@@ -250,11 +249,7 @@ const EditUnitLeader: React.FC = () => {
                 required
                 variant="outlined"
                 placeholder="Enter first name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -268,11 +263,7 @@ const EditUnitLeader: React.FC = () => {
                 required
                 variant="outlined"
                 placeholder="Enter last name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -286,11 +277,7 @@ const EditUnitLeader: React.FC = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -304,11 +291,7 @@ const EditUnitLeader: React.FC = () => {
                 required
                 variant="outlined"
                 placeholder="Enter contact number"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -323,11 +306,7 @@ const EditUnitLeader: React.FC = () => {
                 multiline
                 rows={3}
                 placeholder="Enter full address"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -349,11 +328,7 @@ const EditUnitLeader: React.FC = () => {
                 InputLabelProps={{shrink: true}}
                 required
                 helperText="Date when appointed as unit leader"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -361,11 +336,7 @@ const EditUnitLeader: React.FC = () => {
               <FormControl
                 fullWidth
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}>
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}>
                 <InputLabel>Zonal Number</InputLabel>
                 <Select
                   name="zonalNumber"
@@ -397,11 +368,7 @@ const EditUnitLeader: React.FC = () => {
                 variant="outlined"
                 placeholder="Enter unit number (e.g., 1, 2, 3)"
                 helperText="Unit number within the selected zone"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -503,29 +470,20 @@ const EditUnitLeader: React.FC = () => {
                 <Typography variant="body2" color="text.secondary">
                   <strong>Note:</strong> If you change the zonal number, the
                   zonal leader will be automatically reassigned based on the new
-                  zone. Make sure all information is accurate before updating.
+                  zone. Ensure all information is accurate before updating.
                 </Typography>
               </Paper>
             </Grid>
           </Grid>
 
-          {/* Action Buttons */}
           <Divider sx={{my: 4}} />
 
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              justifyContent: "flex-end",
-            }}>
+          <Box sx={{display: "flex", gap: 2, justifyContent: "flex-end"}}>
             <Button
               variant="outlined"
-              onClick={handleCancel}
+              onClick={goBack}
               disabled={loading}
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               Cancel
             </Button>
             <Button
@@ -535,10 +493,7 @@ const EditUnitLeader: React.FC = () => {
               startIcon={
                 loading ? <CircularProgress size={20} /> : <SaveIcon />
               }
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               {loading ? "Updating..." : "Update"}
             </Button>
           </Box>
