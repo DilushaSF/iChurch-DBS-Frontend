@@ -1,15 +1,15 @@
 import {
-  Box,
+  Paper,
   Button,
   TextField,
   Typography,
-  Paper,
+  Box,
   Grid,
-  Divider,
-  Alert,
-  CircularProgress,
   IconButton,
   Card,
+  CircularProgress,
+  Divider,
+  Alert,
 } from "@mui/material";
 import {
   ArrowBack as ArrowBackIcon,
@@ -235,7 +235,7 @@ const AddMemberRegistration = () => {
                 value={formData.occupationOfFather}
                 onChange={handleChange}
                 variant="outlined"
-                placeholder="Enter occupation (optional)"
+                placeholder="Enter Father's occupation"
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     backgroundColor: "#f9fafb",
@@ -286,7 +286,7 @@ const AddMemberRegistration = () => {
                 value={formData.baptisedChurchOfFather}
                 onChange={handleChange}
                 variant="outlined"
-                placeholder="Church name (optional)"
+                placeholder="Father's Baptised Church"
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     backgroundColor: "#f9fafb",
@@ -328,7 +328,7 @@ const AddMemberRegistration = () => {
                 value={formData.occupationOfMother}
                 onChange={handleChange}
                 variant="outlined"
-                placeholder="Enter occupation (optional)"
+                placeholder="Enter Mother's occupation"
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     backgroundColor: "#f9fafb",
@@ -379,7 +379,7 @@ const AddMemberRegistration = () => {
                 value={formData.baptisedChurchOfMother}
                 onChange={handleChange}
                 variant="outlined"
-                placeholder="Church name (optional)"
+                placeholder="Mother's Baptised Church"
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     backgroundColor: "#f9fafb",
@@ -457,7 +457,7 @@ const AddMemberRegistration = () => {
                 value={formData.marriedChurch}
                 onChange={handleChange}
                 variant="outlined"
-                placeholder="Church name (optional)"
+                placeholder="Married Church"
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     backgroundColor: "#f9fafb",
@@ -482,7 +482,7 @@ const AddMemberRegistration = () => {
                 value={formData.capableDonationPerMonth}
                 onChange={handleChange}
                 variant="outlined"
-                placeholder="Enter amount (optional)"
+                placeholder="Enter amount"
                 helperText="Monthly donation capacity"
                 InputProps={{
                   startAdornment: <Typography sx={{mr: 1}}>LKR</Typography>,
@@ -576,6 +576,7 @@ const AddMemberRegistration = () => {
                       <Grid item xs={12} md={6}>
                         <TextField
                           fullWidth
+                          data-testid="child-dob"
                           label="Date of Birth"
                           type="date"
                           value={child.dateOfBirthChild}
@@ -598,6 +599,7 @@ const AddMemberRegistration = () => {
                       <Grid item xs={12} md={6}>
                         <TextField
                           fullWidth
+                          data-testid="child-baptised-date"
                           label="Baptised Date"
                           type="date"
                           value={child.baptisedDateOfChild || ""}
@@ -629,7 +631,7 @@ const AddMemberRegistration = () => {
                             )
                           }
                           variant="outlined"
-                          placeholder="Church name (optional)"
+                          placeholder="Child's Baptised Church"
                           sx={{
                             "& .MuiOutlinedInput-root": {
                               backgroundColor: "#ffffff",
@@ -681,9 +683,8 @@ const AddMemberRegistration = () => {
                       Family Registration
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      Register complete family information including parents and
-                      children. All required fields are marked with *. You can
-                      add multiple children.
+                      Please enter accurate family information of parents and
+                      children. All required fields are marked with *.
                     </Typography>
                   </Box>
                 </Box>
