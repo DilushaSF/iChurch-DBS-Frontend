@@ -37,7 +37,7 @@ const YouthMemberList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const navigate = useNavigate();
 
-  // Fetch youth members on component mount
+  // Fetch youth members
   useEffect(() => {
     fetchYouthMembers();
   }, []);
@@ -56,14 +56,13 @@ const YouthMemberList: React.FC = () => {
     }
   };
 
-  const handleDelete = async (id: string): Promise<void> => {
+  const deleteRecord = async (id: string): Promise<void> => {
     if (window.confirm("Are you sure you want to delete this youth member?")) {
       try {
         await youthAPI.deleteYouthMember(id);
         setYouthMembers(
           youthMembers.filter((youthMember) => youthMember._id !== id)
         );
-        // Optional: Show success message with Snackbar
       } catch (err) {
         alert("Failed to delete youth member");
         console.error("Error deleting youth member:", err);
@@ -71,15 +70,15 @@ const YouthMemberList: React.FC = () => {
     }
   };
 
-  const handleView = (id: string): void => {
+  const viewMember = (id: string): void => {
     navigate(`/youth-association/view/${id}`);
   };
 
-  const handleEdit = (id: string): void => {
+  const editMember = (id: string): void => {
     navigate(`/youth-association/edit/${id}`);
   };
 
-  const handleAddNew = (): void => {
+  const addMember = (): void => {
     navigate("/youth-association/add");
   };
 
@@ -121,7 +120,6 @@ const YouthMemberList: React.FC = () => {
         borderRadius: 2,
         maxWidth: 1400,
         margin: "auto",
-        // mt: 4,
       }}>
       <Box sx={{maxWidth: "1400px", margin: "0 auto"}}>
         {/* Header Section */}
@@ -149,7 +147,7 @@ const YouthMemberList: React.FC = () => {
           <Button
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={handleAddNew}
+            onClick={addMember}
             sx={{textTransform: "none", fontWeight: 500}}>
             Add Member
           </Button>
@@ -204,7 +202,7 @@ const YouthMemberList: React.FC = () => {
             <Button
               variant="contained"
               startIcon={<AddIcon />}
-              onClick={handleAddNew}
+              onClick={addMember}
               sx={{mt: 2, textTransform: "none"}}>
               Add First Record
             </Button>
@@ -222,7 +220,6 @@ const YouthMemberList: React.FC = () => {
                     Is Active Member?
                   </TableCell>
                   <TableCell sx={{fontWeight: 600}}>Position</TableCell>
-                  <TableCell sx={{fontWeight: 600}}>Joined Date</TableCell>
                   <TableCell sx={{fontWeight: 600}} align="center">
                     Actions
                   </TableCell>
@@ -254,9 +251,6 @@ const YouthMemberList: React.FC = () => {
                       />
                     </TableCell>
                     <TableCell>{youthMember.position}</TableCell>
-                    <TableCell sx={{width: 150}}>
-                      {formatDate(youthMember.joinedDate)}
-                    </TableCell>
 
                     {/* Actions */}
                     <TableCell align="center">
@@ -269,7 +263,7 @@ const YouthMemberList: React.FC = () => {
                         <Tooltip title="View Details">
                           <IconButton
                             size="small"
-                            onClick={() => handleView(youthMember._id)}
+                            onClick={() => viewMember(youthMember._id)}
                             sx={{
                               color: "primary.main",
                               border: "1px solid",
@@ -287,7 +281,7 @@ const YouthMemberList: React.FC = () => {
                         <Tooltip title="Edit Record">
                           <IconButton
                             size="small"
-                            onClick={() => handleEdit(youthMember._id)}
+                            onClick={() => editMember(youthMember._id)}
                             sx={{
                               color: "info.main",
                               border: "1px solid",
@@ -305,7 +299,7 @@ const YouthMemberList: React.FC = () => {
                         <Tooltip title="Delete Record">
                           <IconButton
                             size="small"
-                            onClick={() => handleDelete(youthMember._id)}
+                            onClick={() => deleteRecord(youthMember._id)}
                             sx={{
                               color: "error.main",
                               border: "1px solid",

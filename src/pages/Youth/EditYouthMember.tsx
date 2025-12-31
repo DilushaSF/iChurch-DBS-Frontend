@@ -51,7 +51,7 @@ const EditYouthMember: React.FC = () => {
       const response = await youthAPI.getYouthMemberById(id!);
       const member: Youth = response.data;
 
-      // Convert dates to YYYY-MM-DD format for input fields
+      // Converting dates for input fields
       setFormData({
         firstName: member.firstName,
         lastName: member.lastName,
@@ -88,7 +88,7 @@ const EditYouthMember: React.FC = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -115,7 +115,7 @@ const EditYouthMember: React.FC = () => {
     }
   };
 
-  const handleCancel = () => {
+  const goBack = () => {
     navigate("/youth-association");
   };
 
@@ -151,7 +151,7 @@ const EditYouthMember: React.FC = () => {
           <Box sx={{display: "flex", alignItems: "center", gap: 2, mb: 2}}>
             <Button
               startIcon={<ArrowBackIcon />}
-              onClick={handleCancel}
+              onClick={goBack}
               sx={{textTransform: "none"}}
               variant="outlined"
               size="small">
@@ -176,7 +176,7 @@ const EditYouthMember: React.FC = () => {
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={submitForm}>
           <Grid container spacing={3}>
             {/* Personal Information Section */}
             <Grid item xs={12}>
@@ -195,11 +195,7 @@ const EditYouthMember: React.FC = () => {
                 required
                 variant="outlined"
                 placeholder="Enter first name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -213,11 +209,7 @@ const EditYouthMember: React.FC = () => {
                 required
                 variant="outlined"
                 placeholder="Enter last name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -231,11 +223,7 @@ const EditYouthMember: React.FC = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -249,11 +237,7 @@ const EditYouthMember: React.FC = () => {
                 required
                 variant="outlined"
                 placeholder="Enter contact number"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -268,11 +252,7 @@ const EditYouthMember: React.FC = () => {
                 multiline
                 rows={3}
                 placeholder="Enter full address"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -293,12 +273,7 @@ const EditYouthMember: React.FC = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                helperText="Date when joined the youth association"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -310,13 +285,8 @@ const EditYouthMember: React.FC = () => {
                 value={formData.position}
                 onChange={handleChange}
                 variant="outlined"
-                placeholder="e.g., President, Secretary, Member"
-                helperText="Optional - Position within the youth association"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                placeholder="e.g., President, Secretary, Team Member"
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -327,9 +297,11 @@ const EditYouthMember: React.FC = () => {
                   p: 3,
                   backgroundColor: formData.isActiveMember
                     ? "#f0f9ff"
-                    : "#fef3c7",
+                    : "#fef1beff",
                   border: "1px solid",
-                  borderColor: formData.isActiveMember ? "#bfdbfe" : "#fde68a",
+                  borderColor: formData.isActiveMember
+                    ? "#bfdbfe"
+                    : "#f8e081ff",
                   borderRadius: 1,
                 }}>
                 <Box
@@ -382,7 +354,7 @@ const EditYouthMember: React.FC = () => {
                       Update Information
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      Make sure all information is accurate before updating.
+                      Ensure all information is accurate before updating.
                       Changes to membership status will affect the member's
                       participation in youth activities and events.
                     </Typography>
@@ -395,20 +367,12 @@ const EditYouthMember: React.FC = () => {
           {/* Action Buttons */}
           <Divider sx={{my: 4}} />
 
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              justifyContent: "flex-end",
-            }}>
+          <Box sx={{display: "flex", gap: 2, justifyContent: "flex-end"}}>
             <Button
               variant="outlined"
-              onClick={handleCancel}
+              onClick={goBack}
               disabled={loading}
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               Cancel
             </Button>
             <Button
@@ -418,10 +382,7 @@ const EditYouthMember: React.FC = () => {
               startIcon={
                 loading ? <CircularProgress size={20} /> : <SaveIcon />
               }
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               {loading ? "Updating..." : "Update"}
             </Button>
           </Box>

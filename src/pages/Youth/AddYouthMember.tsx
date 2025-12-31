@@ -25,6 +25,7 @@ const AddYouthMember = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [contactError, setContactError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -40,6 +41,24 @@ const AddYouthMember = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const {name, value} = e.target;
+
+    if (name === "contactNumber") {
+      // digit only validation
+      if (!/^\d*$/.test(value)) return;
+      setFormData((prev) => ({
+        ...prev,
+        contactNumber: value,
+      }));
+
+      // length validation for contact number
+      if (value.length !== 10) {
+        setContactError("Contact number must be 10 digits");
+      } else {
+        setContactError(null);
+      }
+      return;
+    }
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -53,7 +72,7 @@ const AddYouthMember = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -80,7 +99,7 @@ const AddYouthMember = () => {
     }
   };
 
-  const handleCancel = () => {
+  const goBack = () => {
     navigate("/youth-association");
   };
 
@@ -102,7 +121,7 @@ const AddYouthMember = () => {
           <Box sx={{display: "flex", alignItems: "center", gap: 2, mb: 2}}>
             <Button
               startIcon={<ArrowBackIcon />}
-              onClick={handleCancel}
+              onClick={goBack}
               sx={{textTransform: "none"}}
               variant="outlined"
               size="small">
@@ -127,7 +146,7 @@ const AddYouthMember = () => {
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={submitForm}>
           <Grid container spacing={3}>
             {/* Personal Information Section */}
             <Grid item xs={12}>
@@ -146,11 +165,7 @@ const AddYouthMember = () => {
                 required
                 variant="outlined"
                 placeholder="Enter first name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -164,11 +179,7 @@ const AddYouthMember = () => {
                 required
                 variant="outlined"
                 placeholder="Enter last name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -182,11 +193,7 @@ const AddYouthMember = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -199,12 +206,11 @@ const AddYouthMember = () => {
                 onChange={handleChange}
                 required
                 variant="outlined"
-                placeholder="Enter contact number"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                placeholder="Enter 10 digit contact number"
+                error={Boolean(contactError)}
+                helperText={contactError || " "}
+                inputProps={{maxLength: 10}}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -219,11 +225,7 @@ const AddYouthMember = () => {
                 multiline
                 rows={3}
                 placeholder="Enter full address"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -244,12 +246,7 @@ const AddYouthMember = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                helperText="Date when joined the youth association"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -262,12 +259,7 @@ const AddYouthMember = () => {
                 onChange={handleChange}
                 variant="outlined"
                 placeholder="e.g., President, Secretary, Member"
-                helperText="Optional - Position within the youth association"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -321,7 +313,7 @@ const AddYouthMember = () => {
                   p: 3,
                   backgroundColor: "#f0fdf4",
                   border: "1px solid",
-                  borderColor: "#86efac",
+                  borderColor: "#82eca9ff",
                   borderRadius: 1,
                 }}>
                 <Box sx={{display: "flex", gap: 2, alignItems: "flex-start"}}>
@@ -333,10 +325,9 @@ const AddYouthMember = () => {
                       Youth Association Member
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      Youth members are an important part of our parish. They
-                      join activities and programs that build faith and
-                      community. A position is optional and can be assigned
-                      later
+                      Youth members are an major part of a parish. They join
+                      activities that build faith and community. A position is
+                      optional.
                     </Typography>
                   </Box>
                 </Box>
@@ -347,20 +338,12 @@ const AddYouthMember = () => {
           {/* Action Buttons */}
           <Divider sx={{my: 4}} />
 
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              justifyContent: "flex-end",
-            }}>
+          <Box sx={{display: "flex", gap: 2, justifyContent: "flex-end"}}>
             <Button
               variant="outlined"
-              onClick={handleCancel}
+              onClick={goBack}
               disabled={loading}
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               Cancel
             </Button>
             <Button
@@ -370,10 +353,7 @@ const AddYouthMember = () => {
               startIcon={
                 loading ? <CircularProgress size={20} /> : <SaveIcon />
               }
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               {loading ? "Saving..." : "Save"}
             </Button>
           </Box>
