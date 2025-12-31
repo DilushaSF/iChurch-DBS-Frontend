@@ -71,7 +71,7 @@ const EditSundaySchoolTeacher: React.FC = () => {
       const response = await sundaySchoolAPI.getTeacherById(id!);
       const teacher: SundaySchoolTeacher = response.data;
 
-      // Convert dates to YYYY-MM-DD format for input fields
+      // Converting  dates for input fields
       setFormData({
         firstName: teacher.firstName,
         lastName: teacher.lastName,
@@ -143,7 +143,7 @@ const EditSundaySchoolTeacher: React.FC = () => {
     }
   };
 
-  const handleCancel = () => {
+  const goBack = () => {
     navigate("/sunday-school-teachers");
   };
 
@@ -179,7 +179,7 @@ const EditSundaySchoolTeacher: React.FC = () => {
           <Box sx={{display: "flex", alignItems: "center", gap: 2, mb: 2}}>
             <Button
               startIcon={<ArrowBackIcon />}
-              onClick={handleCancel}
+              onClick={goBack}
               sx={{textTransform: "none"}}
               variant="outlined"
               size="small">
@@ -223,11 +223,7 @@ const EditSundaySchoolTeacher: React.FC = () => {
                 required
                 variant="outlined"
                 placeholder="Enter first name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -241,11 +237,7 @@ const EditSundaySchoolTeacher: React.FC = () => {
                 required
                 variant="outlined"
                 placeholder="Enter last name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -259,11 +251,7 @@ const EditSundaySchoolTeacher: React.FC = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -277,11 +265,7 @@ const EditSundaySchoolTeacher: React.FC = () => {
                 required
                 variant="outlined"
                 placeholder="Enter contact number"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -296,11 +280,7 @@ const EditSundaySchoolTeacher: React.FC = () => {
                 multiline
                 rows={3}
                 placeholder="Enter full address"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -321,12 +301,7 @@ const EditSundaySchoolTeacher: React.FC = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                helperText="Date when appointed as Sunday school teacher"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -334,11 +309,7 @@ const EditSundaySchoolTeacher: React.FC = () => {
               <FormControl
                 fullWidth
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}>
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}>
                 <InputLabel>Class/Grade</InputLabel>
                 <Select
                   name="className"
@@ -365,13 +336,8 @@ const EditSundaySchoolTeacher: React.FC = () => {
                 onChange={handleChange}
                 multiline
                 rows={3}
-                placeholder="Additional notes or remarks (optional)"
-                helperText="Optional - Any special notes about the teacher or class"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                placeholder="Additional notes or remarks"
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -380,9 +346,9 @@ const EditSundaySchoolTeacher: React.FC = () => {
                 elevation={0}
                 sx={{
                   p: 3,
-                  backgroundColor: formData.isActive ? "#f0f9ff" : "#fef3c7",
+                  backgroundColor: formData.isActive ? "#f0f9ff" : "#f6eabaff",
                   border: "1px solid",
-                  borderColor: formData.isActive ? "#bfdbfe" : "#fde68a",
+                  borderColor: formData.isActive ? "#bfdbfe" : "#f4dc7fff",
                   borderRadius: 1,
                 }}>
                 <Box
@@ -448,20 +414,12 @@ const EditSundaySchoolTeacher: React.FC = () => {
           {/* Action Buttons */}
           <Divider sx={{my: 4}} />
 
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              justifyContent: "flex-end",
-            }}>
+          <Box sx={{display: "flex", gap: 2, justifyContent: "flex-end"}}>
             <Button
               variant="outlined"
-              onClick={handleCancel}
+              onClick={goBack}
               disabled={loading}
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               Cancel
             </Button>
             <Button
@@ -471,10 +429,7 @@ const EditSundaySchoolTeacher: React.FC = () => {
               startIcon={
                 loading ? <CircularProgress size={20} /> : <SaveIcon />
               }
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               {loading ? "Updating..." : "Update"}
             </Button>
           </Box>

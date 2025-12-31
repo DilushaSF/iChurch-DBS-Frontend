@@ -37,7 +37,7 @@ const TeachersList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const navigate = useNavigate();
 
-  // Fetch teachers on component mount
+  // Fetch teachers
   useEffect(() => {
     fetchTeachers();
   }, []);
@@ -56,7 +56,7 @@ const TeachersList: React.FC = () => {
     }
   };
 
-  const handleDelete = async (id: string): Promise<void> => {
+  const deleteRecord = async (id: string): Promise<void> => {
     if (
       window.confirm("Are you sure you want to delete this teacher record?")
     ) {
@@ -71,15 +71,15 @@ const TeachersList: React.FC = () => {
     }
   };
 
-  const handleView = (id: string): void => {
+  const viewTeacher = (id: string): void => {
     navigate(`/sunday-school-teachers/view/${id}`);
   };
 
-  const handleEdit = (id: string): void => {
+  const editTeacher = (id: string): void => {
     navigate(`/sunday-school-teachers/edit/${id}`);
   };
 
-  const handleAddNew = (): void => {
+  const addTeacher = (): void => {
     navigate("/sunday-school-teachers/add");
   };
 
@@ -121,7 +121,6 @@ const TeachersList: React.FC = () => {
         borderRadius: 2,
         maxWidth: 1400,
         margin: "auto",
-        // mt: 4,
       }}>
       <Box sx={{maxWidth: "1400px", margin: "0 auto"}}>
         {/* Header Section */}
@@ -149,7 +148,7 @@ const TeachersList: React.FC = () => {
           <Button
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={handleAddNew}
+            onClick={addTeacher}
             sx={{textTransform: "none", fontWeight: 500}}>
             Add Teacher
           </Button>
@@ -188,7 +187,6 @@ const TeachersList: React.FC = () => {
           </Typography>
         </Box>
 
-        {/* Error Message */}
         {error && (
           <Alert severity="error" sx={{mb: 3}}>
             {error}
@@ -204,7 +202,7 @@ const TeachersList: React.FC = () => {
             <Button
               variant="contained"
               startIcon={<AddIcon />}
-              onClick={handleAddNew}
+              onClick={addTeacher}
               sx={{mt: 2, textTransform: "none"}}>
               Add First Record
             </Button>
@@ -260,7 +258,7 @@ const TeachersList: React.FC = () => {
                         <Tooltip title="View Details">
                           <IconButton
                             size="small"
-                            onClick={() => handleView(teacher._id)}
+                            onClick={() => viewTeacher(teacher._id)}
                             sx={{
                               color: "primary.main",
                               border: "1px solid",
@@ -278,7 +276,7 @@ const TeachersList: React.FC = () => {
                         <Tooltip title="Edit Record">
                           <IconButton
                             size="small"
-                            onClick={() => handleEdit(teacher._id)}
+                            onClick={() => editTeacher(teacher._id)}
                             sx={{
                               color: "info.main",
                               border: "1px solid",
@@ -296,7 +294,7 @@ const TeachersList: React.FC = () => {
                         <Tooltip title="Delete Record">
                           <IconButton
                             size="small"
-                            onClick={() => handleDelete(teacher._id)}
+                            onClick={() => deleteRecord(teacher._id)}
                             sx={{
                               color: "error.main",
                               border: "1px solid",

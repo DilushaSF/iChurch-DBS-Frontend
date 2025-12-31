@@ -49,11 +49,11 @@ const ViewSundaySchoolTeacher: React.FC = () => {
     }
   };
 
-  const handleBack = () => {
+  const goBack = () => {
     navigate("/sunday-school-teachers");
   };
 
-  const handleDelete = async () => {
+  const deleteRecord = async () => {
     if (
       window.confirm(
         "Are you sure you want to delete this Sunday school teacher?"
@@ -138,7 +138,7 @@ const ViewSundaySchoolTeacher: React.FC = () => {
         </Alert>
         <Button
           startIcon={<ArrowBackIcon />}
-          onClick={handleBack}
+          onClick={goBack}
           variant="outlined">
           Back to List
         </Button>
@@ -164,7 +164,7 @@ const ViewSundaySchoolTeacher: React.FC = () => {
           <Box sx={{display: "flex", alignItems: "center", gap: 2, mb: 2}}>
             <Button
               startIcon={<ArrowBackIcon />}
-              onClick={handleBack}
+              onClick={goBack}
               sx={{textTransform: "none"}}
               variant="outlined"
               size="small">
@@ -192,7 +192,7 @@ const ViewSundaySchoolTeacher: React.FC = () => {
                 variant="outlined"
                 color="error"
                 startIcon={<DeleteIcon />}
-                onClick={handleDelete}
+                onClick={deleteRecord}
                 sx={{textTransform: "none"}}>
                 Delete
               </Button>
@@ -215,9 +215,7 @@ const ViewSundaySchoolTeacher: React.FC = () => {
               fullWidth
               label="Full Name"
               value={`${teacher.firstName} ${teacher.lastName}`}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               variant="outlined"
               sx={{
                 "& .MuiOutlinedInput-root": {
@@ -233,14 +231,8 @@ const ViewSundaySchoolTeacher: React.FC = () => {
               fullWidth
               label="Date of Birth"
               value={formatDate(teacher.dateOfBirth)}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -249,14 +241,8 @@ const ViewSundaySchoolTeacher: React.FC = () => {
               fullWidth
               label="Age"
               value={`${calculateAge(teacher.dateOfBirth)} years old`}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -265,15 +251,9 @@ const ViewSundaySchoolTeacher: React.FC = () => {
               fullWidth
               label="Contact Number"
               value={teacher.contactNumber}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               variant="outlined"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -282,16 +262,10 @@ const ViewSundaySchoolTeacher: React.FC = () => {
               fullWidth
               label="Address"
               value={teacher.address}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               multiline
               rows={3}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -307,14 +281,8 @@ const ViewSundaySchoolTeacher: React.FC = () => {
               fullWidth
               label="Appointed Date"
               value={formatDate(teacher.appointedDate)}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -323,14 +291,8 @@ const ViewSundaySchoolTeacher: React.FC = () => {
               fullWidth
               label="Teaching Duration"
               value={calculateTeachingDuration(teacher.appointedDate)}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -458,14 +420,8 @@ const ViewSundaySchoolTeacher: React.FC = () => {
                     })
                   : "N/A"
               }
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -484,14 +440,8 @@ const ViewSundaySchoolTeacher: React.FC = () => {
                     })
                   : "N/A"
               }
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
         </Grid>
@@ -499,19 +449,11 @@ const ViewSundaySchoolTeacher: React.FC = () => {
         {/* Action Buttons */}
         <Divider sx={{my: 4}} />
 
-        <Box
-          sx={{
-            display: "flex",
-            gap: 2,
-            justifyContent: "flex-end",
-          }}>
+        <Box sx={{display: "flex", gap: 2, justifyContent: "flex-end"}}>
           <Button
             variant="outlined"
-            onClick={handleBack}
-            sx={{
-              textTransform: "none",
-              px: 4,
-            }}>
+            onClick={goBack}
+            sx={{textTransform: "none", px: 4}}>
             Back to List
           </Button>
         </Box>
