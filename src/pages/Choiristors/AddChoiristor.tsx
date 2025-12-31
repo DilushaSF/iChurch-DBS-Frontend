@@ -35,6 +35,7 @@ const AddChoiristor = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [contactError, setContactError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -42,16 +43,34 @@ const AddChoiristor = () => {
     address: "",
     contactNumber: "",
     joinedDate: "",
-    voicePart: "Soprano" as VoicePart,
+    voicePart: "" as VoicePart,
     isActiveMember: true,
     instrumentsPlayed: [] as string[],
-    choirType: "Senior" as ChoirType,
+    choirType: "" as ChoirType,
   });
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const {name, value} = e.target;
+
+    if (name === "contactNumber") {
+      // digit only validation
+      if (!/^\d*$/.test(value)) return;
+      setFormData((prev) => ({
+        ...prev,
+        contactNumber: value,
+      }));
+
+      // length validation for contact number
+      if (value.length !== 10) {
+        setContactError("Contact number must be 10 digits");
+      } else {
+        setContactError(null);
+      }
+      return;
+    }
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -112,7 +131,7 @@ const AddChoiristor = () => {
   };
 
   return (
-    <Box sx={{p: 3}}>
+    <Box>
       <Paper
         elevation={0}
         sx={{
@@ -121,7 +140,7 @@ const AddChoiristor = () => {
           border: "1px solid",
           borderColor: "divider",
           backgroundColor: "#ffffff",
-          maxWidth: 1200,
+          maxWidth: 1400,
           margin: "0 auto",
         }}>
         {/* Header */}
@@ -146,7 +165,6 @@ const AddChoiristor = () => {
 
         <Divider sx={{mb: 4}} />
 
-        {/* Error Alert */}
         {error && (
           <Alert severity="error" sx={{mb: 3}} onClose={() => setError(null)}>
             {error}
@@ -173,11 +191,7 @@ const AddChoiristor = () => {
                 required
                 variant="outlined"
                 placeholder="Enter first name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -191,11 +205,7 @@ const AddChoiristor = () => {
                 required
                 variant="outlined"
                 placeholder="Enter last name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -209,11 +219,7 @@ const AddChoiristor = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -226,12 +232,10 @@ const AddChoiristor = () => {
                 onChange={handleChange}
                 required
                 variant="outlined"
-                placeholder="Enter contact number"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                placeholder="Enter 10 digit contact number"
+                error={Boolean(contactError)}
+                helperText={contactError || " "}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -246,11 +250,7 @@ const AddChoiristor = () => {
                 multiline
                 rows={3}
                 placeholder="Enter full address"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -271,12 +271,7 @@ const AddChoiristor = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                helperText="Date when joined the choir"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -284,11 +279,7 @@ const AddChoiristor = () => {
               <FormControl
                 fullWidth
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}>
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}>
                 <InputLabel>Choir Type</InputLabel>
                 <Select
                   name="choirType"
@@ -308,11 +299,7 @@ const AddChoiristor = () => {
               <FormControl
                 fullWidth
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}>
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}>
                 <InputLabel>Voice Part</InputLabel>
                 <Select
                   name="voicePart"
@@ -332,11 +319,7 @@ const AddChoiristor = () => {
             <Grid item xs={12} md={6}>
               <FormControl
                 fullWidth
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}>
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}>
                 <InputLabel>Instruments Played</InputLabel>
                 <Select
                   multiple
@@ -366,8 +349,8 @@ const AddChoiristor = () => {
                 sx={{
                   p: 3,
                   backgroundColor: formData.isActiveMember
-                    ? "#f0f9ff"
-                    : "#fef3c7",
+                    ? "#e1eff8ff"
+                    : "#fdf0bfff",
                   border: "1px solid",
                   borderColor: formData.isActiveMember ? "#bfdbfe" : "#fde68a",
                   borderRadius: 1,
@@ -410,7 +393,7 @@ const AddChoiristor = () => {
                   p: 3,
                   backgroundColor: "#f0fdf4",
                   border: "1px solid",
-                  borderColor: "#86efac",
+                  borderColor: "#81f8acff",
                   borderRadius: 1,
                 }}>
                 <Box sx={{display: "flex", gap: 2, alignItems: "flex-start"}}>
@@ -420,9 +403,9 @@ const AddChoiristor = () => {
                       Choiristor Information
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      Voice parts in a choir organize the choir: Soprano and
-                      Alto are typically higher voices, while Tenor and Bass are
-                      lower voices. Select all instruments the member can play.
+                      Vocal parts in a choir organize the choir: Soprano and
+                      Alto are typically higher voices, and Tenor and Bass are
+                      lower voices.
                     </Typography>
                   </Box>
                 </Box>
@@ -433,20 +416,12 @@ const AddChoiristor = () => {
           {/* Action Buttons */}
           <Divider sx={{my: 4}} />
 
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              justifyContent: "flex-end",
-            }}>
+          <Box sx={{display: "flex", gap: 2, justifyContent: "flex-end"}}>
             <Button
               variant="outlined"
               onClick={handleCancel}
               disabled={loading}
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               Cancel
             </Button>
             <Button
@@ -456,10 +431,7 @@ const AddChoiristor = () => {
               startIcon={
                 loading ? <CircularProgress size={20} /> : <SaveIcon />
               }
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               {loading ? "Saving..." : "Save"}
             </Button>
           </Box>

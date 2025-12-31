@@ -52,10 +52,10 @@ const EditChoirMember: React.FC = () => {
     address: "",
     contactNumber: "",
     joinedDate: "",
-    voicePart: "Soprano" as VoicePart,
+    voicePart: "" as VoicePart,
     isActiveMember: true,
     instrumentsPlayed: [] as string[],
-    choirType: "Senior" as ChoirType,
+    choirType: "" as ChoirType,
   });
 
   useEffect(() => {
@@ -70,7 +70,7 @@ const EditChoirMember: React.FC = () => {
       const response = await choirAPI.getChoiristorById(id!);
       const member: Choir = response.data;
 
-      // Convert dates to YYYY-MM-DD format for input fields
+      // Converting dates for input fields
       setFormData({
         firstName: member.firstName,
         lastName: member.lastName,
@@ -124,7 +124,7 @@ const EditChoirMember: React.FC = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -204,7 +204,6 @@ const EditChoirMember: React.FC = () => {
 
         <Divider sx={{mb: 4}} />
 
-        {/* Error Alert */}
         {error && (
           <Alert severity="error" sx={{mb: 3}} onClose={() => setError(null)}>
             {error}
@@ -212,7 +211,7 @@ const EditChoirMember: React.FC = () => {
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={submitForm}>
           <Grid container spacing={3}>
             {/* Personal Information Section */}
             <Grid item xs={12}>
@@ -231,11 +230,7 @@ const EditChoirMember: React.FC = () => {
                 required
                 variant="outlined"
                 placeholder="Enter first name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -249,11 +244,7 @@ const EditChoirMember: React.FC = () => {
                 required
                 variant="outlined"
                 placeholder="Enter last name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -267,11 +258,7 @@ const EditChoirMember: React.FC = () => {
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -285,11 +272,7 @@ const EditChoirMember: React.FC = () => {
                 required
                 variant="outlined"
                 placeholder="Enter contact number"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -304,11 +287,7 @@ const EditChoirMember: React.FC = () => {
                 multiline
                 rows={3}
                 placeholder="Enter full address"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -330,11 +309,7 @@ const EditChoirMember: React.FC = () => {
                 InputLabelProps={{shrink: true}}
                 required
                 helperText="Date when joined the choir"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -342,11 +317,7 @@ const EditChoirMember: React.FC = () => {
               <FormControl
                 fullWidth
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}>
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}>
                 <InputLabel>Choir Type</InputLabel>
                 <Select
                   name="choirType"
@@ -366,11 +337,7 @@ const EditChoirMember: React.FC = () => {
               <FormControl
                 fullWidth
                 required
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}>
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}>
                 <InputLabel>Voice Part</InputLabel>
                 <Select
                   name="voicePart"
@@ -390,11 +357,7 @@ const EditChoirMember: React.FC = () => {
             <Grid item xs={12} md={6}>
               <FormControl
                 fullWidth
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}>
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}>
                 <InputLabel>Instruments Played</InputLabel>
                 <Select
                   multiple
@@ -425,9 +388,11 @@ const EditChoirMember: React.FC = () => {
                   p: 3,
                   backgroundColor: formData.isActiveMember
                     ? "#f0f9ff"
-                    : "#fef3c7",
+                    : "#fbefbcff",
                   border: "1px solid",
-                  borderColor: formData.isActiveMember ? "#bfdbfe" : "#fde68a",
+                  borderColor: formData.isActiveMember
+                    ? "#bfdbfe"
+                    : "#fbe383ff",
                   borderRadius: 1,
                 }}>
                 <Box
@@ -479,8 +444,8 @@ const EditChoirMember: React.FC = () => {
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                       Make sure all information is accurate before saving.
-                      Changes to voice part or choir type may affect the
-                      choiristor's role and responsibilities in the choir.
+                      Changes of vocal part or choir type may impact the
+                      choiristor's role in the choir.
                     </Typography>
                   </Box>
                 </Box>
@@ -488,23 +453,14 @@ const EditChoirMember: React.FC = () => {
             </Grid>
           </Grid>
 
-          {/* Action Buttons */}
           <Divider sx={{my: 4}} />
 
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              justifyContent: "flex-end",
-            }}>
+          <Box sx={{display: "flex", gap: 2, justifyContent: "flex-end"}}>
             <Button
               variant="outlined"
               onClick={handleCancel}
               disabled={loading}
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               Cancel
             </Button>
             <Button
@@ -514,10 +470,7 @@ const EditChoirMember: React.FC = () => {
               startIcon={
                 loading ? <CircularProgress size={20} /> : <SaveIcon />
               }
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               {loading ? "Updating..." : "Update"}
             </Button>
           </Box>

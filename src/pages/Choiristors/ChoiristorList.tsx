@@ -38,7 +38,7 @@ const ChoiristorList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const navigate = useNavigate();
 
-  // Fetch choiristors on component mount
+  // Fetch choiristors
   useEffect(() => {
     fetchChoiristors();
   }, []);
@@ -64,7 +64,6 @@ const ChoiristorList: React.FC = () => {
         setChoiristors(
           choiristors.filter((choiristor) => choiristor._id !== id)
         );
-        // Optional: Show success message with Snackbar
       } catch (err) {
         alert("Failed to delete choiristor");
         console.error("Error deleting choiristor:", err);
@@ -72,15 +71,15 @@ const ChoiristorList: React.FC = () => {
     }
   };
 
-  const handleView = (id: string): void => {
+  const viewChoiristor = (id: string): void => {
     navigate(`/choiristors/view/${id}`);
   };
 
-  const handleEdit = (id: string): void => {
+  const editChoiristor = (id: string): void => {
     navigate(`/choiristors/edit/${id}`);
   };
 
-  const handleAddNew = (): void => {
+  const addChoiristor = (): void => {
     navigate("/choiristors/add");
   };
 
@@ -150,7 +149,7 @@ const ChoiristorList: React.FC = () => {
           <Button
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={handleAddNew}
+            onClick={addChoiristor}
             sx={{textTransform: "none", fontWeight: 500}}>
             Add Choiristor
           </Button>
@@ -205,7 +204,7 @@ const ChoiristorList: React.FC = () => {
             <Button
               variant="contained"
               startIcon={<AddIcon />}
-              onClick={handleAddNew}
+              onClick={addChoiristor}
               sx={{mt: 2, textTransform: "none"}}>
               Add First Record
             </Button>
@@ -268,7 +267,7 @@ const ChoiristorList: React.FC = () => {
                         <Tooltip title="View Details">
                           <IconButton
                             size="small"
-                            onClick={() => handleView(choiristor._id)}
+                            onClick={() => viewChoiristor(choiristor._id)}
                             sx={{
                               color: "primary.main",
                               border: "1px solid",
@@ -286,7 +285,7 @@ const ChoiristorList: React.FC = () => {
                         <Tooltip title="Edit Record">
                           <IconButton
                             size="small"
-                            onClick={() => handleEdit(choiristor._id)}
+                            onClick={() => editChoiristor(choiristor._id)}
                             sx={{
                               color: "info.main",
                               border: "1px solid",

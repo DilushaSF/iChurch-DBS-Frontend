@@ -49,11 +49,11 @@ const ViewChoiristor: React.FC = () => {
     }
   };
 
-  const handleBack = () => {
+  const goBack = () => {
     navigate("/choiristors");
   };
 
-  const handleDelete = async () => {
+  const deleteRecord = async () => {
     if (window.confirm("Are you sure you want to delete this choiristor?")) {
       try {
         await choirAPI.deleteChoiristor(id!);
@@ -166,7 +166,7 @@ const ViewChoiristor: React.FC = () => {
         </Alert>
         <Button
           startIcon={<ArrowBackIcon />}
-          onClick={handleBack}
+          onClick={goBack}
           variant="outlined">
           Back to List
         </Button>
@@ -192,7 +192,7 @@ const ViewChoiristor: React.FC = () => {
           <Box sx={{display: "flex", alignItems: "center", gap: 2, mb: 2}}>
             <Button
               startIcon={<ArrowBackIcon />}
-              onClick={handleBack}
+              onClick={goBack}
               sx={{textTransform: "none"}}
               variant="outlined"
               size="small">
@@ -220,7 +220,7 @@ const ViewChoiristor: React.FC = () => {
                 variant="outlined"
                 color="error"
                 startIcon={<DeleteIcon />}
-                onClick={handleDelete}
+                onClick={deleteRecord}
                 sx={{textTransform: "none"}}>
                 Delete
               </Button>
@@ -243,9 +243,7 @@ const ViewChoiristor: React.FC = () => {
               fullWidth
               label="Full Name"
               value={`${member.firstName} ${member.lastName}`}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               variant="outlined"
               sx={{
                 "& .MuiOutlinedInput-root": {
@@ -261,14 +259,8 @@ const ViewChoiristor: React.FC = () => {
               fullWidth
               label="Date of Birth"
               value={formatDate(member.dateOfBirth)}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -277,14 +269,8 @@ const ViewChoiristor: React.FC = () => {
               fullWidth
               label="Age"
               value={`${calculateAge(member.dateOfBirth)} years old`}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -293,15 +279,9 @@ const ViewChoiristor: React.FC = () => {
               fullWidth
               label="Contact Number"
               value={member.contactNumber}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               variant="outlined"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -310,16 +290,10 @@ const ViewChoiristor: React.FC = () => {
               fullWidth
               label="Address"
               value={member.address}
-              InputProps={{
-                readOnly: true,
-              }}
+              InputProps={{readOnly: true}}
               multiline
               rows={3}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -335,14 +309,8 @@ const ViewChoiristor: React.FC = () => {
               fullWidth
               label="Joined Date"
               value={formatDate(member.joinedDate)}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -351,14 +319,8 @@ const ViewChoiristor: React.FC = () => {
               fullWidth
               label="Membership Duration"
               value={calculateMembershipDuration(member.joinedDate)}
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -535,14 +497,8 @@ const ViewChoiristor: React.FC = () => {
                     })
                   : "N/A"
               }
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
 
@@ -561,14 +517,8 @@ const ViewChoiristor: React.FC = () => {
                     })
                   : "N/A"
               }
-              InputProps={{
-                readOnly: true,
-              }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  backgroundColor: "#f9fafb",
-                },
-              }}
+              InputProps={{readOnly: true}}
+              sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
             />
           </Grid>
         </Grid>
@@ -576,19 +526,11 @@ const ViewChoiristor: React.FC = () => {
         {/* Action Buttons */}
         <Divider sx={{my: 4}} />
 
-        <Box
-          sx={{
-            display: "flex",
-            gap: 2,
-            justifyContent: "flex-end",
-          }}>
+        <Box sx={{display: "flex", gap: 2, justifyContent: "flex-end"}}>
           <Button
             variant="outlined"
-            onClick={handleBack}
-            sx={{
-              textTransform: "none",
-              px: 4,
-            }}>
+            onClick={goBack}
+            sx={{textTransform: "none", px: 4}}>
             Back to List
           </Button>
         </Box>
