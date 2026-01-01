@@ -51,7 +51,7 @@ const ViewMemberRegistration = () => {
     }
   };
 
-  const handleBack = () => {
+  const goBack = () => {
     navigate("/member-registrations");
   };
 
@@ -86,7 +86,7 @@ const ViewMemberRegistration = () => {
         </Alert>
         <Button
           startIcon={<ArrowBackIcon />}
-          onClick={handleBack}
+          onClick={goBack}
           sx={{mt: 2, textTransform: "none"}}>
           Back to List
         </Button>
@@ -118,7 +118,7 @@ const ViewMemberRegistration = () => {
             }}>
             <Button
               startIcon={<ArrowBackIcon />}
-              onClick={handleBack}
+              onClick={goBack}
               sx={{textTransform: "none"}}
               variant="outlined"
               size="small">
@@ -154,15 +154,9 @@ const ViewMemberRegistration = () => {
                 fullWidth
                 label="Church"
                 value={memberData.church}
-                InputProps={{
-                  readOnly: true,
-                }}
+                InputProps={{readOnly: true}}
                 variant="outlined"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
           </Grid>
@@ -179,15 +173,9 @@ const ViewMemberRegistration = () => {
                 fullWidth
                 label="Father's Name"
                 value={memberData.nameOfFather}
-                InputProps={{
-                  readOnly: true,
-                }}
+                InputProps={{readOnly: true}}
                 variant="outlined"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
             <Grid item xs={12} md={4} sx={{mt: 2}}>
@@ -195,15 +183,9 @@ const ViewMemberRegistration = () => {
                 fullWidth
                 label="Father's Occupation"
                 value={memberData.occupationOfFather || "N/A"}
-                InputProps={{
-                  readOnly: true,
-                }}
+                InputProps={{readOnly: true}}
                 variant="outlined"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
             <Grid item xs={12} md={4} sx={{mt: 2}}>
@@ -211,14 +193,8 @@ const ViewMemberRegistration = () => {
                 fullWidth
                 label="Father's Date of Birth"
                 value={formatDate(memberData.dateOfBirthFather)}
-                InputProps={{
-                  readOnly: true,
-                }}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                InputProps={{readOnly: true}}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -226,14 +202,8 @@ const ViewMemberRegistration = () => {
                 fullWidth
                 label="Father's Baptised Date"
                 value={formatDate(memberData.baptisedDateOfFather)}
-                InputProps={{
-                  readOnly: true,
-                }}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                InputProps={{readOnly: true}}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -241,15 +211,9 @@ const ViewMemberRegistration = () => {
                 fullWidth
                 label="Father's Baptised Church"
                 value={memberData.baptisedChurchOfFather || "N/A"}
-                InputProps={{
-                  readOnly: true,
-                }}
+                InputProps={{readOnly: true}}
                 variant="outlined"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
           </Grid>
@@ -266,15 +230,9 @@ const ViewMemberRegistration = () => {
                 fullWidth
                 label="Mother's Name"
                 value={memberData.nameOfMother}
-                InputProps={{
-                  readOnly: true,
-                }}
+                InputProps={{readOnly: true}}
                 variant="outlined"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
             <Grid item xs={12} md={4} sx={{mt: 2}}>
@@ -282,15 +240,9 @@ const ViewMemberRegistration = () => {
                 fullWidth
                 label="Mother's Occupation"
                 value={memberData.occupationOfMother || "N/A"}
-                InputProps={{
-                  readOnly: true,
-                }}
+                InputProps={{readOnly: true}}
                 variant="outlined"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
             <Grid item xs={12} md={4} sx={{mt: 2}}>
@@ -298,14 +250,8 @@ const ViewMemberRegistration = () => {
                 fullWidth
                 label="Mother's Date of Birth"
                 value={formatDate(memberData.dateOfBirthOfMother)}
-                InputProps={{
-                  readOnly: true,
-                }}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                InputProps={{readOnly: true}}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
             <Grid item xs={12} md={4}>
@@ -313,14 +259,8 @@ const ViewMemberRegistration = () => {
                 fullWidth
                 label="Mother's Baptised Date"
                 value={formatDate(memberData.baptisedDateOfMother)}
-                InputProps={{
-                  readOnly: true,
-                }}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                InputProps={{readOnly: true}}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -329,15 +269,9 @@ const ViewMemberRegistration = () => {
                 fullWidth
                 label="Mother's Baptised Church"
                 value={memberData.baptisedChurchOfMother || "N/A"}
-                InputProps={{
-                  readOnly: true,
-                }}
+                InputProps={{readOnly: true}}
                 variant="outlined"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
           </Grid>
@@ -362,16 +296,10 @@ const ViewMemberRegistration = () => {
                 fullWidth
                 label="Address"
                 value={memberData.address}
-                InputProps={{
-                  readOnly: true,
-                }}
+                InputProps={{readOnly: true}}
                 multiline
                 rows={3}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
             <Grid item xs={12} md={3}>
@@ -380,14 +308,10 @@ const ViewMemberRegistration = () => {
                   fullWidth
                   label="Contact Number"
                   value={memberData.contactNo}
-                  InputProps={{
-                    readOnly: true,
-                  }}
+                  InputProps={{readOnly: true}}
                   variant="outlined"
                   sx={{
-                    "& .MuiOutlinedInput-root": {
-                      backgroundColor: "#f9fafb",
-                    },
+                    "& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"},
                   }}
                 />
               </Box>
@@ -397,15 +321,9 @@ const ViewMemberRegistration = () => {
                 fullWidth
                 label="Married Church"
                 value={memberData.marriedChurch || "N/A"}
-                InputProps={{
-                  readOnly: true,
-                }}
+                InputProps={{readOnly: true}}
                 variant="outlined"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
             <Grid item xs={12} md={2}>
@@ -416,11 +334,7 @@ const ViewMemberRegistration = () => {
                 InputProps={{
                   readOnly: true,
                 }}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
           </Grid>
@@ -442,15 +356,9 @@ const ViewMemberRegistration = () => {
                     ? `LKR ${memberData.capableDonationPerMonth}`
                     : "N/A"
                 }
-                InputProps={{
-                  readOnly: true,
-                }}
+                InputProps={{readOnly: true}}
                 variant="outlined"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
           </Grid>
@@ -533,9 +441,7 @@ const ViewMemberRegistration = () => {
                           fullWidth
                           label="Child's Name"
                           value={child.nameOfChild}
-                          InputProps={{
-                            readOnly: true,
-                          }}
+                          InputProps={{readOnly: true}}
                           variant="outlined"
                           sx={{
                             "& .MuiOutlinedInput-root": {
@@ -549,9 +455,7 @@ const ViewMemberRegistration = () => {
                           fullWidth
                           label="Date of Birth"
                           value={formatDate(child.dateOfBirthChild)}
-                          InputProps={{
-                            readOnly: true,
-                          }}
+                          InputProps={{readOnly: true}}
                           sx={{
                             "& .MuiOutlinedInput-root": {
                               backgroundColor: "#ffffff",
@@ -564,9 +468,7 @@ const ViewMemberRegistration = () => {
                           fullWidth
                           label="Baptised Date"
                           value={formatDate(child.baptisedDateOfChild)}
-                          InputProps={{
-                            readOnly: true,
-                          }}
+                          InputProps={{readOnly: true}}
                           sx={{
                             "& .MuiOutlinedInput-root": {
                               backgroundColor: "#ffffff",
@@ -579,9 +481,7 @@ const ViewMemberRegistration = () => {
                           fullWidth
                           label="Baptised Church"
                           value={child.baptisedChurchOfChild || "N/A"}
-                          InputProps={{
-                            readOnly: true,
-                          }}
+                          InputProps={{readOnly: true}}
                           variant="outlined"
                           sx={{
                             "& .MuiOutlinedInput-root": {
@@ -632,8 +532,8 @@ const ViewMemberRegistration = () => {
                 Family Registration Details
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                This is a read-only view of the family registration. To make
-                changes, click the "Edit Registration" button above.
+                This is a read-only view of the member registration. To modify
+                details, click the "Edit Registration" button above.
               </Typography>
             </Box>
           </Box>
@@ -642,19 +542,11 @@ const ViewMemberRegistration = () => {
         {/* Action Buttons */}
         <Divider sx={{my: 4}} />
 
-        <Box
-          sx={{
-            display: "flex",
-            gap: 2,
-            justifyContent: "flex-end",
-          }}>
+        <Box sx={{display: "flex", gap: 2, justifyContent: "flex-end"}}>
           <Button
             variant="outlined"
-            onClick={handleBack}
-            sx={{
-              textTransform: "none",
-              px: 4,
-            }}>
+            onClick={goBack}
+            sx={{textTransform: "none", px: 4}}>
             Back to List
           </Button>
         </Box>

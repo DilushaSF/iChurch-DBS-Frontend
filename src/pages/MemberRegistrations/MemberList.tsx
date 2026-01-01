@@ -227,10 +227,7 @@ const MemberRow: React.FC<MemberRowProps> = ({
                     }}>
                     <Table size="small">
                       <TableHead>
-                        <TableRow
-                          sx={{
-                            backgroundColor: "#dbeafe",
-                          }}>
+                        <TableRow sx={{backgroundColor: "#dbeafe"}}>
                           <TableCell
                             sx={{
                               fontWeight: 700,
@@ -279,28 +276,17 @@ const MemberRow: React.FC<MemberRowProps> = ({
                           <TableRow
                             key={index}
                             sx={{
-                              "&:hover": {
-                                backgroundColor: "#f0f9ff",
-                              },
-                              "&:last-child td": {
-                                borderBottom: 0,
-                              },
+                              "&:hover": {backgroundColor: "#f0f9ff"},
+                              "&:last-child td": {borderBottom: 0},
                             }}>
                             <TableCell
-                              sx={{
-                                fontWeight: 600,
-                                color: "#6b7280",
-                                py: 1.5,
-                              }}>
+                              sx={{fontWeight: 600, color: "#6b7280", py: 1.5}}>
                               {index + 1}
                             </TableCell>
                             <TableCell
                               component="th"
                               scope="row"
-                              sx={{
-                                fontWeight: 600,
-                                color: "#111827",
-                              }}>
+                              sx={{fontWeight: 600, color: "#111827"}}>
                               {child.nameOfChild}
                             </TableCell>
                             <TableCell sx={{color: "#374151"}}>
@@ -327,7 +313,7 @@ const MemberRow: React.FC<MemberRowProps> = ({
                                 <Typography
                                   variant="body2"
                                   sx={{
-                                    color: "#9ca3af",
+                                    color: "#9ea5b1ff",
                                     fontStyle: "italic",
                                   }}>
                                   N/A
@@ -403,15 +389,15 @@ const MembersList: React.FC = () => {
     }
   };
 
-  const handleView = (id: string): void => {
+  const viewMember = (id: string): void => {
     navigate(`/member-registrations/view/${id}`);
   };
 
-  const handleEdit = (id: string): void => {
+  const editMember = (id: string): void => {
     navigate(`/member-registrations/edit/${id}`);
   };
 
-  const handleAddNew = (): void => {
+  const addMember = (): void => {
     navigate("/member-registrations/add");
   };
 
@@ -484,7 +470,7 @@ const MembersList: React.FC = () => {
           <Button
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={handleAddNew}
+            onClick={addMember}
             sx={{textTransform: "none", fontWeight: 500}}>
             Add Member Registration
           </Button>
@@ -546,7 +532,7 @@ const MembersList: React.FC = () => {
             <Button
               variant="contained"
               startIcon={<AddIcon />}
-              onClick={handleAddNew}
+              onClick={addMember}
               sx={{mt: 2, textTransform: "none"}}>
               Add First Registration
             </Button>
@@ -580,8 +566,8 @@ const MembersList: React.FC = () => {
                   <MemberRow
                     key={member._id}
                     member={member}
-                    onView={handleView}
-                    onEdit={handleEdit}
+                    onView={viewMember}
+                    onEdit={editMember}
                     onDelete={handleDelete}
                     formatDate={formatDate}
                   />

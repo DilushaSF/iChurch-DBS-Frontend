@@ -29,6 +29,7 @@ const AddMemberRegistration = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [contactError, setContactError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     church: "",
     nameOfFather: "",
@@ -54,6 +55,24 @@ const AddMemberRegistration = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const {name, value} = e.target;
+
+    if (name === "contactNo") {
+      // digit only validation
+      if (!/^\d*$/.test(value)) return;
+      setFormData((prev) => ({
+        ...prev,
+        contactNo: value,
+      }));
+
+      // length validation for contact number
+      if (value.length !== 10) {
+        setContactError("Contact number must be 10 digits");
+      } else {
+        setContactError(null);
+      }
+      return;
+    }
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -93,7 +112,7 @@ const AddMemberRegistration = () => {
     setChildren(newChildren);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -128,7 +147,7 @@ const AddMemberRegistration = () => {
     }
   };
 
-  const handleCancel = () => {
+  const goBack = () => {
     navigate("/member-registrations");
   };
 
@@ -150,7 +169,7 @@ const AddMemberRegistration = () => {
           <Box sx={{display: "flex", alignItems: "center", gap: 2, mb: 2}}>
             <Button
               startIcon={<ArrowBackIcon />}
-              onClick={handleCancel}
+              onClick={goBack}
               sx={{textTransform: "none"}}
               variant="outlined"
               size="small">
@@ -175,7 +194,7 @@ const AddMemberRegistration = () => {
         )}
 
         {/* Form */}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={submitForm}>
           <Grid container spacing={3}>
             {/* Church Information Section */}
             <Grid item xs={12}>
@@ -194,11 +213,7 @@ const AddMemberRegistration = () => {
                 required
                 variant="outlined"
                 placeholder="Enter church name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -219,11 +234,7 @@ const AddMemberRegistration = () => {
                 required
                 variant="outlined"
                 placeholder="Enter father's full name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -236,11 +247,7 @@ const AddMemberRegistration = () => {
                 onChange={handleChange}
                 variant="outlined"
                 placeholder="Enter Father's occupation"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -253,11 +260,7 @@ const AddMemberRegistration = () => {
                 value={formData.dateOfBirthFather}
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -270,11 +273,7 @@ const AddMemberRegistration = () => {
                 value={formData.baptisedDateOfFather}
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -287,11 +286,7 @@ const AddMemberRegistration = () => {
                 onChange={handleChange}
                 variant="outlined"
                 placeholder="Father's Baptised Church"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -312,11 +307,7 @@ const AddMemberRegistration = () => {
                 required
                 variant="outlined"
                 placeholder="Enter mother's full name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -329,11 +320,7 @@ const AddMemberRegistration = () => {
                 onChange={handleChange}
                 variant="outlined"
                 placeholder="Enter Mother's occupation"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -346,11 +333,7 @@ const AddMemberRegistration = () => {
                 value={formData.dateOfBirthOfMother}
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -363,11 +346,7 @@ const AddMemberRegistration = () => {
                 value={formData.baptisedDateOfMother}
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -380,11 +359,7 @@ const AddMemberRegistration = () => {
                 onChange={handleChange}
                 variant="outlined"
                 placeholder="Mother's Baptised Church"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -406,11 +381,7 @@ const AddMemberRegistration = () => {
                 multiline
                 rows={3}
                 placeholder="Enter full address"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -423,12 +394,11 @@ const AddMemberRegistration = () => {
                 onChange={handleChange}
                 required
                 variant="outlined"
-                placeholder="Enter contact number"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                placeholder="Enter 10 digit contact number"
+                error={Boolean(contactError)}
+                helperText={contactError || " "}
+                inputProps={{maxLength: 10}}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -441,11 +411,7 @@ const AddMemberRegistration = () => {
                 value={formData.marriedDate}
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -458,11 +424,7 @@ const AddMemberRegistration = () => {
                 onChange={handleChange}
                 variant="outlined"
                 placeholder="Married Church"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -487,11 +449,7 @@ const AddMemberRegistration = () => {
                 InputProps={{
                   startAdornment: <Typography sx={{mr: 1}}>LKR</Typography>,
                 }}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -695,20 +653,12 @@ const AddMemberRegistration = () => {
           {/* Action Buttons */}
           <Divider sx={{my: 4}} />
 
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              justifyContent: "flex-end",
-            }}>
+          <Box sx={{display: "flex", gap: 2, justifyContent: "flex-end"}}>
             <Button
               variant="outlined"
-              onClick={handleCancel}
+              onClick={goBack}
               disabled={loading}
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               Cancel
             </Button>
             <Button
@@ -718,10 +668,7 @@ const AddMemberRegistration = () => {
               startIcon={
                 loading ? <CircularProgress size={20} /> : <SaveIcon />
               }
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               {loading ? "Saving..." : "Save"}
             </Button>
           </Box>

@@ -102,7 +102,7 @@ const EditMemberRegistration = () => {
             data.capableDonationPerMonth?.toString() || "",
         });
 
-        // Populate children data with formatted dates
+        // Populate children data
         if (data.children && Array.isArray(data.children)) {
           const formattedChildren = data.children.map((child: Child) => ({
             nameOfChild: child.nameOfChild || "",
@@ -119,7 +119,6 @@ const EditMemberRegistration = () => {
         setFetchLoading(false);
       }
     };
-
     fetchMemberData();
   }, [id]);
 
@@ -133,7 +132,7 @@ const EditMemberRegistration = () => {
     }));
   };
 
-  // Add a new child
+  // Adding a new child
   const handleAddChild = () => {
     setChildren([
       ...children,
@@ -271,7 +270,6 @@ const EditMemberRegistration = () => {
 
         <Divider sx={{mb: 4}} />
 
-        {/* Error Alert */}
         {error && (
           <Alert severity="error" sx={{mb: 3}} onClose={() => setError(null)}>
             {error}
@@ -298,11 +296,7 @@ const EditMemberRegistration = () => {
                 required
                 variant="outlined"
                 placeholder="Enter church name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -323,11 +317,7 @@ const EditMemberRegistration = () => {
                 required
                 variant="outlined"
                 placeholder="Enter father's full name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -340,11 +330,7 @@ const EditMemberRegistration = () => {
                 onChange={handleChange}
                 variant="outlined"
                 placeholder="Enter occupation (optional)"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -357,11 +343,7 @@ const EditMemberRegistration = () => {
                 value={formData.dateOfBirthFather}
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -374,11 +356,7 @@ const EditMemberRegistration = () => {
                 onChange={handleChange}
                 variant="outlined"
                 placeholder="Church name (optional)"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -391,11 +369,7 @@ const EditMemberRegistration = () => {
                 value={formData.baptisedDateOfFather}
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -416,11 +390,7 @@ const EditMemberRegistration = () => {
                 required
                 variant="outlined"
                 placeholder="Enter mother's full name"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -433,11 +403,7 @@ const EditMemberRegistration = () => {
                 onChange={handleChange}
                 variant="outlined"
                 placeholder="Enter occupation (optional)"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -450,11 +416,7 @@ const EditMemberRegistration = () => {
                 value={formData.dateOfBirthOfMother}
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -467,11 +429,7 @@ const EditMemberRegistration = () => {
                 onChange={handleChange}
                 variant="outlined"
                 placeholder="Church name (optional)"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -484,11 +442,7 @@ const EditMemberRegistration = () => {
                 value={formData.baptisedDateOfMother}
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -510,11 +464,7 @@ const EditMemberRegistration = () => {
                 multiline
                 rows={3}
                 placeholder="Enter full address"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -528,11 +478,7 @@ const EditMemberRegistration = () => {
                 required
                 variant="outlined"
                 placeholder="Enter contact number"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -545,11 +491,7 @@ const EditMemberRegistration = () => {
                 value={formData.marriedDate}
                 onChange={handleChange}
                 InputLabelProps={{shrink: true}}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -562,11 +504,7 @@ const EditMemberRegistration = () => {
                 onChange={handleChange}
                 variant="outlined"
                 placeholder="Church name (optional)"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -591,11 +529,7 @@ const EditMemberRegistration = () => {
                 InputProps={{
                   startAdornment: <Typography sx={{mr: 1}}>$</Typography>,
                 }}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -758,7 +692,7 @@ const EditMemberRegistration = () => {
                   }}>
                   <Typography variant="body2" color="text.secondary">
                     No children added yet. Click "Add Child" to add children
-                    information.
+                    details.
                   </Typography>
                 </Paper>
               </Grid>
@@ -785,8 +719,7 @@ const EditMemberRegistration = () => {
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                       Update family information including parents and children.
-                      All fields marked with * are required. You can add or
-                      remove children using the buttons above.
+                      All fields marked with * are required.
                     </Typography>
                   </Box>
                 </Box>
@@ -797,20 +730,12 @@ const EditMemberRegistration = () => {
           {/* Action Buttons */}
           <Divider sx={{my: 4}} />
 
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              justifyContent: "flex-end",
-            }}>
+          <Box sx={{display: "flex", gap: 2, justifyContent: "flex-end"}}>
             <Button
               variant="outlined"
               onClick={handleCancel}
               disabled={loading}
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               Cancel
             </Button>
             <Button
@@ -820,10 +745,7 @@ const EditMemberRegistration = () => {
               startIcon={
                 loading ? <CircularProgress size={20} /> : <SaveIcon />
               }
-              sx={{
-                textTransform: "none",
-                px: 4,
-              }}>
+              sx={{textTransform: "none", px: 4}}>
               {loading ? "Updating..." : "Update"}
             </Button>
           </Box>
