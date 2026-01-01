@@ -76,11 +76,7 @@ const EventDetailsModal = ({
       onClose={onClose}
       maxWidth="sm"
       fullWidth
-      PaperProps={{
-        sx: {
-          borderRadius: 2,
-        },
-      }}>
+      PaperProps={{sx: {borderRadius: 2}}}>
       <DialogTitle
         sx={{
           display: "flex",

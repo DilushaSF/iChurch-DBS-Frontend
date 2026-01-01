@@ -37,10 +37,10 @@ interface EventModalProps {
 }
 
 const eventTypes = [
-  {value: "mass", label: "Mass", color: "#3b82f6"},
-  {value: "meeting", label: "Meeting", color: "#ec4899"},
-  {value: "holiday", label: "Special Event", color: "#f59e0b"},
-  {value: "other", label: "Other Service", color: "#10b981"},
+  {value: "mass", label: "Mass", color: "#3982f9ff"},
+  {value: "meeting", label: "Meeting", color: "#f0459bff"},
+  {value: "holiday", label: "Special Event", color: "#f4a00eff"},
+  {value: "other", label: "Other Service", color: "#0dbd82ff"},
 ];
 
 const recurrenceOptions = [
@@ -80,7 +80,7 @@ const EventModal = ({
   useEffect(() => {
     if (open) {
       if (event && editMode) {
-        // Edit data
+        // update data
         setFormData({
           title: event.title,
           description: event.description || "",
@@ -98,7 +98,6 @@ const EventModal = ({
             : "",
         });
       } else if (initialDate) {
-        // Add data
         const startDateTime = new Date(initialDate);
         const endDateTime = new Date(initialDate);
         endDateTime.setHours(startDateTime.getHours() + 1);
@@ -152,7 +151,7 @@ const EventModal = ({
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const submitModalData = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -206,11 +205,7 @@ const EventModal = ({
       onClose={handleClose}
       maxWidth="md"
       fullWidth
-      PaperProps={{
-        sx: {
-          borderRadius: 2,
-        },
-      }}>
+      PaperProps={{sx: {borderRadius: 2}}}>
       <DialogTitle
         sx={{
           display: "flex",
@@ -229,7 +224,7 @@ const EventModal = ({
         </IconButton>
       </DialogTitle>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={submitModalData}>
         <DialogContent dividers>
           {error && (
             <Alert severity="error" sx={{mb: 3}} onClose={() => setError(null)}>
@@ -248,11 +243,7 @@ const EventModal = ({
                 onChange={handleChange}
                 required
                 placeholder="Enter event title"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -267,11 +258,7 @@ const EventModal = ({
                 multiline
                 rows={3}
                 placeholder="Enter event description (optional)"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -284,11 +271,7 @@ const EventModal = ({
                 name="category"
                 value={formData.category}
                 onChange={(e) => handleCategoryChange(e.target.value)}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}>
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}>
                 {eventTypes.map((category) => (
                   <MenuItem key={category.value} value={category.value}>
                     <Box sx={{display: "flex", alignItems: "center", gap: 1}}>
@@ -316,11 +299,7 @@ const EventModal = ({
                 value={formData.location}
                 onChange={handleChange}
                 placeholder="Event location (optional)"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -335,11 +314,7 @@ const EventModal = ({
                 onChange={handleChange}
                 required
                 InputLabelProps={{shrink: true}}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -354,11 +329,7 @@ const EventModal = ({
                 onChange={handleChange}
                 required
                 InputLabelProps={{shrink: true}}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}
               />
             </Grid>
 
@@ -385,11 +356,7 @@ const EventModal = ({
                 name="recurrence"
                 value={formData.recurrence}
                 onChange={handleChange}
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "#f9fafb",
-                  },
-                }}>
+                sx={{"& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"}}}>
                 {recurrenceOptions.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}
@@ -425,9 +392,7 @@ const EventModal = ({
                   InputLabelProps={{shrink: true}}
                   helperText="Set when you want to be reminded"
                   sx={{
-                    "& .MuiOutlinedInput-root": {
-                      backgroundColor: "#f9fafb",
-                    },
+                    "& .MuiOutlinedInput-root": {backgroundColor: "#f9fafb"},
                   }}
                 />
               </Grid>

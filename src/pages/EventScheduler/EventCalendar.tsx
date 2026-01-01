@@ -62,8 +62,8 @@ const EventCalendar = () => {
     start: event.startDate,
     end: event.endDate,
     allDay: event.allDay,
-    backgroundColor: event.color || "#3b82f6",
-    borderColor: event.color || "#3b82f6",
+    backgroundColor: event.color || "#3981f5ff",
+    borderColor: event.color || "#3880f3ff",
     extendedProps: {
       description: event.description,
       location: event.location,
@@ -82,7 +82,6 @@ const EventCalendar = () => {
     setOpenEventModal(true);
   };
 
-  //  event click to view details
   const handleEventClick = (clickInfo: any) => {
     const event = events.find((e) => e.id === clickInfo.event.id);
     if (event) {
@@ -91,16 +90,16 @@ const EventCalendar = () => {
     }
   };
 
-  // add button click
-  const handleAddClick = () => {
+  // add event click function
+  const addEvent = () => {
     setSelectedDate(new Date().toISOString());
     setSelectedEvent(null);
     setEditMode(false);
     setOpenEventModal(true);
   };
 
-  // edit from details modal
-  const handleEdit = () => {
+  // Events editing detail
+  const editEvent = () => {
     setOpenDetailsModal(false);
     setEditMode(true);
     setOpenEventModal(true);
@@ -118,8 +117,8 @@ const EventCalendar = () => {
     }
   };
 
-  // saving (create or update)
-  const handleSave = async () => {
+  // Adding or Editing events
+  const submitForm = async () => {
     setOpenEventModal(false);
     setSelectedEvent(null);
     setEditMode(false);
@@ -160,7 +159,7 @@ const EventCalendar = () => {
           <Button
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={handleAddClick}
+            onClick={addEvent}
             sx={{
               textTransform: "none",
               px: 3,
@@ -215,17 +214,9 @@ const EventCalendar = () => {
         ) : (
           <Box
             sx={{
-              "& .fc": {
-                fontFamily: "inherit",
-              },
-              "& .fc-button": {
-                textTransform: "none",
-                padding: "8px 16px",
-              },
-              "& .fc-toolbar-title": {
-                fontSize: "1.5rem",
-                fontWeight: 600,
-              },
+              "& .fc": {fontFamily: "inherit"},
+              "& .fc-button": {textTransform: "none", padding: "8px 16px"},
+              "& .fc-toolbar-title": {fontSize: "1.5rem", fontWeight: 600},
               "& .fc-daygrid-day-number": {
                 padding: "8px",
                 fontSize: "0.875rem",
@@ -236,12 +227,8 @@ const EventCalendar = () => {
                 padding: "2px 4px",
                 fontSize: "0.875rem",
               },
-              "& .fc-event:hover": {
-                opacity: 0.8,
-              },
-              "& .fc-day-today": {
-                backgroundColor: "#eff6ff !important",
-              },
+              "& .fc-event:hover": {opacity: 0.8},
+              "& .fc-day-today": {backgroundColor: "#eff6ff !important"},
             }}>
             <FullCalendar
               key={events.length}
@@ -281,7 +268,7 @@ const EventCalendar = () => {
           setSelectedEvent(null);
           setEditMode(false);
         }}
-        onSave={handleSave}
+        onSave={submitForm}
         event={selectedEvent}
         initialDate={selectedDate}
         editMode={editMode}
@@ -295,7 +282,7 @@ const EventCalendar = () => {
           setSelectedEvent(null);
         }}
         event={selectedEvent}
-        onEdit={handleEdit}
+        onEdit={editEvent}
         onDelete={handleDelete}
       />
     </Box>
