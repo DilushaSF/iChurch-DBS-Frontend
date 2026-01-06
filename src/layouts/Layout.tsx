@@ -221,13 +221,9 @@ const Layout = () => {
                   "&.Mui-selected": {
                     backgroundColor: "primary.light",
                     color: "primary.main",
-                    "&:hover": {
-                      backgroundColor: "primary.light",
-                    },
+                    "&:hover": {backgroundColor: "primary.light"},
                   },
-                  "&:hover": {
-                    backgroundColor: "action.hover",
-                  },
+                  "&:hover": {backgroundColor: "action.hover"},
                 }}>
                 <ListItemIcon
                   sx={{
@@ -259,13 +255,9 @@ const Layout = () => {
                           "&.Mui-selected": {
                             backgroundColor: "primary.light",
                             color: "primary.main",
-                            "&:hover": {
-                              backgroundColor: "primary.light",
-                            },
+                            "&:hover": {backgroundColor: "primary.light"},
                           },
-                          "&:hover": {
-                            backgroundColor: "action.hover",
-                          },
+                          "&:hover": {backgroundColor: "action.hover"},
                         }}>
                         <ListItemIcon
                           sx={{
@@ -277,12 +269,7 @@ const Layout = () => {
                           }}>
                           {subItem.icon}
                         </ListItemIcon>
-                        <ListItemText
-                          primary={subItem.text}
-                          primaryTypographyProps={{
-                            fontSize: "0.875rem",
-                          }}
-                        />
+                        <ListItemText primary={subItem.text} />
                       </ListItemButton>
                     </ListItem>
                   ))}
@@ -332,14 +319,8 @@ const Layout = () => {
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleProfileMenuClose}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "right",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}>
+            anchorOrigin={{vertical: "bottom", horizontal: "right"}}
+            transformOrigin={{vertical: "top", horizontal: "right"}}>
             <Box sx={{px: 2, py: 1}}>
               <Typography variant="subtitle1" sx={{fontWeight: 600}}>
                 {user?.churchName}
@@ -368,15 +349,10 @@ const Layout = () => {
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true,
-          }}
+          ModalProps={{keepMounted: true}}
           sx={{
             display: {xs: "block", sm: "none"},
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
+            "& .MuiDrawer-paper": {boxSizing: "border-box", width: drawerWidth},
           }}>
           {drawer}
         </Drawer>

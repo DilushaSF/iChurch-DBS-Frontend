@@ -70,7 +70,6 @@ const DashboardLayout = () => {
 
   // Navigation menu items
   const registrations: MenuItem[] = [
-    // {text: "Home", icon: <DashboardIcon />, path: "/dashboard"},
     {
       text: "Baptisms",
       icon: <ChildCare />,
@@ -139,12 +138,8 @@ const DashboardLayout = () => {
                 borderRadius: 2,
                 "&:hover": {
                   backgroundColor: "primary.light",
-                  "& .MuiListItemIcon-root": {
-                    color: "white",
-                  },
-                  "& .MuiListItemText-primary": {
-                    color: "white",
-                  },
+                  "& .MuiListItemIcon-root": {color: "white"},
+                  "& .MuiListItemText-primary": {color: "white"},
                 },
               }}>
               <ListItemIcon sx={{minWidth: 40, color: "text.secondary"}}>
@@ -176,9 +171,7 @@ const DashboardLayout = () => {
                   "& .MuiListItemIcon-root": {
                     color: "white",
                   },
-                  "& .MuiListItemText-primary": {
-                    color: "white",
-                  },
+                  "& .MuiListItemText-primary": {color: "white"},
                 },
               }}>
               <ListItemIcon sx={{minWidth: 40, color: "text.secondary"}}>
@@ -186,10 +179,7 @@ const DashboardLayout = () => {
               </ListItemIcon>
               <ListItemText
                 primary={item.text}
-                primaryTypographyProps={{
-                  fontSize: 14,
-                  fontWeight: 500,
-                }}
+                primaryTypographyProps={{fontSize: 14, fontWeight: 500}}
               />
             </ListItemButton>
           </ListItem>
@@ -207,12 +197,8 @@ const DashboardLayout = () => {
               borderRadius: 2,
               "&:hover": {
                 backgroundColor: "primary.light",
-                "& .MuiListItemIcon-root": {
-                  color: "white",
-                },
-                "& .MuiListItemText-primary": {
-                  color: "white",
-                },
+                "& .MuiListItemIcon-root": {color: "white"},
+                "& .MuiListItemText-primary": {color: "white"},
               },
             }}>
             <ListItemIcon sx={{minWidth: 40, color: "text.secondary"}}>
@@ -315,9 +301,7 @@ const DashboardLayout = () => {
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true,
-          }}
+          ModalProps={{keepMounted: true}}
           sx={{
             display: {xs: "block", sm: "none"},
             "& .MuiDrawer-paper": {

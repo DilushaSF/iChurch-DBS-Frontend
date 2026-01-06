@@ -289,11 +289,7 @@ const Dashboard = () => {
         <Grid item xs={12} md={8}>
           <Paper
             elevation={0}
-            sx={{
-              p: 3,
-              borderRadius: 3,
-              border: "1px solid #e5e7eb",
-            }}>
+            sx={{p: 3, borderRadius: 3, border: "1px solid #e5e7eb"}}>
             <Box
               sx={{
                 display: "flex",
@@ -366,14 +362,14 @@ const Dashboard = () => {
                             </Typography>
 
                             <Typography variant="body2" color="text.secondary">
-                              ⏰ {formatTime(event.startDate)}
+                              ⏱️{formatTime(event.startDate)}
                             </Typography>
 
                             {event.location && (
                               <Typography
                                 variant="body2"
                                 color="text.secondary">
-                                📍 {event.location}
+                                📍{event.location}
                               </Typography>
                             )}
                           </Box>
@@ -390,11 +386,7 @@ const Dashboard = () => {
         <Grid item xs={12} md={4}>
           <Paper
             elevation={0}
-            sx={{
-              p: 3,
-              borderRadius: 3,
-              border: "1px solid #e5e7eb",
-            }}>
+            sx={{p: 3, borderRadius: 3, border: "1px solid #e5e7eb"}}>
             <Typography variant="h5" fontWeight={700} sx={{mb: 2}}>
               Quick Info
             </Typography>

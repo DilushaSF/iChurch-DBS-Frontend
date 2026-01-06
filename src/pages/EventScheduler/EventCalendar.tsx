@@ -149,7 +149,7 @@ const EventCalendar = () => {
             <Box sx={{display: "flex", alignItems: "center", gap: 1, mb: 1}}>
               <CalendarIcon sx={{fontSize: 32, color: "primary.main"}} />
               <Typography variant="h4" fontWeight={600}>
-                Event Calendar
+                Event Scheduler
               </Typography>
             </Box>
             <Typography variant="body2" color="text.secondary">
